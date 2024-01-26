@@ -93,8 +93,6 @@ dist
 
 # Gatsby files
 .cache/
-# Comment in the public line in if your project uses Gatsby and not Next.js
-# https://nextjs.org/blog/next-9-1#public-directory-support
 # public
 
 # vuepress build output
@@ -128,3 +126,31 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# IDE/Editor Configurations
+.vscode/
+.idea/
+*.sublime-*
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Archives and Backup Files
+*.zip
+*.rar
+*.tar.gz
+*.bak
+
+# Other Potential Untracked Files
+*.swp
+*.swo
+*.swn
+
+# More Specific Node.js Related Files
+npm-debug.log.*
+*.npmrc
+
+# Database Files (if applicable)
