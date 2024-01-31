@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
+import logo from './mygame.png';
 // Import Auth0 components
-import LoginButton from './component/login_out/LoginButton';
-import LogoutButton from './component/login_out/LogoutButton';
-import ProfileTest from './component/login_out/ProfileTest';
+import LoginButton from './components/login_out/LoginButton';
+import LogoutButton from './components/login_out/LogoutButton';
+import ProfileTest from './components/login_out/ProfileTest';
 
 // Import components for routing
 import CreatePost from './components/CreatePost/CreatePost';
-import logo from './mygame.png';
+
 
 function App() {
   return (
