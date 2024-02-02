@@ -154,3 +154,4 @@ npm-debug.log.*
 *.npmrc
 
 # Database Files (if applicable)
+data/
