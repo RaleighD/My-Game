@@ -6,6 +6,8 @@ import logo from './mygame.png';
 import LoginButton from './components/login_out/LoginButton';
 import LogoutButton from './components/login_out/LogoutButton';
 import ProfileTest from './components/login_out/ProfileTest';
+import ProtectedCreatePost from './components/CreatePost/ProtectedCreatePost';
+
 
 // Import components for routing
 import CreatePost from './components/CreatePost/CreatePost';
