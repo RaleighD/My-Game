@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const CreatePost = () => {
     const { user, isAuthenticated, loginWithRedirect } = useAuth0(); //only signed in users can make posts
+    //could use user to get author of post, which we will prob need
     const navigate = useNavigate();
     const [file, setFile] = useState(null);
     const [description, setDescription] = useState("");
