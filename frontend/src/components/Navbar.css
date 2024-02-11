@@ -1,0 +1,59 @@
+/* Base navbar styling */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333; /* Consider a more vibrant or modern color, or even a gradient */
+    color: white;
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1); /* Soft shadow for depth */
+  }
+  
+  nav a {
+    color: white; /* Ensures links are also white */
+    text-decoration: none; /* Removes underline from links */
+    margin: 0 15px; /* Spacing around links */
+  }
+  
+  nav a:hover {
+    color: #aaa; /* Lighter shade when hovered for interaction feedback */
+  }
+  
+  /* Logo styling */
+  nav img {
+    height: 50px; /* Adjust based on your logo */
+    cursor: pointer; /* Indicates the logo is clickable */
+  }
+  
+  /* Search bar styling */
+  nav input[type="text"] {
+    padding: 8px 16px;
+    border-radius: 20px; /* Rounded corners */
+    border: 1px solid #555; /* Slightly lighter border */
+    background-color: #222; /* Darker background */
+    color: white;
+    outline: none; /* Removes the default focus outline */
+    transition: all 0.3s ease; /* Smooth transition for focus */
+  }
+  
+  nav input[type="text"]:focus {
+    background-color: #555; /* Lighter background on focus */
+    width: 200px; /* Optional: Expand width on focus */
+  }
+  
+  /* Auth buttons */
+  .login-button, .logout-button {
+    background: none;
+    border: 1px solid #fff; /* White border */
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-button:hover, .logout-button:hover {
+    background-color: #555; /* Darken on hover */
+  }
+  
+  /* Apply specific classes or use existing ones in your components for these styles */
+  
