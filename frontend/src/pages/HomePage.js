@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ProfileTest from '../components/login_out/ProfileTest';
 import logo from '../mygame.png';
 import Modal from '../components/CreatePost/Modal';
 import CreatePost from '../components/CreatePost/CreatePost';
@@ -23,7 +22,7 @@ const HomePage = () => {
       <h1>Welcome to MyGame</h1>
       <img src={logo} alt="MyGame Logo" style={{ maxWidth: '300px', margin: '20px auto' }} />
       <p>Your life starts now.</p>    
-      <ProfileTest />
+      
 
       {/* Button to open the modal */}
       <button onClick={handleOpenModal}>Create Post</button>
