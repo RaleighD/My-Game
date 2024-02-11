@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './CreatePost.module.css';
+import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from 'react-router-dom';
+
+
 
 const CreatePost = () => {
+    const { user, isAuthenticated, loginWithRedirect } = useAuth0(); //only signed in users can make posts
+    const navigate = useNavigate();
     const [file, setFile] = useState(null);
     const [description, setDescription] = useState("");
 
@@ -16,6 +22,12 @@ const CreatePost = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if(!isAuthenticated){
+            loginWithRedirect();
+            return;
+        }
+
         if (file) {
             const formData = new FormData();
             formData.append('file', file);

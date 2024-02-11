@@ -1,14 +1,17 @@
 .create-post {
     max-width: 500px;
+    min-width: 300px;
     margin: auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color:black;
 }
 
 .create-post h2 {
     text-align: center;
+    
 }
 
 .create-post form {
