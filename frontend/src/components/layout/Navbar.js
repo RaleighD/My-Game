@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
-import LoginButton from './login_out/LoginButton';
-import LogoutButton from './login_out/LogoutButton';
+import LoginButton from '../login_out/LoginButton';
+import LogoutButton from '../login_out/LogoutButton';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import logo from '../mygame.png';
+import logo from '../../mygame.png';
 
 const Navbar = () => {
   const { isAuthenticated, user } = useAuth0();

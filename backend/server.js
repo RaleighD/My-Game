@@ -8,6 +8,8 @@ const userRoutes = require('./routes/userRoutes');
 require('dotenv').config();
 
 const app = express();
+app.use(cors({ origin: 'http://localhost:3000', credentials: true })); //change for production
+app.use(express.json());
 
 // Database Connection
 mongoose.connect(process.env.MONGODB_URI, {
@@ -22,10 +24,6 @@ mongoose.connection.on('connected', () => {
 mongoose.connection.on('error', (err) => {
   console.error(`Error connecting to MongoDB Atlas: ${err}`);
 });
-
-// Middleware
-app.use(cors());
-app.use(express.json());
 
 // Routes
 app.use('/api/posts', postRoutes);
