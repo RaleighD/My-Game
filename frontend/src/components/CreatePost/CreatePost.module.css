@@ -6,7 +6,8 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    color:black;
+    color:var(--text-color);
+    background-color: var(--background-color);
 }
 
 .create-post h2 {
@@ -34,17 +35,6 @@
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-.create-post form button {
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: blue;
-    color: white;
-    cursor: pointer;
-}
-
-.create-post form button:hover {
-    background-color: darkblue;
+    color: var(--text-color);
+    background-color: var(--background-color);
 }
