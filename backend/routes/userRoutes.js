@@ -8,7 +8,7 @@ router.post('/check', async (req, res) => {
   console.log("userID",userId);
   try {
     const user = await User.findOne({ auth0Id: userId });
-    console.log('User details:', user); // Console log the user details
+    console.log('User details fetched from db:', user); // Console log the user details
     if (user && user.isProfileComplete) {
       res.json({ exists: true, isComplete: true });
     } else {
@@ -29,6 +29,8 @@ router.post('/update', async (req, res) => {
     // If the user doesn't exist, create a new user
     if (!user) {
       user = new User({ auth0Id: userId, ...profileInfo });
+      user.isProfileComplete = true;
+      await user.save();
     } else {
       // Update the user's profile information
       user = await User.findOneAndUpdate({ auth0Id: userId }, { ...profileInfo, isProfileComplete: true }, { new: true });
@@ -37,7 +39,7 @@ router.post('/update', async (req, res) => {
     console.log('Updated user:', user); // Console log the updated user details
 
     res.json({ success: true, user });
-    console.log("Updated user successfully");
+    
   } catch (error) {
     console.error('Error updating user:', error); // Console log any errors
     res.status(500).json({ error: 'Internal server error' });
