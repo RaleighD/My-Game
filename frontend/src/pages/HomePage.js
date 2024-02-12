@@ -4,50 +4,47 @@ import logo from '../mygame.png';
 import Modal from '../components/CreatePost/Modal';
 import CreatePost from '../components/CreatePost/CreatePost';
 import { useAuth0 } from "@auth0/auth0-react";
-import { useProfile } from '../components/layout/ProfileContext'; // Ensure this path matches your project structure
+import { useProfile } from '../components/layout/ProfileContext';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-  const { profileComplete, setProfileComplete } = useProfile(); // Use context for profile completion state
+  const { profileComplete, setProfileComplete } = useProfile(); // Assuming useProfile is a context hook for profile state management
+  const [isLoading, setIsLoading] = useState(true); // Manage loading state here
   const { REACT_APP_API_URL } = process.env;
-  
-  console.log("API URL is:", REACT_APP_API_URL);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      checkUserProfileCompletion();
-    }
-  }, [isAuthenticated, getAccessTokenSilently]);
+    const checkUserProfileCompletion = async () => {
+      if (!isAuthenticated) {
+        setIsLoading(false); // Not authenticated, so not loading
+        return; // Early return if not authenticated
+      }
 
-  const checkUserProfileCompletion = async () => {
-    const userId = user.sub;
-    console.log("user sub:",user.sub)
-    try {
-      const token = await getAccessTokenSilently();
-      const response = await fetch(`${REACT_APP_API_URL}/api/users/check`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ userId }),
-        credentials: 'include',
-      });
-      const data = await response.json();
-      setProfileComplete(data.isComplete);
-      console.log("Response from server", data.isComplete)
-    } catch (error) {
-      console.error('Error checking user profile completion:', error);
-    }
-  };
+      try {
+        const token = await getAccessTokenSilently();
+        const response = await fetch(`${REACT_APP_API_URL}/api/users/check`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ userId: user.sub }),
+          credentials: 'include',
+        });
+        const data = await response.json();
+        setProfileComplete(data.isComplete);
+        if (!data.isComplete) {
+          navigate('/register');
+        }
+        setIsLoading(false); // Loading complete
+      } catch (error) {
+        console.error('Error checking user profile completion:', error);
+        setIsLoading(false); // Error encountered, stop loading
+      }
+    };
 
-  useEffect(() => {
-    // Redirect to the register page if the profile is not complete
-    if (isAuthenticated && !profileComplete) {
-      navigate('/register');
-    }
-  }, [isAuthenticated, profileComplete, navigate]);
+    checkUserProfileCompletion();
+  }, [isAuthenticated, user?.sub, getAccessTokenSilently, navigate, setProfileComplete]);
 
   // State to control the modal visibility
   const [isModalOpen, setModalOpen] = useState(false);
@@ -62,16 +59,18 @@ const HomePage = () => {
     setModalOpen(false);
   };
 
+  if (isLoading) {
+    return <div style={{ textAlign: 'center' }}>Checking Profile...</div>;
+  }
+
   return (
     <div style={{ textAlign: 'center' }}>
       <h1>Welcome to MyGame</h1>
       <img src={logo} alt="MyGame Logo" style={{ maxWidth: '300px', margin: '20px auto' }} />
       <p>Your life starts now.</p>
       
-      {/* Button to open the modal */}
       <button onClick={handleOpenModal}>Create Post</button>
 
-      {/* Modal for creating a post */}
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <CreatePost />
       </Modal>
