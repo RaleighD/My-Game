@@ -1,25 +1,8 @@
-.App {
-  text-align: center;
-  background-color: #1e1e1e; /* Dark background for the whole app */
-  color: white; /* Light text for better contrast */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-}
-
-.App-logo {
-  height: 20vmin; /* Adjust the size of your image */
-  margin-bottom: 20px; /* Spacing below the image */
-}
-
-/* Button styling */
 button {
   background-color: #d10000; /* Red background for buttons */
   color: white;
@@ -48,4 +31,18 @@ button:hover {
   to {
     transform: rotate(360deg);
   }
+}
+
+:root {
+  --background-color: #fff;
+  --text-color: #000;
+  --link-color: #0000ee;
+  --link-hover-color: #555;
+}
+
+[data-theme="dark"] {
+  --background-color: #121212;
+  --text-color: #fff;
+  --link-color: #bb86fc;
+  --link-hover-color: a0a0a0;
 }
