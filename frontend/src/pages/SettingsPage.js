@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ThemeContext } from '../components/ThemeContext';
+import { ThemeContext } from '../components/layout/ThemeContext';
 
 const SettingsPage = () => {
   const { theme, setTheme } = useContext(ThemeContext);

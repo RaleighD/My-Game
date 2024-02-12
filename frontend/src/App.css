@@ -33,6 +33,8 @@ button:hover {
   }
 }
 
+/* Global variables for light/dark mode */
+
 :root {
   --background-color: #fff;
   --text-color: #000;
