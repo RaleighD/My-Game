@@ -52,7 +52,7 @@ const SettingsPage = () => {
       <button onClick={toggleTheme}>
         Switch to {theme === 'light' ? 'Dark' : 'Light'} Mode
       </button>
-      <button onClick={handleDeleteClick} style={{ marginTop: '20px', backgroundColor: 'red', color: 'white' }}>
+      <button onClick={handleDeleteClick}>
         Delete Account
       </button>
       <Modal isOpen={isDeleteModalOpen} onClose={() => setDeleteModalOpen(false)}>

@@ -65,7 +65,7 @@ const HomePage = () => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <h1>Welcome to MyGame</h1>
+      <h1>Welcome to</h1>
       <img src={logo} alt="MyGame Logo" style={{ maxWidth: '300px', margin: '20px auto' }} />
       <p>Your life starts now.</p>
       
