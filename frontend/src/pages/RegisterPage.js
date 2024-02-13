@@ -67,19 +67,34 @@ const RegisterPage = () => {
       {Object.keys(formData).map((key) => (
         <div key={key} className="form-field">
           <label htmlFor={key}>{key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}:</label>
-          <input
-            id={key}
-            type="text"
-            name={key}
-            value={formData[key]}
-            onChange={handleChange}
-            disabled={["email", "timeZone"].includes(key)}
-          />
+          {key === 'phoneNumber' ? (
+            // Special input for phone number with pattern validation
+            <input
+              id={key}
+              type="text"
+              name={key}
+              value={formData[key]}
+              onChange={handleChange}
+              pattern="\d{3}-\d{3}-\d{4}"
+              title="Phone number format: ddd-ddd-dddd"
+              required
+            />
+          ) : (
+            // Generic input for all other fields
+            <input
+              id={key}
+              type="text"
+              name={key}
+              value={formData[key]}
+              onChange={handleChange}
+              disabled={["email", "timeZone"].includes(key)}
+            />
+          )}
         </div>
       ))}
       <button type="submit" className='submit-btn'>Submit</button>
     </form>
-  );
+  );  
 };
 
 export default RegisterPage;

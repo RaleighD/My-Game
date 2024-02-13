@@ -1,0 +1,10 @@
+Auth0 is set up in the index.js. It wraps the entire app.
+You can then import { useAuth0 } from "@auth0/auth0-react";
+and: const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+
+You can then access details from user. like user.name, user.email, etc. 
+This is different then the user information stored on the db, but can be helpful for tracking who does what
+in the app. 
+---------------------------------------------------------------------------------------------
+Most important would be user.sub, which will give a unique id. That is used to search the db. 
+---------------------------------------------------------------------------------------------
