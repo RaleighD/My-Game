@@ -42,11 +42,12 @@ const ProfilePage = () => {
     <div style={{ textAlign: 'center' }}>
       {/* Render user details from profile state */}
       <img src={profile.picture} alt={profile.name} />
-      <h2>This is coming from the DB</h2>
-      <h2>{profile.email}</h2>
-      <h3>{profile.timeZone}</h3>
-      <h3>{profile.phoneNumber}</h3>
-      
+      <h1>This is coming from the DB:</h1>
+      <h2>Username: {profile.nickname}</h2>
+      <h2>Email: {profile.email}</h2>
+      <h3>Timezone: {profile.timeZone}</h3>
+      <h3>Phone number: {profile.phoneNumber}</h3>
+
       {/* Continue rendering other profile details */}
     </div>
   );
