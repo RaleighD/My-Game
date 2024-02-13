@@ -13,14 +13,24 @@
   }
   
   .modal-content {
-    background: white;
+    background: var(--background-color);
+    color: var(--text-color);
     padding: 20px;
     border-radius: 10px;
     position: relative;
     z-index: 1001; /* Above the backdrop */
     max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
+  .modal-content img {
+    max-width: 100%; /* Ensure the image is not wider than the modal */
+    max-height: 500px; /* Adjust the height to your preference */
+    margin: 0 auto 20px; /* Center the image and add space below */
+  }
+
   .close-button {
     position: absolute;
     top: 10px;
