@@ -5,16 +5,22 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from '@auth0/auth0-react';
 
+// Access environment variables
+const REACT_APP_AUTH0_DOMAIN = process.env.REACT_APP_AUTH0_DOMAIN;
+const REACT_APP_AUTH0_CLIENT_ID = process.env.REACT_APP_AUTH0_CLIENT_ID;
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Auth0Provider
-    domain="dev-3wy5or8fjyo4eoqt.us.auth0.com" // It's okay for demonstration, but move this to a .env file for production
-    clientId="PDC04p2SKtBTTbpsBqzkGN6WHGaGLTh1" // It's okay for demonstration, but move this to a .env file for production
-    redirectUri={window.location.origin}
-    scope="openid profile email"
-  >
-    <App />
-  </Auth0Provider>
+  <React.StrictMode>
+    <Auth0Provider
+      domain={REACT_APP_AUTH0_DOMAIN}
+      clientId={REACT_APP_AUTH0_CLIENT_ID}
+      redirectUri={window.location.origin}
+      scope="openid profile email"
+    >
+      <App />
+    </Auth0Provider>
+  </React.StrictMode>
 );
 
 reportWebVitals();
