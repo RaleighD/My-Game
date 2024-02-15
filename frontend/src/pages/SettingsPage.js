@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { ThemeContext } from '../components/layout/ThemeContext';
-import Modal from '../components/CreatePost/Modal';
+import Modal from '../components/Post/Modal';
 
 const SettingsPage = () => {
   const { theme, setTheme } = useContext(ThemeContext);

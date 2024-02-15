@@ -1,0 +1,36 @@
+.post-card {
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+.post-image {
+    width: 100%;
+    height: auto;
+}
+
+.post-content {
+    padding: 15px;
+}
+
+.post-description {
+    margin-bottom: 10px;
+}
+
+.post-actions button {
+    margin-right: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.post-actions button:hover {
+    opacity: 0.8;
+}
