@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const StatsForm = () => {
+const yearStatFormBaseball = () => {
     const [formData, setFormData] = useState({
         year: '',
         tm: '',
@@ -34,12 +34,33 @@ const StatsForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Make an API call to your backend
-        const response = await fetch('/api/stats', {
+        const response = await fetch('/api/baseball/stats', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify({
+                year: formData.year,
+                tm: formData.tm,
+                lg: formData.lg,
+                g: formData.g,
+                pa: formData.pa,
+                ab: formData.ab,
+                r: formData.r,
+                h: formData.h,
+                dbl: formData.dbl,
+                tpl: formData.tpl,
+                hr: formData.hr,
+                rbi: formData.rbi,
+                sb: formData.sb,
+                cs: formData.cs,
+                bb: formData.bb,
+                so: formData.so,
+                hbp: formData.hbp,
+                sh: formData.sh,
+                sf: formData.sf,
+                ibb: formData.ibb
+            })
         });
 
         if (response.ok) {
@@ -78,4 +99,4 @@ const StatsForm = () => {
     );
 };
 
-export default StatsForm;
+export default yearStatFormBaseball

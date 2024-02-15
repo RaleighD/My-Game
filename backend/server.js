@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
-const statRoutes = require('./routes/statsRoutes');
+const baseballStatRoutes = require('./routes/baseballStatRoutes');
 
 // Load environment variables
 require('dotenv').config();
@@ -11,6 +11,7 @@ require('dotenv').config();
 const app = express();
 app.use(cors({ origin: 'http://localhost:3000', credentials: true })); //change for production
 app.use(express.json());
+
 
 // Database Connection
 mongoose.connect(process.env.MONGODB_URI, {
@@ -29,6 +30,6 @@ mongoose.connection.on('error', (err) => {
 // Routes
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/stats', statRoutes);
+app.use('/api/baseball/stats', baseballStatRoutes);
 
 module.exports = app; // Export the configured app
