@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
+const statRoutes = require('./routes/statsRoutes');
 
 // Load environment variables
 require('dotenv').config();
@@ -14,7 +15,7 @@ app.use(express.json());
 // Database Connection
 mongoose.connect(process.env.MONGODB_URI, {
   useUnifiedTopology: true,
-   
+
 });
 
 mongoose.connection.on('connected', () => {
@@ -28,5 +29,6 @@ mongoose.connection.on('error', (err) => {
 // Routes
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/stats', statRoutes);
 
 module.exports = app; // Export the configured app
