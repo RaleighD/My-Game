@@ -2,18 +2,18 @@ import React, { useContext, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { ThemeContext } from '../components/layout/ThemeContext';
 import Modal from '../components/CreatePost/Modal';
+import { useNavigate } from 'react-router-dom';
 
 const SettingsPage = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const { user, getAccessTokenSilently, logout } = useAuth0(); // Destructure logout from useAuth0
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
   };
-
-
 
   const handleDeleteClick = () => {
     setDeleteModalOpen(true);
@@ -23,6 +23,10 @@ const SettingsPage = () => {
     setDeleteModalOpen(false);
     await deleteAccount();
   }
+
+  const navigateToHistoricalStats = () => {
+    navigate('/historical-stats');
+  };
 
   const deleteAccount = async () => {
     try {
@@ -46,6 +50,10 @@ const SettingsPage = () => {
       console.error('Error deleting account:', error);
       alert("Error deleting account. Please try again.");
     }
+
+
+
+
   };
   
 
@@ -57,7 +65,9 @@ const SettingsPage = () => {
       <button onClick={handleDeleteClick}>
         Delete Account
       </button>
-      <a href="/historical-stats">View Historical Stats</a>
+      <button onClick={navigateToHistoricalStats}>
+        Input Historical Stats
+      </button>
       <Modal isOpen={isDeleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
         <img src="/images/rimtobinson.gif" alt="Funny meme" />
         <button onClick={() => setDeleteModalOpen(false)}>Cancel</button>
