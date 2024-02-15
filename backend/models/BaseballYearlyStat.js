@@ -4,22 +4,27 @@ const baseballYearlyStatSchema = new mongoose.Schema({
     year: {
         type: Number,
         required: true,
+        default: 0,
     },
     team: {
         type: String,
         required: true,
+        default: 0,
     },
     league: {
         type: String,
         required: true,
+        default: 0,
     },
     games: {
         type: Number,
         required: true,
+        default: 0,
     },
     plateAppearances: {
         type: Number,
         required: true,
+        default: 0,
     },
     atBats: {
         type: Number,
@@ -28,62 +33,74 @@ const baseballYearlyStatSchema = new mongoose.Schema({
     runs: {
         type: Number,
         required: true,
+        default: 0,
     },
     hits: {
         type: Number,
         required: true,
+        default: 0,
     },
     doubles: {
         type: Number,
         required: true,
+        default: 0,
     },
     triples: {
         type: Number,
         required: true,
+        default: 0,
     },
     homeRuns: {
         type: Number,
         required: true,
+        default: 0,
     },
     runsBattedIn: {
         type: Number,
         required: true,
+        default: 0,
     },
     stolenBases: {
         type: Number,
         required: true,
+        default: 0,
     },
     caughtStealing: {
         type: Number,
         required: true,
+        default: 0,
     },
     walks: {
         type: Number,
         required: true,
+        default: 0,
     },
     strikeouts: {
         type: Number,
         required: true,
+        default: 0,
     },
     hitByPitch: {
         type: Number,
         required: true,
+        default: 0,
     },
     sacrificeHits: {
         type: Number,
         required: true,
+        default: 0,
     },
     sacrificeFlies: {
         type: Number,
         required: true,
+        default: 0,
     },
     intentionalWalks: {
         type: Number,
         required: true,
+        default: 0,
     }
-}, { timestamps: true }); // Adds createdAt and updatedAt timestamps automatically
-
-const BaseballYearlyStat = mongoose.model('BaseballYearlyStat', baseballYearlyStatSchema);
+}, {  timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
 
 //Virtuals for caluclating derived statistics
 
@@ -128,5 +145,7 @@ baseballYearlyStatSchema.virtual('onBasePlusSlugging').get(function () {
     }
 });
 
+
+const BaseballYearlyStat = mongoose.model('BaseballYearlyStat', baseballYearlyStatSchema);
 
 module.exports = BaseballYearlyStat;

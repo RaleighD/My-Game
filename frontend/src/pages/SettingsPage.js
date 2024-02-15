@@ -13,6 +13,8 @@ const SettingsPage = () => {
     setTheme(newTheme);
   };
 
+
+
   const handleDeleteClick = () => {
     setDeleteModalOpen(true);
   }
@@ -55,6 +57,7 @@ const SettingsPage = () => {
       <button onClick={handleDeleteClick}>
         Delete Account
       </button>
+      <a href="/historical-stats">View Historical Stats</a>
       <Modal isOpen={isDeleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
         <img src="/images/rimtobinson.gif" alt="Funny meme" />
         <button onClick={() => setDeleteModalOpen(false)}>Cancel</button>
