@@ -13,9 +13,26 @@ const PostCard = ({ post, onLike, onAddComment }) => {
         setShowCommentInput(false);
     };
 
+    // Function to determine if the URL is for a video
+    const isVideo = (url) => {
+        // This regex looks for .mp4 or .webm occurring anywhere before a ? or at the end of the string
+        const videoPattern = /\.(mp4|webm)(\?|$)/i;
+        return videoPattern.test(url);
+      };
+
+    console.log(post.imageUrl);  
+    console.log("Video?", isVideo(post.imageUrl));
+
     return (
         <div className="post-card">
-            <img src={post.imageUrl} alt="Post" className="post-image" />
+            {isVideo(post.imageUrl) ? (
+                <video controls className="post-media" key={post._id}>
+                    <source src={post.imageUrl} type="video/mp4" /> {/* Update type based on actual video format */}
+                    Unfortunately, your browser does not support the video tag.
+                </video>
+            ) : (
+                <img src={post.imageUrl} alt="Post" className="post-image" />
+            )}
             <div className="post-content">
                 <p className="post-description">{post.description}</p>
                 <div className="post-actions">
@@ -43,7 +60,7 @@ const PostCard = ({ post, onLike, onAddComment }) => {
                     {post.comments && post.comments.length > 0 ? (
                         post.comments.map((comment, index) => (
                             <div key={index} className="comment">
-                                <strong>{comment.user}: </strong> 
+                                <strong>{comment.user}: </strong>
                                 {comment.text}
                             </div>
                         ))
