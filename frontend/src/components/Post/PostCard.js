@@ -20,14 +20,17 @@ const PostCard = ({ post, onLike, onAddComment }) => {
         return videoPattern.test(url);
       };
 
-    console.log(post.imageUrl);  
-    console.log("Video?", isVideo(post.imageUrl));
+    // Function to format date
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    };
 
     return (
         <div className="post-card">
             {isVideo(post.imageUrl) ? (
                 <video controls className="post-media" key={post._id}>
-                    <source src={post.imageUrl} type="video/mp4" /> {/* Update type based on actual video format */}
+                    <source src={post.imageUrl} type="video/mp4" />
                     Unfortunately, your browser does not support the video tag.
                 </video>
             ) : (
@@ -62,6 +65,9 @@ const PostCard = ({ post, onLike, onAddComment }) => {
                             <div key={index} className="comment">
                                 <strong>{comment.user}: </strong>
                                 {comment.text}
+                                <div className="comment-date">
+                                    {formatDate(comment.createdAt)}
+                                </div>
                             </div>
                         ))
                     ) : (
