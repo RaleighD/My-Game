@@ -1,21 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User'); 
+const admin = require('firebase-admin');
 
-// See if the signed-in user is new
+// See if the signed-in user is new, if not send them their firebase credential
 router.post('/check', async (req, res) => {
-  const { userId } = req.body; 
-  console.log("userID",userId);
+  const { userId } = req.body;
   try {
     const user = await User.findOne({ auth0Id: userId });
-    console.log('User details fetched from db:', user); // Console log the user details
     if (user && user.isProfileComplete) {
-      res.json({ exists: true, isComplete: true });
+      // Generate Firebase custom token
+      const firebaseToken = await admin.auth().createCustomToken(userId);
+      res.json({ exists: true, isComplete: true, firebaseToken });
     } else {
       res.json({ exists: user ? true : false, isComplete: false });
     }
   } catch (error) {
-    console.error('Error checking user:', error); // Console log any errors
+    console.error('Error checking user:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

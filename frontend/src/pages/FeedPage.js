@@ -5,6 +5,8 @@ import CreatePost from '../components/Post/CreatePost';
 import Modal from '../components/Post/Modal';
 import PostCard from '../components/Post/PostCard';
 import { useAuth0 } from "@auth0/auth0-react";
+import { getAuth, signInWithCustomToken } from 'firebase/auth';
+
 
 const FeedPage = () => {
     const navigate = useNavigate();
@@ -19,32 +21,46 @@ const FeedPage = () => {
     
     useEffect(() => {
         const checkUserProfileCompletion = async () => {
-            if (!isAuthenticated) return; // Early return if not authenticated
-
-            try {
-                const token = await getAccessTokenSilently();
-                const response = await fetch(`${REACT_APP_API_URL}/api/users/check`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify({ userId: user.sub }),
-                });
-                const data = await response.json();
-                
-                if (!data.isComplete) {
-                    navigate('/register');
-                } else {
-                    fetchPosts(); // Fetch posts only if user profile is complete
-                }
-            } catch (error) {
-                console.error('Error checking user profile completion:', error);
+          if (!isAuthenticated) return;
+      
+          try {
+            const token = await getAccessTokenSilently();
+            const response = await fetch(`${REACT_APP_API_URL}/api/users/check`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({ userId: user.sub }),
+            });
+            const data = await response.json();
+      
+            if (!data.isComplete) {
+              navigate('/register');
+            } else {
+              // If profile is complete and we received a Firebase token
+              if (data.firebaseToken) {
+                // Authenticate with Firebase using the received custom token
+                console.log("Recieved a firebase token >:]: ", data.firebaseToken);
+                const auth = getAuth();
+                signInWithCustomToken(auth, data.firebaseToken)
+                  .then((firebaseUser) => {
+                    // Firebase user authenticated
+                    fetchPosts(); // Now fetch posts
+                  })
+                  .catch((firebaseError) => {
+                    console.error('Firebase authentication failed:', firebaseError);
+                  });
+              }
             }
+          } catch (error) {
+            console.error('Error checking user profile completion:', error);
+          }
         };
-
+      
         checkUserProfileCompletion();
     }, [isAuthenticated, user?.sub, getAccessTokenSilently, navigate]);
+      
 
     const fetchPosts = async () => {
         // Existing logic to fetch posts
