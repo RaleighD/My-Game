@@ -28,7 +28,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (profileComplete) {
-      navigate('/');
+      navigate('/feed');
     }
   }, [profileComplete, navigate]);
   

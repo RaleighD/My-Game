@@ -1,0 +1,73 @@
+.post-card {
+    border: 4px solid black;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-post);
+    max-width: 600px;
+    margin: 20px auto;
+    color: var(--text-color);
+}
+
+.post-image {
+    width: 100%;
+    height: auto;
+   
+}
+
+.post-content {
+    padding: 15px;
+}
+
+.post-description {
+    margin-bottom: 10px;
+}
+
+.post-likes {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+
+.post-likes svg {
+    margin-right: 5px;
+}
+
+.post-comments {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+  }
+  
+  .comment-input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .comment-input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    padding: 8px 12px;
+    margin-right: 10px;
+    font-size: 14px;
+  }
+   
+  .comment {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .comment:last-child {
+    border-bottom: none;
+  }
+  
+  .comment strong {
+    margin-right: 5px;
+  }
+  

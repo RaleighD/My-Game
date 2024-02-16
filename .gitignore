@@ -155,3 +155,5 @@ npm-debug.log.*
 
 # Database Files (if applicable)
 data/
+#firebase credential used on the server to connect to firebase
+firebaseKey.json

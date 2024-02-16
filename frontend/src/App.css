@@ -40,6 +40,8 @@ button:hover {
   --text-color: #000;
   --link-color: #0000ee;
   --link-hover-color: #555;
+  --background-post: #c7c1c1;
+  
 }
 
 [data-theme="dark"] {
@@ -47,4 +49,6 @@ button:hover {
   --text-color: #fff;
   --link-color: #bb86fc;
   --link-hover-color: a0a0a0;
+  --background-post: #383333;
+
 }
