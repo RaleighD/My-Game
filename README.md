@@ -14,6 +14,9 @@
     ```
     MONGODB_URI=mongodb+srv://USERNAME:PASSWORD@mygame.bscgfip.mongodb.net/?retryWrites=true&w=majority
     ```
+-**Create a `firebaseKey.json` file within the backend directory.**
+-Ask Harlan for the file contents... 
+
 
 - **To start the server, run `npm start`.** Runs on port 5001. Why? Who knows. Ask Rocko.
 
