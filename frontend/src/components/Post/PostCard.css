@@ -24,3 +24,15 @@
 .post-description {
     margin-bottom: 10px;
 }
+
+.post-likes {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+
+.post-likes svg {
+    margin-right: 5px;
+}

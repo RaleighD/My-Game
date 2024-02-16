@@ -40,11 +40,14 @@ router.put('/:postId/like', async (req, res) => {
     const userId = req.body.userId; // ID of the user liking the post
     try {
         const post = await Post.findById(postId);
+        console.log("Post imma like:", post)
         if (post.likes.includes(userId)) {
             const index = post.likes.indexOf(userId);
             post.likes.splice(index, 1);
+            console.log("User disliked post");
         } else {
             post.likes.push(userId);
+            console.log("User liked post");
         }
         await post.save();
         res.status(200).json(post);
