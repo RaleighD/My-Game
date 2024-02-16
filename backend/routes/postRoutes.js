@@ -62,6 +62,7 @@ router.post('/:postId/comment', async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId);
         const comment = { text, user, createdAt: new Date() };
+        console.log("The comment is: ", comment)
         post.comments.push(comment);
         await post.save();
         res.status(201).json(post);
