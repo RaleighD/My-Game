@@ -6,6 +6,7 @@ const Post = require('../models/Post');
 // POST request to add a new post
 router.post('/', async (req, res) => {
     const { description, imageUrl, user } = req.body; // Assuming these are passed in the request body
+    console.log("Post request body: ", req.body);
     try {
         const newPost = new Post({
             description,
@@ -15,8 +16,10 @@ router.post('/', async (req, res) => {
         const savedPost = await newPost.save();
         res.status(201).json(savedPost);
     } catch (error) {
+        console.error("Failed to save post:", error);
         res.status(500).json({ message: error.message });
     }
+    
 });
 
 //logic for populating posts to the feedpage

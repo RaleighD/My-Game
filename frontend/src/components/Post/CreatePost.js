@@ -3,8 +3,9 @@ import axios from 'axios';
 import styles from './CreatePost.module.css';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from 'react-router-dom';
-import { storage } from '../../Firebase'; 
+import { storage, auth } from '../../Firebase'; 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 
 
 

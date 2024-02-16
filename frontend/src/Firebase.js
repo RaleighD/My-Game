@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth"; // Import getAuth
 
 // Updated Firebase configuration to use environment variables
 const firebaseConfig = {
@@ -17,5 +18,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const storage = getStorage(app);
+const auth = getAuth(app); // Initialize Firebase Authentication
 
-export { app, analytics, storage };
+export { app, analytics, storage, auth }; // Export the initialized services

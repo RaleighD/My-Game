@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
 const admin = require('firebase-admin');
+const serviceAccount = require('./firebaseKey.json');
 
 // Load environment variables
 require('dotenv').config();
