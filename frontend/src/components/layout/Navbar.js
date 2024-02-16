@@ -19,7 +19,7 @@ const Navbar = () => {
         <img src={logo} alt="Logo" style={{ height: '50px' }} />
       </Link>
 
-      <input type="text" placeholder="Search..." disabled />
+      <input type="text" placeholder="Search..."  />
 
       {!isAuthenticated && <LoginButton />}
       
