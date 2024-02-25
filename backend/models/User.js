@@ -31,11 +31,12 @@ const userSchema = new mongoose.Schema({
   }
 }, { timestamps: true }); // Adds createdAt and updatedAt timestamps automatically
 
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
 
 
-// const User = mongoose.model('User', userSchema);
 
-// module.exports = User;
 // const mongoose = require('mongoose');
 // const { Schema } = mongoose;
 
