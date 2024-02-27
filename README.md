@@ -39,3 +39,4 @@
     REACT_APP_FIREBASE_APP_ID=your-app-id
     REACT_APP_FIREBASE_MEASUREMENT_ID=your-measurement-id
     ```
+-Ask Harlan for the proper values...
