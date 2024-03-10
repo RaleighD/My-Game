@@ -12,7 +12,7 @@ const Navbar = () => {
 
   // Toggle dropdown menu
   const toggleDropdown = () => setShowDropdown(!showDropdown);
-
+  console.log("User id: ", user.sub);
   return (
     <nav>
       <Link to="/"> 
@@ -33,8 +33,8 @@ const Navbar = () => {
           />
           {showDropdown && (
             <div className="dropdown-menu">
-              <p>Hey {user.name}</p>
-              <Link to="/profile" onClick={() => setShowDropdown(false)}>Go to Profile</Link>
+              <p>Hey, {user.nickname}!</p>
+              <Link to={`/profile/${user.sub}`} onClick={() => setShowDropdown(false)}>Go to Profile</Link>
               <br></br>
               <Link to="/settings" onClick={() => setShowDropdown(false)}>Settings</Link>
               <br></br>

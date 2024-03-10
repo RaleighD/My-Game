@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './PostCard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const PostCard = ({ post, onLike, onAddComment }) => {
     const [showCommentInput, setShowCommentInput] = useState(false);
@@ -39,7 +40,10 @@ const PostCard = ({ post, onLike, onAddComment }) => {
     <div className="post-content">
         <p className="post-description">{post.description}</p>
         
-        <p>Posted by: {post.user.nickname}</p> 
+        <p>Posted by: 
+            <Link to={`/profile/${post.user._id}`}>{post.user.nickname}</Link>
+        </p>
+ 
         <div className="post-actions">
             <button onClick={() => onLike(post._id)}>
                 <FontAwesomeIcon icon={faThumbsUp} /> Like
