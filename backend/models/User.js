@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
   name: String, // Full name
-  nickname: String, // Nickname
+  nickname: String, // also known as username in the project
   givenName: String, // Given name
   familyName: String, // Family name
   picture: String, // URL to the profile picture

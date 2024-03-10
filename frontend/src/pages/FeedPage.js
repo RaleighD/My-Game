@@ -13,13 +13,14 @@ const FeedPage = () => {
     const [posts, setPosts] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
     const { REACT_APP_API_URL } = process.env;
-    
+    console.log("Posts: ", posts);
     useEffect(() => {
         const checkUserProfileCompletion = async () => {
             if (!isAuthenticated) return;
         
             try {
                 const token = await getAccessTokenSilently();
+                //check to make sure currUser has completed their profile
                 const response = await fetch(`${REACT_APP_API_URL}/api/users/check`, {
                     method: 'POST',
                     headers: {
@@ -117,6 +118,10 @@ const FeedPage = () => {
             </div>
         </div>
     );
+   
+    
 };
+
+
 
 export default FeedPage;
