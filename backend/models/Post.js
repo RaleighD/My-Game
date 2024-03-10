@@ -19,11 +19,9 @@ const PostSchema = new Schema({
     likes: [String] // Array of user IDs who liked the post
 });
 
-
 PostSchema.index({ description: 'text' });
 PostSchema.index({ comments: 'text'});
 CommentSchema.index({ text: 'text' });
-
 
 const Post = mongoose.model('Post', PostSchema);
 

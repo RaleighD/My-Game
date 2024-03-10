@@ -9,11 +9,15 @@ router.post('/', async (req, res) => {
     console.log("Post request body: ", req.body);
     try {
         const newPost = new Post({
-            description,
             imageUrl,
-            user, // Ensure this is the Auth0 user ID or reference to the User document
+            description,
+            user: {
+                _id: user._id,
+                nickname: user.nickname,
+            }, 
         });
         const savedPost = await newPost.save();
+        console.log("Saved post: ", savedPost);
         res.status(201).json(savedPost);
     } catch (error) {
         console.error("Failed to save post:", error);
