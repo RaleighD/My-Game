@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams } from 'react-router-dom';
+import '../App.css';
 
 const ProfilePage = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -39,18 +40,18 @@ const ProfilePage = () => {
 
   // Check if the logged-in user is viewing their own profile
   const isOwnProfile = user?.sub === userId;
-
+  console.log("picture url: ", profile.picture);
   return (
     <div style={{ textAlign: 'center' }}>
       <img src={profile.picture} alt={`${profile.nickname}'s profile`} style={{ maxWidth: '200px', borderRadius: '50%' }} />
       <h1>{isOwnProfile ? "Your Profile" : `${profile.nickname}'s Profile`}</h1>
-      <h2>Username: {profile.nickname}</h2>
+      
       
       {/* Conditionally render profile information */}
       {isOwnProfile ? (
         // Display private information for the logged-in user's own profile
         <>
-          <p>Private Profile</p>
+          <h1>Private Profile</h1>
           <h2>Email: {profile.email}</h2>
           <h3>Timezone: {profile.timeZone}</h3>
           <h3>Phone number: {profile.phoneNumber}</h3>
@@ -59,7 +60,7 @@ const ProfilePage = () => {
       ) : (
         // Display limited or public information for other users' profiles
         <>
-          <button>Eat my shorts</button>
+          <button >Send Friend Request</button>
         </>
       )}
     </div>

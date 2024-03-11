@@ -50,7 +50,6 @@ router.post('/update', async (req, res) => {
 
 // Route to get user details by Auth0 ID
 router.get('/profile', async (req, res) => {
-  console.log("trigger user profile loading");
   const { userId } = req.query; // Assuming userId is passed as a query parameter
   try {
     const user = await User.findOne({ auth0Id: userId });
