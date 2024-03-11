@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/User'); 
 const admin = require('firebase-admin');
 
+
 // See if the signed-in user is new, if not send them their firebase credential
 router.post('/check', async (req, res) => {
   const { userId } = req.body;

@@ -34,6 +34,32 @@ const ProfilePage = () => {
     fetchUserProfile();
   }, [userId, isAuthenticated, getAccessTokenSilently]);
 
+  const handleSendFriendRequest = async () => {
+    try {
+      const token = await getAccessTokenSilently();
+      await fetch(`${process.env.REACT_APP_API_URL}/api/friendships/send-friend-request`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          requester: user.sub, // Auth0 user ID of the requester
+          recipient: userId, // The user ID of the profile being viewed
+        }),
+      }).then(response => {
+        if (response.ok) {
+          alert('Friend request sent successfully!');
+        } else {
+          alert('Failed to send friend request.');
+        }
+      });
+    } catch (error) {
+      console.error('Error sending friend request:', error);
+      alert('Error sending friend request.');
+    }
+  };
+
   if (!profile) {
     return <div>Loading profile...</div>;
   }
@@ -60,7 +86,7 @@ const ProfilePage = () => {
       ) : (
         // Display limited or public information for other users' profiles
         <>
-          <button >Send Friend Request</button>
+          <button onClick={handleSendFriendRequest}>Send Friend Request</button>
         </>
       )}
     </div>
