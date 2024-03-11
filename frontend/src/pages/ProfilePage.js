@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams } from 'react-router-dom';
 import '../App.css';
-import FriendRequests from '../components/FriendRequests';
+import FriendRequests from '../components/friends/FriendRequests';
+import CurrentFriends from '../components/friends/CurrentFriends';
 
 const ProfilePage = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -78,6 +79,8 @@ const ProfilePage = () => {
         // Display private information for the logged-in user's own profile
         <>
           <FriendRequests user={user} getAccessTokenSilently={getAccessTokenSilently} />
+          <CurrentFriends user={user} getAccessTokenSilently={getAccessTokenSilently} />
+
           <h1>Private Profile</h1>
           <h2>Email: {profile.email}</h2>
           <h3>Timezone: {profile.timeZone}</h3>

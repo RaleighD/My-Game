@@ -1,0 +1,22 @@
+.friends-list {
+    padding: 20px;
+  }
+  
+  .friend-entry {
+    background-color: var(--background-post);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .friend-entry a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .friend-entry a:hover {
+    color: var(--link-hover-color);
+  }
+  

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Friendship = require('../models/Friendship');
+const User = require('../models/User');
 
 router.post('/send-friend-request', async (req, res) => {
   const { requester, recipient } = req.body;
@@ -69,32 +70,37 @@ router.patch('/accept-request/:requestId', async (req, res) => {
     }
   });
   
-  // In your friendshipRoutes.js or a similar file
+
 
 // Fetch accepted friend requests for a user, to view their friends list
 router.get('/friends/:userId', async (req, res) => {
-    try {
-      const { userId } = req.params;
-      const friends = await Friendship.find({
-        $or: [{ requester: userId }, { recipient: userId }],
-        status: 'accepted'
-      }).populate('requester recipient', 'nickname'); // Adjust according to your user model and what data you want to return
-  
-      // Optionally, transform the friends array to unify the structure regardless of who is the requester or recipient
-      const friendList = friends.map(friendship => {
-        // Assuming your user model has a field 'nickname' you want to show
-        return {
-          friendId: userId === friendship.requester.toString() ? friendship.recipient._id : friendship.requester._id,
-          nickname: userId === friendship.requester.toString() ? friendship.recipient.nickname : friendship.requester.nickname
-        };
-      });
-  
-      res.json(friendList);
-    } catch (error) {
-      console.error('Error fetching friends:', error);
-      res.status(500).json({ error: 'Internal server error' });
+  try {
+    const { userId } = req.params;
+    const friendships = await Friendship.find({
+      $or: [{ requester: userId }, { recipient: userId }],
+      status: 'accepted'
+    });
+
+    let friendList = [];
+
+    for (const friendship of friendships) {
+      const friendId = userId === friendship.requester ? friendship.recipient : friendship.requester;
+      const friendProfile = await User.findOne({ auth0Id: friendId }); // Adjust 'auth0Id' based on your User schema
+      if (friendProfile) {
+        friendList.push({
+          friendId: friendId,
+          nickname: friendProfile.nickname, // Adjust based on your User schema
+        });
+      }
     }
-  });
+
+    console.log("friendList", friendList);
+    res.json(friendList);
+  } catch (error) {
+    console.error('Error fetching friends:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
   
   
 
