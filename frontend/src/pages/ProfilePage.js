@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useParams } from 'react-router-dom';
 import '../App.css';
+import FriendRequests from '../components/FriendRequests';
 
 const ProfilePage = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -66,7 +67,6 @@ const ProfilePage = () => {
 
   // Check if the logged-in user is viewing their own profile
   const isOwnProfile = user?.sub === userId;
-  console.log("picture url: ", profile.picture);
   return (
     <div style={{ textAlign: 'center' }}>
       <img src={profile.picture} alt={`${profile.nickname}'s profile`} style={{ maxWidth: '200px', borderRadius: '50%' }} />
@@ -77,6 +77,7 @@ const ProfilePage = () => {
       {isOwnProfile ? (
         // Display private information for the logged-in user's own profile
         <>
+          <FriendRequests user={user} getAccessTokenSilently={getAccessTokenSilently} />
           <h1>Private Profile</h1>
           <h2>Email: {profile.email}</h2>
           <h3>Timezone: {profile.timeZone}</h3>
