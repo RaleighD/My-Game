@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const CommentSchema = new Schema({
     text: String,
     createdAt: { type: Date, default: Date.now },
-    user: String, // Store Auth0 user ID as a simple string
+    userId: String, 
+    nickname: String
 });
 
 const PostSchema = new Schema({
