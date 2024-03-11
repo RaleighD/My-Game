@@ -7,6 +7,10 @@ import PostCard from '../components/Post/PostCard';
 import { useAuth0 } from "@auth0/auth0-react";
 import { getAuth, signInWithCustomToken } from 'firebase/auth';
 
+
+
+
+
 const FeedPage = () => {
     const navigate = useNavigate();
     const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -14,6 +18,12 @@ const FeedPage = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const { REACT_APP_API_URL } = process.env;
     console.log("Posts: ", posts);
+    
+    const afterPostCreated = () => {
+        handleCloseModal(); // Close the modal
+        fetchPosts(); // Refresh the posts
+      };
+
     useEffect(() => {
         const checkUserProfileCompletion = async () => {
             if (!isAuthenticated) return;
@@ -38,7 +48,7 @@ const FeedPage = () => {
                         const auth = getAuth();
                         signInWithCustomToken(auth, data.firebaseToken)
                             .then(() => {
-                                fetchPosts(); // Now fetch posts
+                                fetchPosts();
                             })
                             .catch((firebaseError) => {
                                 console.error('Firebase authentication failed:', firebaseError);
@@ -89,8 +99,6 @@ const FeedPage = () => {
                 { text: commentText, user: user.sub }, 
                 { headers: { Authorization: `Bearer ${await getAccessTokenSilently()}` } }
             );
-            // Optionally, refresh posts or update the specific post to show the new comment
-            // This example will just re-fetch all posts for simplicity
             fetchPosts();
         } catch (error) {
             console.error('Error adding comment:', error);
@@ -104,7 +112,7 @@ const FeedPage = () => {
         <div>
             <button onClick={handleOpenModal}>Create Post</button>
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                <CreatePost />
+                <CreatePost afterPostCreated={afterPostCreated}/>
             </Modal>
             <div>
                 {posts.map(post => (
