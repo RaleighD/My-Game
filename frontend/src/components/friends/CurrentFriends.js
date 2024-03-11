@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './CurrentFriends.css';
 
 const CurrentFriends = ({ user, getAccessTokenSilently }) => {
@@ -35,11 +36,12 @@ const CurrentFriends = ({ user, getAccessTokenSilently }) => {
         friends.map((friend) => (
           <div key={friend.friendId} className="friend-entry">
            
-            <a href={`/profile/${friend.sub}`}>{friend.nickname}</a>
+           
+            <Link to={`/profile/${friend.friendId}`}>{friend.nickname}</Link>
           </div>
         ))
       ) : (
-        <p>You have no friends.</p>
+        <p>You have no friends. Womp womp.</p>
       )}
     </div>
   );
