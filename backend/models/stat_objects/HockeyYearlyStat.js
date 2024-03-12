@@ -111,7 +111,7 @@ hockeyYearlyStatSchema.virtual('pointsPerGame').get(function () {
 
 // Example of a complex derived stat; others can be added as needed
 hockeyYearlyStatSchema.virtual('goalieSavePercentage').get(function () {
-    // Assuming shotsAgainst and saves are tracked but not directly stored
+    // Assuming shotsAgainst and saves are tracked but not directly stored - Not sure we will use this
     // These would need to be added to the schema if used for this calculation
     const shotsAgainst = this.shotsOnGoal; // Placeholder, adjust as needed
     const saves = shotsAgainst - this.goals; // Placeholder, adjust as needed
