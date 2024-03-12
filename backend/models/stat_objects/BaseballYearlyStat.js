@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const baseballYearlyStatSchema = new mongoose.Schema({
+
     year: {
         type: Number,
         required: true,
