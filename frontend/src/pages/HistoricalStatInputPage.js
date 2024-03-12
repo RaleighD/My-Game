@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import YearStatFormBaseball from '../components/forms/YearStatFormBaseball'; // Adjust the import path as necessary
+import YearStatFormBaseball from '../components/forms/YearStatFormBaseball';
+import YearStatFormBasketball from "../components/forms/YearStatFormBasketball";
 
 const HistoricalStatInputPage = () => {
     const [selectedSport, setSelectedSport] = useState('');
@@ -14,11 +15,11 @@ const HistoricalStatInputPage = () => {
             <select value={selectedSport} onChange={handleSportChange}>
                 <option value="">Select a sport</option>
                 <option value="baseball">Baseball</option>
-                {/* Future sports options can be added here */}
+                <option value="baseball">Basketball</option>
             </select>
 
             {selectedSport === 'baseball' && <YearStatFormBaseball />}
-            {/* Future conditional rendering for other sports' forms */}
+            {selectedSport === 'basketball' && <YearStatFormBasketball />}
         </div>
     );
 };
