@@ -52,8 +52,10 @@ const YearStatFormBasketball = () => {
             setSubmissionMessage('Failed to submit stats. Please try again.'); // Set an error message
             // Optionally, clear the message after some time
             setTimeout(() => setSubmissionMessage(''), 5000);
+
         }
     };
+
 
     return (
         <form onSubmit={handleSubmit}>

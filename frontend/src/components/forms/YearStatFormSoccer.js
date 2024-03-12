@@ -1,23 +1,18 @@
 import React, { useState } from 'react';
 
-const YearStatFormHockey = () => {
+const YearStatFormSoccer = () => {
     const initialFormData = {
         year: '',
         team: '',
         league: '',
-        gamesPlayed: '',
+        appearances: '',
         goals: '',
         assists: '',
-        points: '',
-        penaltyMinutes: '',
-        plusMinus: '',
-        shotsOnGoal: '',
-        powerPlayGoals: '',
-        shortHandedGoals: '',
-        gameWinningGoals: '',
-        saves: '', // For goalies
-        savePercentage: '', // For goalies
-        goalsAgainstAverage: '', // For goalies
+        yellowCards: '',
+        redCards: '',
+        shotsOnTarget: '',
+        minutesPlayed: '',
+        cleanSheets: '' // Primarily for goalkeepers and defenders
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -33,7 +28,7 @@ const YearStatFormHockey = () => {
     const handleSubmit = async (e) => {
         const { REACT_APP_API_URL } = process.env;
         e.preventDefault();
-        const response = await fetch(`${REACT_APP_API_URL}/api/hockey/stats`, {
+        const response = await fetch(`${REACT_APP_API_URL}/api/soccer/stats`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,29 +49,26 @@ const YearStatFormHockey = () => {
         }
     };
 
-
     return (
         <form onSubmit={handleSubmit}>
             <input type="text" name="year" value={formData.year} onChange={handleChange} placeholder="Year" />
             <input type="text" name="team" value={formData.team} onChange={handleChange} placeholder="Team" />
             <input type="text" name="league" value={formData.league} onChange={handleChange} placeholder="League" />
-            <input type="text" name="gamesPlayed" value={formData.gamesPlayed} onChange={handleChange} placeholder="Games Played" />
+            <input type="text" name="appearances" value={formData.appearances} onChange={handleChange} placeholder="Appearances" />
             <input type="text" name="goals" value={formData.goals} onChange={handleChange} placeholder="Goals" />
             <input type="text" name="assists" value={formData.assists} onChange={handleChange} placeholder="Assists" />
-            <input type="text" name="points" value={formData.points} onChange={handleChange} placeholder="Points" />
-            <input type="text" name="penaltyMinutes" value={formData.penaltyMinutes} onChange={handleChange} placeholder="Penalty Minutes" />
-            <input type="text" name="plusMinus" value={formData.plusMinus} onChange={handleChange} placeholder="+/- Rating" />
-            <input type="text" name="shotsOnGoal" value={formData.shotsOnGoal} onChange={handleChange} placeholder="Shots On Goal" />
-            <input type="text" name="powerPlayGoals" value={formData.powerPlayGoals} onChange={handleChange} placeholder="Power Play Goals" />
-            <input type="text" name="shortHandedGoals" value={formData.shortHandedGoals} onChange={handleChange} placeholder="Short Handed Goals" />
-            <input type="text" name="gameWinningGoals" value={formData.gameWinningGoals} onChange={handleChange} placeholder="Game Winning Goals" />
+            <input type="text" name="yellowCards" value={formData.yellowCards} onChange={handleChange} placeholder="Yellow Cards" />
+            <input type="text" name="redCards" value={formData.redCards} onChange={handleChange} placeholder="Red Cards" />
+            <input type="text" name="shotsOnTarget" value={formData.shotsOnTarget} onChange={handleChange} placeholder="Shots on Target" />
+            <input type="text" name="minutesPlayed" value={formData.minutesPlayed} onChange={handleChange} placeholder="Minutes Played" />
+            {/* Optional fields for detailed tracking */}
+            <input type="text" name="passAccuracy" value={formData.passAccuracy} onChange={handleChange} placeholder="Pass Accuracy (%)" />
             <input type="text" name="saves" value={formData.saves} onChange={handleChange} placeholder="Saves" />
-            <input type="text" name="savePercentage" value={formData.savePercentage} onChange={handleChange} placeholder="Save Percentage" />
-            <input type="text" name="goalsAgainstAverage" value={formData.goalsAgainstAverage} onChange={handleChange} placeholder="Goals Against Average" />
+            <input type="text" name="cleanSheets" value={formData.cleanSheets} onChange={handleChange} placeholder="Clean Sheets" />
             <button type="submit">Submit</button>
             {submissionMessage && <p>{submissionMessage}</p>} {/* Display the submission message */}
         </form>
     );
 };
 
-export default YearStatFormHockey;
+export default YearStatFormSoccer;
