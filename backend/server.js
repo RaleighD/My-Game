@@ -5,7 +5,7 @@ const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
 const admin = require('firebase-admin');
 const serviceAccount = require('./firebaseKey.json');
-const baseballStatRoutes = require('./routes/baseballStatRoutes');
+const baseballStatRoutes = require('./routes/yearlyStatObjectRoutes/baseballStatRoutes');
 
 
 // Load environment variables

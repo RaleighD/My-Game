@@ -1,11 +1,11 @@
 const express = require('express');
-const BaseballYearlyStat = require('../models/stat_objects/BaseballYearlyStat'); // Adjust path as necessary
+const SoccerYearlyStat = require('../../models/stat_objects/SoccerYearlyStat');
 const router = express.Router();
 
-// POST endpoint for creating a new BaseballYearlyStat document
+// POST endpoint for creating document
 router.post('/', async (req, res) => {
     try {
-        const stats = new BaseballYearlyStat(req.body);
+        const stats = new SoccerYearlyStat(req.body);
         await stats.save();
         res.status(201).send('Stats saved successfully');
     } catch (error) {
