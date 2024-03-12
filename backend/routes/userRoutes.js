@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/User'); 
 const admin = require('firebase-admin');
 
+
 // See if the signed-in user is new, if not send them their firebase credential
 router.post('/check', async (req, res) => {
   const { userId } = req.body;
@@ -50,7 +51,6 @@ router.post('/update', async (req, res) => {
 
 // Route to get user details by Auth0 ID
 router.get('/profile', async (req, res) => {
-  console.log("trigger user profile loading");
   const { userId } = req.query; // Assuming userId is passed as a query parameter
   try {
     const user = await User.findOne({ auth0Id: userId });

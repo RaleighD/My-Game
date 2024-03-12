@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './CreatePost.module.css';
 import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import { storage, auth } from '../../Firebase'; 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 
 
 
-const CreatePost = () => {
+const CreatePost = ({ afterPostCreated }) => {
     const { user, isAuthenticated, loginWithRedirect } = useAuth0(); //only signed in users can make posts
     //could use user to get author of post, which we will prob need
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     const [file, setFile] = useState(null);
     const [description, setDescription] = useState("");
 
@@ -24,6 +24,7 @@ const CreatePost = () => {
         setDescription(event.target.value);
     };
 
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
     
@@ -52,20 +53,22 @@ const CreatePost = () => {
                     // For instance, get the download URL
                     getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
                         console.log('File available at', downloadURL);
-                        // Here, send the post metadata along with the downloadURL to your server
+                        
                         try {
                             const url = `${process.env.REACT_APP_API_URL}/api/posts`; 
                             const response = await axios.post(url, {
                                 imageUrl: downloadURL,
                                 description,
-                                user: user.sub // Assuming you want to send the user ID
-                            }, {
+                                user: {
+                                    _id: user.sub,
+                                    nickname: user.nickname,
+                                }, 
                                 headers: {
                                     'Content-Type': 'application/json',
                                     // Include authorization headers as needed
                                 },
                             });
-                            console.log(response.data);
+                            afterPostCreated();
                             
                         } catch (error) {
                             console.error('Error saving post metadata:', error);

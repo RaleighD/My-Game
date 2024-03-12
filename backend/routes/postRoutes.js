@@ -6,14 +6,18 @@ const Post = require('../models/Post');
 // POST request to add a new post
 router.post('/', async (req, res) => {
     const { description, imageUrl, user } = req.body; // Assuming these are passed in the request body
-    console.log("Post request body: ", req.body);
+    
     try {
         const newPost = new Post({
-            description,
             imageUrl,
-            user, // Ensure this is the Auth0 user ID or reference to the User document
+            description,
+            user: {
+                _id: user._id,
+                nickname: user.nickname,
+            }, 
         });
         const savedPost = await newPost.save();
+        
         res.status(201).json(savedPost);
     } catch (error) {
         console.error("Failed to save post:", error);
@@ -58,10 +62,10 @@ router.put('/:postId/like', async (req, res) => {
 
 //comment on a post
 router.post('/:postId/comment', async (req, res) => {
-    const { text, user } = req.body; // User should be the commenter's user ID or reference
+    const { text, user, nickname } = req.body; // User should be the commenter's user ID or reference
     try {
         const post = await Post.findById(req.params.postId);
-        const comment = { text, user, createdAt: new Date() };
+        const comment = { text, user, nickname, createdAt: new Date() };
         console.log("The comment is: ", comment)
         post.comments.push(comment);
         await post.save();

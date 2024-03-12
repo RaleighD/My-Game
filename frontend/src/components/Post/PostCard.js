@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './PostCard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const PostCard = ({ post, onLike, onAddComment }) => {
     const [showCommentInput, setShowCommentInput] = useState(false);
@@ -28,54 +29,61 @@ const PostCard = ({ post, onLike, onAddComment }) => {
 
     return (
         <div className="post-card">
-            {isVideo(post.imageUrl) ? (
-                <video controls className="post-media" key={post._id}>
-                    <source src={post.imageUrl} type="video/mp4" />
-                    Unfortunately, your browser does not support the video tag.
-                </video>
-            ) : (
-                <img src={post.imageUrl} alt="Post" className="post-image" />
-            )}
-            <div className="post-content">
-                <p className="post-description">{post.description}</p>
-                <div className="post-actions">
-                    <button onClick={() => onLike(post._id)}>
-                        <FontAwesomeIcon icon={faThumbsUp} /> Like
-                    </button>
-                    <button onClick={() => setShowCommentInput(!showCommentInput)}>Comment</button>
-                </div>
-                {showCommentInput && (
-                    <div>
-                        <textarea
-                            value={commentText}
-                            onChange={(e) => setCommentText(e.target.value)}
-                            placeholder="Write a comment..."
-                        ></textarea>
-                        <button onClick={submitComment}>Submit Comment</button>
-                    </div>
-                )}
-                <div className="post-likes">
-                    <FontAwesomeIcon icon={faThumbsUp} />
-                    {` ${post.likes.length} Likes`}
-                </div>
-                <div className="post-comments">
-                    <h4>Comments:</h4>
-                    {post.comments && post.comments.length > 0 ? (
-                        post.comments.map((comment, index) => (
-                            <div key={index} className="comment">
-                                <strong>{comment.user}: </strong>
-                                {comment.text}
-                                <div className="comment-date">
-                                    {formatDate(comment.createdAt)}
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No comments yet.</p>
-                    )}
-                </div>
-            </div>
+    {isVideo(post.imageUrl) ? (
+        <video controls className="post-media" key={post._id}>
+            <source src={post.imageUrl} type="video/mp4" />
+            Unfortunately, your browser does not support the video tag.
+        </video>
+    ) : (
+        <img src={post.imageUrl} alt="Post" className="post-image" />
+    )}
+    <div className="post-content">
+        <p className="post-description">{post.description}</p>
+        
+        <p>Posted by: 
+            <Link to={`/profile/${post.user._id}`}>{post.user.nickname}</Link>
+        </p>
+ 
+        <div className="post-actions">
+            <button onClick={() => onLike(post._id)}>
+                <FontAwesomeIcon icon={faThumbsUp} /> Like
+            </button>
+            <button onClick={() => setShowCommentInput(!showCommentInput)}>Comment</button>
         </div>
+        {showCommentInput && (
+            <div>
+                <textarea
+                    value={commentText}
+                    onChange={(e) => setCommentText(e.target.value)}
+                    placeholder="Write a comment..."
+                ></textarea>
+                <button onClick={submitComment}>Submit Comment</button>
+            </div>
+        )}
+        <div className="post-likes">
+            <FontAwesomeIcon icon={faThumbsUp} />
+            {` ${post.likes.length} Likes`}
+        </div>
+        <div className="post-comments">
+            <h4>Comments:</h4>
+            {post.comments && post.comments.length > 0 ? (
+                post.comments.map((comment, index) => (
+                    <div key={index} className="comment">
+                       
+                        <strong>{comment.nickname || 'User'}: </strong>
+                        {comment.text}
+                        <div className="comment-date">
+                            {formatDate(comment.createdAt)}
+                        </div>
+                    </div>
+                ))
+            ) : (
+                <p>No comments yet.</p>
+            )}
+        </div>
+    </div>
+</div>
+
     );
 };
 
