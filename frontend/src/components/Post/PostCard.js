@@ -40,9 +40,12 @@ const PostCard = ({ post, onLike, onAddComment }) => {
     <div className="post-content">
         <p className="post-description">{post.description}</p>
         
-        <p>Posted by: 
-            <Link to={`/profile/${post.user._id}`}>{post.user.nickname}</Link>
+        <p>Posted by:{' '}
+            <Link to={`/profile/${post.user._id}`} className="post-link">
+                {post.user.nickname}
+            </Link>
         </p>
+
  
         <div className="post-actions">
             <button onClick={() => onLike(post._id)}>

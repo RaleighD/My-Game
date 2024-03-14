@@ -101,7 +101,60 @@ router.get('/friends/:userId', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-  
-  
+
+
+//used for displaying correct button on a profile  
+router.post('/request-status', async (req, res) => {
+  const { requester, recipient } = req.body;
+
+  try {
+    // Check for any existing friend request between the two users
+    const request = await Friendship.findOne({
+      $or: [
+        { requester: requester, recipient: recipient },
+        { requester: recipient, recipient: requester }
+      ]
+    });
+
+    if (request) {
+      // If a request exists, return its status
+      console.log("request", request);
+      console.log("request status", request.status);
+      return res.json({ exists: true, status: request.status });
+    } else {
+      // If no request exists, indicate that there's no request
+      return res.json({ exists: false });
+    }
+  } catch (error) {
+    console.error('Error checking friend request status:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Remove a friend
+router.post('/remove-friend', async (req, res) => {
+  const { requester, recipient } = req.body;
+
+  try {
+    // Attempt to find and delete the friendship document
+    const deletedFriendship = await Friendship.findOneAndDelete({
+      $or: [
+        { requester: requester, recipient: recipient, status: 'accepted' },
+        { requester: recipient, recipient: requester, status: 'accepted' }
+      ]
+    });
+
+    if (deletedFriendship) {
+      return res.status(200).json({ message: 'Friendship removed successfully.' });
+    } else {
+      return res.status(404).json({ message: 'Friendship not found.' });
+    }
+  } catch (error) {
+    console.error('Error removing friend:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 
 module.exports = router;
