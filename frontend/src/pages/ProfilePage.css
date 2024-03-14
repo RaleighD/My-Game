@@ -1,0 +1,34 @@
+.profile-header {
+    text-align: center;
+  }
+  
+  
+  .friends-section {
+    max-width: 25%;
+    margin: 20px 0;
+    background: var(--background-post);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+ 
+  .center-section {
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+
+  .friend-requests-container,
+  .friends-list {
+    background: transparent;
+    padding: 0;
+  }
+  
+  .friend-entry,
+  .friend-request {
+    background-color: var(--background-color);
+   
+  }
+  

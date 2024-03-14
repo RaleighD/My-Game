@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import '../App.css';
 import FriendRequests from '../components/friends/FriendRequests';
 import CurrentFriends from '../components/friends/CurrentFriends';
+import './ProfilePage.css';
 
 
 const ProfilePage = () => {
@@ -143,34 +144,42 @@ const ProfilePage = () => {
   const isOwnProfile = user?.sub === userId;
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <img src={profile.picture} alt={`${profile.nickname}'s profile`} style={{ maxWidth: '200px', borderRadius: '50%' }} />
-      <h1>{isOwnProfile ? "Your Profile" : `${profile.nickname}'s Profile`}</h1>
+    <div>
+      <div className="profile-header">
+        <img src={profile.picture} alt={`${profile.nickname}'s profile`} style={{ maxWidth: '200px', borderRadius: '50%' }} />
+        <h1>{isOwnProfile ? "Your Profile" : `${profile.nickname}'s Profile`}</h1>
+      </div>
   
-      {isOwnProfile ? (
-        <>
-          <FriendRequests user={user} getAccessTokenSilently={getAccessTokenSilently} />
-          <CurrentFriends user={user} getAccessTokenSilently={getAccessTokenSilently} />
+      <div className="friends-section">
+        <FriendRequests user={user} getAccessTokenSilently={getAccessTokenSilently} />
+        <CurrentFriends user={user} getAccessTokenSilently={getAccessTokenSilently} />
+      </div>
   
+      {isOwnProfile && (
+        <div className="center-section">
           <h1>Private Profile</h1>
           <h2>Email: {profile.email}</h2>
           <h3>Timezone: {profile.timeZone}</h3>
           <h3>Phone number: {profile.phoneNumber}</h3>
-        </>
-      ) : friendRequestStatus === 'pending' ? (
-        <button disabled style={{ backgroundColor: 'grey' }}>Request Pending...</button>
-      ) : friendRequestStatus === 'accepted' ? (
-        <button onClick={handleRemoveFriend} style={{ backgroundColor: 'red' }}>Remove Friend</button>
-      ) : (
-        <button onClick={handleSendFriendRequest}>Send Friend Request</button>
+          {/* Add other profile details here */}
+        </div>
+      )}
+  
+      {!isOwnProfile && (
+        <div className="center-section">
+          {/* Friend Request/Accept Button for Other Users */}
+          {friendRequestStatus === 'pending' ? (
+            <button disabled style={{ backgroundColor: 'grey' }}>Request Pending...</button>
+          ) : friendRequestStatus === 'accepted' ? (
+            <button onClick={handleRemoveFriend} style={{ backgroundColor: 'red' }}>Remove Friend</button>
+          ) : (
+            <button onClick={handleSendFriendRequest}>Send Friend Request</button>
+          )}
+        </div>
       )}
     </div>
   );
-  
-  
-  
-  
-  
+    
 };
 
 export default ProfilePage;
