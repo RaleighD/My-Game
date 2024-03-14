@@ -16,11 +16,28 @@ const FriendRequests = ({ user, getAccessTokenSilently }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-
+  
       if (response.ok) {
-        const data = await response.json();
+        const pendingRequests = await response.json();
         
-        setPendingRequests(data);
+        // Fetch user details for each requester in pendingRequests
+        const requestsWithDetails = await Promise.all(pendingRequests.map(async (request) => {
+          const userResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/users/profile?userId=${request.requester}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+  
+          if (userResponse.ok) {
+            const userDetails = await userResponse.json();
+            return { ...request, requesterNickname: userDetails.user.nickname }; // Assuming the structure of your user details response
+          } else {
+            console.error('Failed to fetch user details for request:', request._id);
+            return request; // Return the original request if the details fetch fails
+          }
+        }));
+  
+        setPendingRequests(requestsWithDetails);
       } else {
         console.error('Failed to fetch pending friend requests.');
       }
@@ -28,6 +45,7 @@ const FriendRequests = ({ user, getAccessTokenSilently }) => {
       console.error('Error fetching pending friend requests:', error);
     }
   };
+  
 
   const handleResponse = async (requestId, action) => { // action: 'accept' or 'decline'
     try {
@@ -55,11 +73,10 @@ const FriendRequests = ({ user, getAccessTokenSilently }) => {
       <h2>Pending Friend Requests</h2>
       {pendingRequests.length > 0 ? (
         pendingRequests.map(request => (
-          <div key={request._id} className="friend-request">
-            
+          <div key={request._id} className="friend-request">      
             <p>
               <a href={`/profile/${request.requester}`} className="requester-nickname">
-                {request.requester}
+                {request.requesterNickname || request.requester}
               </a>
             </p>
             <div>
@@ -73,8 +90,9 @@ const FriendRequests = ({ user, getAccessTokenSilently }) => {
           </div>
         ))
       ) : (
-        <p>No pending friend requests.</p>
-      )}
+  <p>No pending friend requests.</p>
+)}
+
     </div>
   );
 };  
