@@ -19,6 +19,7 @@ const FriendRequests = ({ user, getAccessTokenSilently }) => {
 
       if (response.ok) {
         const data = await response.json();
+        
         setPendingRequests(data);
       } else {
         console.error('Failed to fetch pending friend requests.');
@@ -39,6 +40,7 @@ const FriendRequests = ({ user, getAccessTokenSilently }) => {
       });
 
       if (response.ok) {
+        
         fetchPendingRequests(); // Refresh the list of pending requests
         alert(`Friend request ${action}ed.`);
       } else {
@@ -48,7 +50,6 @@ const FriendRequests = ({ user, getAccessTokenSilently }) => {
       console.error(`Error ${action}ing friend request:`, error);
     }
   };
-
   return (
     <div className="friend-requests-container">
       <h2>Pending Friend Requests</h2>
@@ -57,8 +58,8 @@ const FriendRequests = ({ user, getAccessTokenSilently }) => {
           <div key={request._id} className="friend-request">
             
             <p>
-              <a href={`/profile/${request.requester._id}`} className="requester-nickname">
-                {request.requester.nickname}
+              <a href={`/profile/${request.requester}`} className="requester-nickname">
+                {request.requester}
               </a>
             </p>
             <div>
