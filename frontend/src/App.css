@@ -39,7 +39,7 @@ button:hover {
 /* Global variables for light/dark mode */
 
 :root {
-  --background-color: #fff;
+  --background-color: #ffffff;
   --text-color: #000;
   --link-color: #0000ee;
   --link-hover-color: #555;
@@ -49,9 +49,9 @@ button:hover {
 
 [data-theme="dark"] {
   --background-color: #121212;
-  --text-color: #fff;
-  --link-color: #bb86fc;
-  --link-hover-color: a0a0a0;
+  --text-color: #ffffff;
+  --link-color: #ffffff;
+  --link-hover-color: #d10000;
   --background-post: #383333;
 
 }
