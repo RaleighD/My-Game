@@ -57,7 +57,9 @@ const ProfilePage = () => {
         }),
       }).then(response => {
         if (response.ok) {
+          fetchFriendRequestStatus(); // Update the button after sending the request
           alert('Friend request sent successfully!');
+
         } else {
           alert('Failed to send friend request.');
         }
