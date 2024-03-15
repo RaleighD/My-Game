@@ -7,7 +7,7 @@ const friendshipRoutes = require('./routes/friendshipRoutes');
 const admin = require('firebase-admin');
 const serviceAccount = require('./firebaseKey.json');
 const baseballStatRoutes = require('./routes/yearlyStatObjectRoutes/baseballStatRoutes');
-
+const teamRoutes = require('./routes/teamRoutes');
 
 // Load environment variables
 require('dotenv').config();
@@ -40,5 +40,6 @@ app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/friendships', friendshipRoutes);
 app.use('/api/baseball/stats', baseballStatRoutes);
+app.use('/api/team', teamRoutes);
 
 module.exports = app; // Export the configured app

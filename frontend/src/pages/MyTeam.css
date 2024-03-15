@@ -1,0 +1,25 @@
+.team {
+  margin-bottom: 20px;
+}
+
+button, .my-team-link {
+  background-color: #d10000; /* Red background */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  min-width: 100px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-decoration: none; /* Remove underline from link */
+  display: inline-block; /* Needed for links to behave like buttons */
+  text-align: center; /* Center text in links */
+}
+
+button:hover, .my-team-link:hover {
+  background-color: #a80000; /* Darker red on hover */
+}
+
+/* If you have additional styles for the page, they can go here */

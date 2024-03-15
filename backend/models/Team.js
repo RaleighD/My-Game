@@ -1,19 +1,12 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
 
-const teamSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  members: [{
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  }],
-  league: {
-    type: Schema.Types.ObjectId,
-    ref: 'League'
-  },
+const teamSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  coach: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  location: { type: String, required: true },
+  sport: { type: String, required: true }, 
+  picture: String, 
 }, { timestamps: true });
 
 const Team = mongoose.model('Team', teamSchema);
