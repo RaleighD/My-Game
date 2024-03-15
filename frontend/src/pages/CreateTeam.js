@@ -21,33 +21,35 @@ const CreateTeam = () => {
     setSport(event.target.value);
   };
 
+  const [message, setMessage] = useState('');
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (!isAuthenticated) {
       loginWithRedirect();
       return;
     }
-
+  
     const teamData = {
       name: teamName,
       location,
       sport,
-      coach: user.sub,
+      coachAuth0Id: user.sub, 
     };
-
+  
     try {
       const response = await axios.post('http://localhost:5001/api/team/create', teamData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
-      console.log('Team created successfully:', response.data);
+      setMessage('Team created successfully');
+      console.log(response.data);
     } catch (error) {
-      console.error('Error creating team:', error);
+      setMessage('Error creating team');
+      console.error(error);
     }
   };
-
+  
   return (
     <div className={styles['create-team']}>
       <h2>Create Team</h2>
