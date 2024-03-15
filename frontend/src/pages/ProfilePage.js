@@ -13,8 +13,11 @@ const ProfilePage = () => {
   const { userId } = useParams(); // Extract the user ID from the URL
   const [friendRequestStatus, setFriendRequestStatus] = useState('');
   const [baseballStats, setBaseballStats] = useState([]);
-
-
+  const [basketballStats, setBasketballStats] = useState([]);
+  const [footballStats, setFootballStats] = useState([]);
+  const [golfStats, setGolfStats] = useState([]);
+  const [hockeyStats, setHockeyStats] = useState([]);
+  const [soccerStats, setSoccerStats] = useState([]);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -58,34 +61,117 @@ const ProfilePage = () => {
           console.error('Error fetching baseball stats:', error);
       }
     };
+
+    const fetchBasketballStats = async () => {
+      if (!isAuthenticated || !userId) return;
+      try {
+          const token = await getAccessTokenSilently();
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/basketball/stats/${userId}`, {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+          if (response.ok) {
+              const data = await response.json();
+              setBasketballStats(data); // Store the fetched data in state
+          } else {
+              console.error('Failed to fetch basketball stats:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error fetching basketball stats:', error);
+      }
+    };
+
+    const fetchFootballStats = async () => {
+      if (!isAuthenticated || !userId) return;
+      try {
+          const token = await getAccessTokenSilently();
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/football/stats/${userId}`, {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+          if (response.ok) {
+              const data = await response.json();
+              setFootballStats(data); // Store the fetched data in state
+          } else {
+              console.error('Failed to fetch football stats:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error fetching football stats:', error);
+      }
+    };
+
+    const fetchGolfStats = async () => {
+      if (!isAuthenticated || !userId) return;
+      try {
+          const token = await getAccessTokenSilently();
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/golf/stats/${userId}`, {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+          if (response.ok) {
+              const data = await response.json();
+              setGolfStats(data); // Store the fetched data in state
+          } else {
+              console.error('Failed to fetch golf stats:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error fetching golf stats:', error);
+      }
+    };
+
+    const fetchHockeyStats = async () => {
+      if (!isAuthenticated || !userId) return;
+      try {
+          const token = await getAccessTokenSilently();
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/hockey/stats/${userId}`, {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+          if (response.ok) {
+              const data = await response.json();
+              setHockeyStats(data); // Store the fetched data in state
+          } else {
+              console.error('Failed to fetch hockey stats:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error fetching hockey stats:', error);
+      }
+    };
+
+    const fetchSoccerStats = async () => {
+      if (!isAuthenticated || !userId) return;
+      try {
+          const token = await getAccessTokenSilently();
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/soccer/stats/${userId}`, {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+          if (response.ok) {
+              const data = await response.json();
+              setSoccerStats(data); // Store the fetched data in state
+          } else {
+              console.error('Failed to fetch soccer stats:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error fetching soccer stats:', error);
+      }
+    };
+    
     fetchBaseballStats();
+    fetchBasketballStats();
+    fetchFootballStats();
+    fetchGolfStats();
+    fetchHockeyStats();
+    fetchSoccerStats();
     fetchUserProfile();
     fetchFriendRequestStatus();
     
   }, [userId, isAuthenticated, getAccessTokenSilently]);
-
-  // useEffect(() => {
-  //   const fetchBaseballStats = async () => {
-  //     if (!isAuthenticated || !userId) return;
-  //     try {
-  //         const token = await getAccessTokenSilently();
-  //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/baseball/${userId}`, {
-  //             headers: {
-  //                 Authorization: `Bearer ${token}`,
-  //             },
-  //         });
-  //         if (response.ok) {
-  //             const data = await response.json();
-  //             setBaseballStats(data); // Store the fetched data in state
-  //         } else {
-  //             console.error('Failed to fetch baseball stats:', response.statusText);
-  //         }
-  //     } catch (error) {
-  //         console.error('Error fetching baseball stats:', error);
-  //     }
-  // };
-  // fetchBaseballStats();
-  // }, [userId, isAuthenticated, getAccessTokenSilently]);
 
   const handleSendFriendRequest = async () => {
     try {
@@ -222,6 +308,81 @@ const ProfilePage = () => {
               </ul>
           ) : (
               <p>No baseball stats found.</p>
+          )}
+      </div>
+
+      <div className="basketball-stats-section">
+          <h2>Basketball Yearly Stats</h2>
+          {basketballStats.length > 0 ? (
+              <ul>
+                  {basketballStats.map((stat) => (
+                      <li key={stat._id}>
+                          Year: {stat.year}, Team: {stat.team}
+                      </li>
+                  ))}
+              </ul>
+          ) : (
+              <p>No basketball stats found.</p>
+          )}
+      </div>
+
+      <div className="football-stats-section">
+          <h2>Football Yearly Stats</h2>
+          {footballStats.length > 0 ? (
+              <ul>
+                  {footballStats.map((stat) => (
+                      <li key={stat._id}>
+                          Year: {stat.year}, Team: {stat.team}
+                      </li>
+                  ))}
+              </ul>
+          ) : (
+              <p>No football stats found.</p>
+          )}
+      </div>
+
+      <div className="golf-stats-section">
+          <h2>Golf Yearly Stats</h2>
+          {golfStats.length > 0 ? (
+              <ul>
+                  {golfStats.map((stat) => (
+                      <li key={stat._id}>
+                          Year: {stat.year}
+                      </li>
+                  ))}
+              </ul>
+          ) : (
+              <p>No golf stats found.</p>
+          )}
+      </div>
+
+      <div className="hockey-stats-section">
+          <h2>Hockey Yearly Stats</h2>
+          {hockeyStats.length > 0 ? (
+              <ul>
+                  {hockeyStats.map((stat) => (
+                      <li key={stat._id}>
+                          Year: {stat.year}, Team: {stat.team}
+                      </li>
+                  ))}
+              </ul>
+          ) : (
+              <p>No hockey stats found.</p>
+          )}
+      </div>
+
+      <div className="soccer-stats-section">
+          <h2>Soccer Yearly Stats</h2>
+          {soccerStats.length > 0 ? (
+              <ul>
+                  {soccerStats.map((stat) => (
+                      <li key={stat._id}>
+                          Year: {stat.year}, Team: {stat.team}
+                      </li>
+                  ))}
+              </ul>
+          ) : (
+              <p>No soccer stats found.</p>
           )}
       </div>
   

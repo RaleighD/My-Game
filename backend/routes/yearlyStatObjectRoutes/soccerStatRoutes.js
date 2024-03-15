@@ -14,5 +14,19 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.get('/:userID', async (req, res) => {
+    console.log(`Fetching stats for user: ${req.params.userID}`);
+    console.log("hi!");
+    try {
+        const { userID } = req.params;
+        const stats = await SoccerYearlyStat.find({ userID: userID });
+        res.json(stats);
+        console.log(stats);
+    } catch (error) {
+        console.error('Failed to fetch soccer stats for user', error);
+        res.status(500).send('Error fetching soccer stats');
+    }
+});
+
 module.exports = router;
 
