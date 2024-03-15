@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
 
 const inviteSchema = new mongoose.Schema({
   team: {

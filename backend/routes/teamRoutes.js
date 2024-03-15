@@ -1,20 +1,10 @@
 const express = require('express');
-const multer = require('multer');
 const Team = require('../models/Team');
 
-const router = express.Router(); 
+const router = express.Router();
 
-
-const storage = multer.memoryStorage(); 
-const upload = multer({ storage: storage });
-
-router.post('/create', upload.single('picture'), async (req, res) => {
+router.post('/create', async (req, res) => {
   const { name, location, sport, coach } = req.body;
-
-  let pictureUrl = '';
-  if (req.file) {
-    pictureUrl = await uploadFileAndGetURL(req.file);
-  }
 
   const existingTeam = await Team.findOne({ coach: coach });
   if (existingTeam) {
@@ -24,10 +14,10 @@ router.post('/create', upload.single('picture'), async (req, res) => {
   const team = new Team({
     name,
     coach,
-    members: [coach],
+    members: [coach], 
     location,
     sport,
-    picture: pictureUrl, 
+  
   });
 
   try {

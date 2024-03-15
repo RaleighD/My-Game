@@ -8,7 +8,6 @@ const CreateTeam = () => {
   const [teamName, setTeamName] = useState('');
   const [location, setLocation] = useState('');
   const [sport, setSport] = useState('');
-  const [picture, setPicture] = useState(null);
 
   const handleTeamNameChange = (event) => {
     setTeamName(event.target.value);
@@ -22,10 +21,6 @@ const CreateTeam = () => {
     setSport(event.target.value);
   };
 
-  const handlePictureChange = (event) => {
-    setPicture(event.target.files[0]);
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -34,19 +29,17 @@ const CreateTeam = () => {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('name', teamName);
-    formData.append('location', location);
-    formData.append('sport', sport);
-    formData.append('coach', user.sub); 
-    if (picture) {
-      formData.append('picture', picture);
-    }
+    const teamData = {
+      name: teamName,
+      location,
+      sport,
+      coach: user.sub,
+    };
 
     try {
-      const response = await axios.post('http://localhost:5001/api/team/create', formData, {
+      const response = await axios.post('http://localhost:5001/api/team/create', teamData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
       });
       console.log('Team created successfully:', response.data);
@@ -58,7 +51,7 @@ const CreateTeam = () => {
   return (
     <div className={styles['create-team']}>
       <h2>Create Team</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="teamNameInput">Team Name:</label>
           <input type="text" id="teamNameInput" value={teamName} onChange={handleTeamNameChange} required />
@@ -71,10 +64,6 @@ const CreateTeam = () => {
           <label htmlFor="sportInput">Sport:</label>
           <input type="text" id="sportInput" value={sport} onChange={handleSportChange} required />
         </div>
-        <div>
-          <label htmlFor="pictureInput">Team Picture:</label>
-          <input type="file" id="pictureInput" name="picture" onChange={handlePictureChange} />
-        </div>
         <button type="submit">Create Team</button>
       </form>
     </div>
@@ -82,3 +71,5 @@ const CreateTeam = () => {
 };
 
 export default CreateTeam;
+
+
