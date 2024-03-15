@@ -1,5 +1,5 @@
 const express = require('express');
-const BaseballYearlyStat = require('../../models/stat_objects/BaseballYearlyStat'); // Adjust path as necessary
+const BaseballYearlyStat = require('../../models/stat_objects/BaseballYearlyStat');
 const router = express.Router();
 
 // POST endpoint for creating a new BaseballYearlyStat document
