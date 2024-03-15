@@ -7,10 +7,6 @@ import PostCard from '../components/Post/PostCard';
 import { useAuth0 } from "@auth0/auth0-react";
 import { getAuth, signInWithCustomToken } from 'firebase/auth';
 
-
-
-
-
 const FeedPage = () => {
     const navigate = useNavigate();
     const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -18,6 +14,32 @@ const FeedPage = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const { REACT_APP_API_URL } = process.env;
     console.log("Posts: ", posts);
+
+    useEffect(() => {
+        // Function to handle post visibility change
+        function handleVisibilityChange(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.dataset.startTime = Date.now();
+                } else if (entry.target.dataset.startTime) {
+                    const startTime = entry.target.dataset.startTime;
+                    const duration = Date.now() - startTime;
+                    console.log(`Post ID ${entry.target.id} was viewed for ${duration} milliseconds`);
+                    // Optionally, send this data to your server
+                    delete entry.target.dataset.startTime;
+                }
+            });
+        }
+
+        // Creating an observer with options
+        let observer = new IntersectionObserver(handleVisibilityChange, {threshold: 0.5});
+
+        // Observing each post
+        document.querySelectorAll('.post').forEach(post => observer.observe(post));
+
+        // Cleanup observer on component unmount
+        return () => observer.disconnect();
+    }, []);
     
     const afterPostCreated = () => {
         handleCloseModal(); // Close the modal
