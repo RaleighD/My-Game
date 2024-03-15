@@ -1,6 +1,8 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState } from 'react';
 
 const YearStatFormHockey = () => {
+    const { user } = useAuth0();
     const initialFormData = {
         year: '',
         team: '',
@@ -33,12 +35,13 @@ const YearStatFormHockey = () => {
     const handleSubmit = async (e) => {
         const { REACT_APP_API_URL } = process.env;
         e.preventDefault();
+        const dataWithID = { ...formData, userID: user.sub};
         const response = await fetch(`${REACT_APP_API_URL}/api/hockey/stats`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(dataWithID)
         });
 
         if (response.ok) {
