@@ -21,7 +21,7 @@ function App() {
             <Route path="/" exact element={<HomePage />} />
             <Route path="/feed" element={<FeedPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/:userId" element={<ProfilePage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/historical-stats" element={<HistoricalStatInputPage />} />
           </Routes>

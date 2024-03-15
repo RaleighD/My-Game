@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const postRoutes = require('./routes/postRoutes');
 const userRoutes = require('./routes/userRoutes');
+const friendshipRoutes = require('./routes/friendshipRoutes');
 const admin = require('firebase-admin');
 const serviceAccount = require('./firebaseKey.json');
 const baseballStatRoutes = require('./routes/yearlyStatObjectRoutes/baseballStatRoutes');
@@ -49,5 +50,7 @@ app.use('/api/football/stats', footballStatRoutes)
 app.use('/api/golf/stats', golfStatRoutes)
 app.use('/api/soccer/stats', soccerStatRoutes)
 app.use('/api/hockey/stats', hockeyStatRoutes);
+app.use('/api/friendships', friendshipRoutes);
+
 
 module.exports = app; // Export the configured app
