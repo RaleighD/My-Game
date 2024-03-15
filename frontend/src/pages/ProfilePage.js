@@ -12,6 +12,7 @@ const ProfilePage = () => {
   const [profile, setProfile] = useState(null);
   const { userId } = useParams(); // Extract the user ID from the URL
   const [friendRequestStatus, setFriendRequestStatus] = useState('');
+  const [baseballStats, setBaseballStats] = useState([]);
 
 
 
@@ -38,10 +39,53 @@ const ProfilePage = () => {
       }
     };
 
+    const fetchBaseballStats = async () => {
+      if (!isAuthenticated || !userId) return;
+      try {
+          const token = await getAccessTokenSilently();
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/baseball/stats/${userId}`, {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+          if (response.ok) {
+              const data = await response.json();
+              setBaseballStats(data); // Store the fetched data in state
+          } else {
+              console.error('Failed to fetch baseball stats:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error fetching baseball stats:', error);
+      }
+    };
+    fetchBaseballStats();
     fetchUserProfile();
     fetchFriendRequestStatus();
     
   }, [userId, isAuthenticated, getAccessTokenSilently]);
+
+  // useEffect(() => {
+  //   const fetchBaseballStats = async () => {
+  //     if (!isAuthenticated || !userId) return;
+  //     try {
+  //         const token = await getAccessTokenSilently();
+  //         const response = await fetch(`${process.env.REACT_APP_API_URL}/api/baseball/${userId}`, {
+  //             headers: {
+  //                 Authorization: `Bearer ${token}`,
+  //             },
+  //         });
+  //         if (response.ok) {
+  //             const data = await response.json();
+  //             setBaseballStats(data); // Store the fetched data in state
+  //         } else {
+  //             console.error('Failed to fetch baseball stats:', response.statusText);
+  //         }
+  //     } catch (error) {
+  //         console.error('Error fetching baseball stats:', error);
+  //     }
+  // };
+  // fetchBaseballStats();
+  // }, [userId, isAuthenticated, getAccessTokenSilently]);
 
   const handleSendFriendRequest = async () => {
     try {
@@ -164,6 +208,22 @@ const ProfilePage = () => {
           {/* Add other profile details here */}
         </div>
       )}
+
+      <div className="baseball-stats-section">
+          <h2>Baseball Yearly Stats</h2>
+          {baseballStats.length > 0 ? (
+              <ul>
+                  {baseballStats.map((stat) => (
+                      <li key={stat._id}>
+                          Year: {stat.year}, Team: {stat.team}, Home Runs: {stat.homeRuns}, Hits: {stat.hits}
+                          {/* Display other stats as needed */}
+                      </li>
+                  ))}
+              </ul>
+          ) : (
+              <p>No baseball stats found.</p>
+          )}
+      </div>
   
       {!isOwnProfile && (
         <div className="center-section">
