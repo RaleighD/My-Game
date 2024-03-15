@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const baseballYearlyStatSchema = new mongoose.Schema({
 
+    userID: {
+        type: String,
+        required: true,
+    },
     year: {
         type: Number,
         required: true,
@@ -100,10 +104,6 @@ const baseballYearlyStatSchema = new mongoose.Schema({
         type: Number,
         required: true,
         default: 0,
-    },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
     }
 }, {  timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
 
