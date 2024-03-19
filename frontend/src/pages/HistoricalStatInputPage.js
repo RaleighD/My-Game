@@ -21,9 +21,9 @@ const HistoricalStatInputPage = () => {
                 <option value="baseball">Baseball</option>
                 <option value="basketball">Basketball</option>
                 <option value="football">Football</option>
+                <option value="golf">Golf</option>
                 <option value="hockey">Hockey</option>
                 <option value="soccer">Soccer</option>
-                <option value="golf">Golf</option>
             </select>
 
             {selectedSport === 'baseball' && <YearStatFormBaseball />}
