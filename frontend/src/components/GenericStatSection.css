@@ -1,0 +1,111 @@
+/* GenericStatsSection.css */
+
+.stats-section {
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto; /* Centers the section horizontally */
+    padding-top: 5px;
+}
+
+.stats-section table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .stats-section th, .stats-section td {
+    padding: 8px;
+    border: 1px solid #ccc; /* Lighter border color for light mode */
+  }
+
+  .legends {
+    background-color: #fff; /* Or any other color you prefer */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    display: inline-block; /* Center the block as an inline element */
+    margin: 20px auto; /* Margin top and bottom for spacing, auto for centering horizontally */
+    padding: 20px; /* Padding inside the legends box */
+    text-align: center; /* Align text to the left for readability */
+    max-width: 80%; /* Maximum width, can adjust to fit content better */
+}
+
+.legends h3 {
+    border-bottom: 2px solid #d10000; /* Adds a red underline to the title for visual separation */
+    padding-bottom: 10px; /* Space between title and underline */
+    margin-bottom: 20px; /* Space between title and the first item */
+}
+
+.legends ul {
+    list-style-type: none; /* Removes bullet points */
+    padding: 0; /* Resets padding */
+    margin: 0; /* Resets margin */
+}
+
+.legends li {
+    line-height: 1.6; /* Adjusts the space between lines for readability */
+    padding: 3px 0; /* Padding top and bottom for each list item */
+}
+
+.toggle-visibility-btn {
+    display: block; /* Makes the button a block element */
+    margin: 10px auto; /* Centers the button horizontally with margin */
+    /* Rest of the styles remain unchanged */
+}
+  
+  /* Light mode styles */
+  .stats-section th {
+    background-color: #f2f2f2;
+  }
+  
+  .stats-section td {
+    background-color: #e7e7e7;
+  }
+  
+  /* Toggle visibility button */
+  .toggle-visibility-btn {
+    margin-bottom: 10px;
+    padding: 8px 16px;
+    background-color: #d10000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .toggle-visibility-btn:hover {
+    background-color: #a80000;
+  }
+  
+  /* Dark mode specific styles */
+  [data-theme="dark"] .stats-section th {
+    border-color: #555; /* Darker border color for dark mode */
+    background-color: #333; /* Dark background for headers in dark mode */
+    color: white; /* Text color for dark mode */
+  }
+  
+  [data-theme="dark"] .stats-section td {
+    border-color: #555;
+    background-color: #444; /* Slightly lighter than th for contrast */
+    color: white;
+  }
+
+  [data-theme="dark"] .legends {
+    background-color: #333; /* Dark background for the box */
+    color: #ddd; /* Lighter text color for readability */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Darker shadow for depth */
+}
+
+[data-theme="dark"] .legends h3 {
+    border-bottom: 2px solid #ff4500; /* Underline color in dark mode, choose as per your theme */
+}
+  
+  [data-theme="dark"] .toggle-visibility-btn {
+    background-color: #d10000; /* Dark mode button background */
+    color: white; /* Dark mode button text color */
+  }
+  
+  [data-theme="dark"] .toggle-visibility-btn:hover {
+    background-color: #a80000; /* Dark mode button hover background */
+  }
+  

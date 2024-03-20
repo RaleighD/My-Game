@@ -5,6 +5,7 @@ import '../App.css';
 import FriendRequests from '../components/friends/FriendRequests';
 import CurrentFriends from '../components/friends/CurrentFriends';
 import './ProfilePage.css';
+import GenericStatsSection from '../components/GenericStatSection';
 
 
 const ProfilePage = () => {
@@ -296,95 +297,13 @@ const ProfilePage = () => {
         </div>
       )}
 
-      <div className="baseball-stats-section">
-          <h2>Baseball Yearly Stats</h2>
-          {baseballStats.length > 0 ? (
-              <ul>
-                  {baseballStats.map((stat) => (
-                      <li key={stat._id}>
-                          Year: {stat.year}, Team: {stat.team}, Home Runs: {stat.homeRuns}, Hits: {stat.hits}
-                          {/* Display other stats as needed */}
-                      </li>
-                  ))}
-              </ul>
-          ) : (
-              <p>No baseball stats found.</p>
-          )}
-      </div>
-
-      <div className="basketball-stats-section">
-          <h2>Basketball Yearly Stats</h2>
-          {basketballStats.length > 0 ? (
-              <ul>
-                  {basketballStats.map((stat) => (
-                      <li key={stat._id}>
-                          Year: {stat.year}, Team: {stat.team}
-                      </li>
-                  ))}
-              </ul>
-          ) : (
-              <p>No basketball stats found.</p>
-          )}
-      </div>
-
-      <div className="football-stats-section">
-          <h2>Football Yearly Stats</h2>
-          {footballStats.length > 0 ? (
-              <ul>
-                  {footballStats.map((stat) => (
-                      <li key={stat._id}>
-                          Year: {stat.year}, Team: {stat.team}
-                      </li>
-                  ))}
-              </ul>
-          ) : (
-              <p>No football stats found.</p>
-          )}
-      </div>
-
-      <div className="golf-stats-section">
-          <h2>Golf Yearly Stats</h2>
-          {golfStats.length > 0 ? (
-              <ul>
-                  {golfStats.map((stat) => (
-                      <li key={stat._id}>
-                          Year: {stat.year}
-                      </li>
-                  ))}
-              </ul>
-          ) : (
-              <p>No golf stats found.</p>
-          )}
-      </div>
-
-      <div className="hockey-stats-section">
-          <h2>Hockey Yearly Stats</h2>
-          {hockeyStats.length > 0 ? (
-              <ul>
-                  {hockeyStats.map((stat) => (
-                      <li key={stat._id}>
-                          Year: {stat.year}, Team: {stat.team}
-                      </li>
-                  ))}
-              </ul>
-          ) : (
-              <p>No hockey stats found.</p>
-          )}
-      </div>
-
-      <div className="soccer-stats-section">
-          <h2>Soccer Yearly Stats</h2>
-          {soccerStats.length > 0 ? (
-              <ul>
-                  {soccerStats.map((stat) => (
-                      <li key={stat._id}>
-                          Year: {stat.year}, Team: {stat.team}
-                      </li>
-                  ))}
-              </ul>
-          ) : (
-              <p>No soccer stats found.</p>
-          )}
+      <div>
+        <GenericStatsSection stats={baseballStats} title="Baseball" />
+        <GenericStatsSection stats={basketballStats} title="Basketball" />
+        <GenericStatsSection stats={footballStats} title="Football" />
+        <GenericStatsSection stats={golfStats} title="Golf" />
+        <GenericStatsSection stats={hockeyStats} title="Hockey" />
+        <GenericStatsSection stats={soccerStats} title="Soccer" />
       </div>
   
       {!isOwnProfile && (

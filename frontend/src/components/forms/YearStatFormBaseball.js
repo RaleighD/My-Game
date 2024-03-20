@@ -40,8 +40,6 @@ const YearStatFormBaseball = () => {
         const { REACT_APP_API_URL } = process.env;
         e.preventDefault();
         const dataWithID = { ...formData, userID: user.sub};
-        console.log(user.sub);
-        console.log(dataWithID);
         const response = await fetch(`${REACT_APP_API_URL}/api/baseball/stats`, {
             method: 'POST',
             headers: {
