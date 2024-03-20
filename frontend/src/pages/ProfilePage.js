@@ -282,7 +282,8 @@ const ProfilePage = () => {
   
       <div className="friends-section">
         <FriendRequests user={user} getAccessTokenSilently={getAccessTokenSilently} />
-        <CurrentFriends user={user} getAccessTokenSilently={getAccessTokenSilently} />
+        <CurrentFriends userId={userId} getAccessTokenSilently={getAccessTokenSilently} />
+
       </div>
   
       {isOwnProfile && (
