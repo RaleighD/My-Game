@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './CurrentFriends.css';
 
-const CurrentFriends = ({ user, getAccessTokenSilently }) => {
+const CurrentFriends = ({ userId, getAccessTokenSilently }) => {
   const [friends, setFriends] = useState([]);
 
   useEffect(() => {
     fetchFriendsList();
-  }, []);
+  }, [userId, getAccessTokenSilently]); 
+  
 
   const fetchFriendsList = async () => {
     try {
       const token = await getAccessTokenSilently();
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/friendships/friends/${user.sub}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/friendships/friends/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

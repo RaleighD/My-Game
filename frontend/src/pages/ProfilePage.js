@@ -281,10 +281,19 @@ const ProfilePage = () => {
         <h1>{isOwnProfile ? "Your Profile" : `${profile.nickname}'s Profile`}</h1>
       </div>
   
-      <div className="friends-section">
-        <FriendRequests user={user} getAccessTokenSilently={getAccessTokenSilently} />
-        <CurrentFriends user={user} getAccessTokenSilently={getAccessTokenSilently} />
-      </div>
+      {isOwnProfile && (
+        <div className="friends-section">
+          <FriendRequests user={user} getAccessTokenSilently={getAccessTokenSilently} />
+          <CurrentFriends userId={userId} getAccessTokenSilently={getAccessTokenSilently} />
+        </div>
+      )}
+  
+      {!isOwnProfile && (
+        <div className="friends-section">
+          {/* Maybe show something else here or just the CurrentFriends component */}
+          <CurrentFriends userId={userId} getAccessTokenSilently={getAccessTokenSilently} />
+        </div>
+      )}
   
       {isOwnProfile && (
         <div className="center-section">
@@ -295,7 +304,7 @@ const ProfilePage = () => {
           {/* Add other profile details here */}
         </div>
       )}
-
+  
       <div>
         <GenericStatsSection stats={baseballStats} title="Baseball" />
         <GenericStatsSection stats={basketballStats} title="Basketball" />
@@ -319,6 +328,7 @@ const ProfilePage = () => {
       )}
     </div>
   );
+  
     
 };
 
