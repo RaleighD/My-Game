@@ -7,7 +7,8 @@ const CurrentFriends = ({ userId, getAccessTokenSilently }) => {
 
   useEffect(() => {
     fetchFriendsList();
-  }, []);
+  }, [userId, getAccessTokenSilently]); 
+  
 
   const fetchFriendsList = async () => {
     try {
