@@ -72,9 +72,13 @@ const PostCard = ({ post, onLike, onAddComment }) => {
             {post.comments && post.comments.length > 0 ? (
                 post.comments.map((comment, index) => (
                     <div key={index} className="comment">
-                       
-                        <strong>{comment.nickname || 'User'}: </strong>
-                        {comment.text}
+                        <strong>
+                            
+                            <Link to={`/profile/${comment.userId}`} className="comment-link">
+                                {comment.nickname || 'User'}
+                            </Link>
+                        </strong>
+                        : {comment.text}
                         <div className="comment-date">
                             {formatDate(comment.createdAt)}
                         </div>

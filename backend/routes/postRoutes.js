@@ -62,11 +62,10 @@ router.put('/:postId/like', async (req, res) => {
 
 //comment on a post
 router.post('/:postId/comment', async (req, res) => {
-    const { text, user, nickname } = req.body; // User should be the commenter's user ID or reference
+    const { text, userId, nickname } = req.body; 
     try {
         const post = await Post.findById(req.params.postId);
-        const comment = { text, user, nickname, createdAt: new Date() };
-        console.log("The comment is: ", comment)
+        const comment = { text, userId, nickname, createdAt: new Date() };
         post.comments.push(comment);
         await post.save();
         res.status(201).json(post);

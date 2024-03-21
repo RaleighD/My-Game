@@ -96,7 +96,7 @@ const FeedPage = () => {
     const handleAddComment = async (postId, commentText) => {
         try {
             await axios.post(`${REACT_APP_API_URL}/api/posts/${postId}/comment`, 
-                { text: commentText, user: user.sub, nickname: user.nickname}, 
+                { text: commentText, userId: user.sub, nickname: user.nickname}, 
                 { headers: { Authorization: `Bearer ${await getAccessTokenSilently()}` } }
             );
             fetchPosts();
