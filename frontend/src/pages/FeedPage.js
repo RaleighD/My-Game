@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CreatePost from '../components/Post/CreatePost';
-import Modal from '../components/Post/Modal';
+import Modal from '../components/modal/Modal';
 import PostCard from '../components/Post/PostCard';
 import { useAuth0 } from "@auth0/auth0-react";
 import { getAuth, signInWithCustomToken } from 'firebase/auth';
