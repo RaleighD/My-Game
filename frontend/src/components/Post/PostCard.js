@@ -29,12 +29,20 @@ const PostCard = ({ post, onLike, onAddComment, currentUserId, onDelete }) => {
         return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
+    const handleDelete = () => {
+        // Use confirm to ask for confirmation
+        const isConfirmed = window.confirm("Are you sure you want to delete this post?");
+        if (isConfirmed) {
+            onDelete(post._id);
+        }
+    };
+
     return (
         <div className="post-card">
             {isPostOwner && (
                 <div className="post-actions-top-right">
                     <button className="post-update-btn">Update</button>
-                    <button className="post-delete-btn" onClick={onDelete}>Delete</button>
+                    <button className="post-delete-btn" onClick={handleDelete}>Delete</button>
                 </div>)}
 
             {isVideo(post.imageUrl) ? (
