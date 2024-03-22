@@ -25,9 +25,21 @@
   color: var(--link-color);
   text-decoration: none;
   font-weight: bold;
+  font-size: 18px;
 }
 
 .post-link:hover {
+  color: var(--link-hover-color);
+}
+
+.comment-link {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.comment-link:hover {
   color: var(--link-hover-color);
 }
 
