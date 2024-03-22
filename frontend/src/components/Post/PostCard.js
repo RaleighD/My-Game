@@ -4,9 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
-const PostCard = ({ post, onLike, onAddComment }) => {
+const PostCard = ({ post, onLike, onAddComment, currentUserId, onDelete }) => {
     const [showCommentInput, setShowCommentInput] = useState(false);
     const [commentText, setCommentText] = useState('');
+
+    const isPostOwner = currentUserId === post.user._id;
 
     const submitComment = () => {
         onAddComment(post._id, commentText);
@@ -29,66 +31,72 @@ const PostCard = ({ post, onLike, onAddComment }) => {
 
     return (
         <div className="post-card">
-    {isVideo(post.imageUrl) ? (
-        <video controls className="post-media" key={post._id}>
-            <source src={post.imageUrl} type="video/mp4" />
-            Unfortunately, your browser does not support the video tag.
-        </video>
-    ) : (
-        <img src={post.imageUrl} alt="Post" className="post-image" />
-    )}
-    <div className="post-content">
-        <p className="post-description">{post.description}</p>
-        
-        <p>Posted by:{' '}
-            <Link to={`/profile/${post.user._id}`} className="post-link">
-                {post.user.nickname}
-            </Link>
-        </p>
+            {isPostOwner && (
+                <div className="post-actions-top-right">
+                    <button className="post-update-btn">Update</button>
+                    <button className="post-delete-btn" onClick={onDelete}>Delete</button>
+                </div>)}
 
- 
-        <div className="post-actions">
-            <button onClick={() => onLike(post._id)}>
-                <FontAwesomeIcon icon={faThumbsUp} /> Like
-            </button>
-            <button onClick={() => setShowCommentInput(!showCommentInput)}>Comment</button>
-        </div>
-        {showCommentInput && (
-            <div>
-                <textarea
-                    value={commentText}
-                    onChange={(e) => setCommentText(e.target.value)}
-                    placeholder="Write a comment..."
-                ></textarea>
-                <button onClick={submitComment}>Submit Comment</button>
-            </div>
-        )}
-        <div className="post-likes">
-            <FontAwesomeIcon icon={faThumbsUp} />
-            {` ${post.likes.length} Likes`}
-        </div>
-        <div className="post-comments">
-            <h4>Comments:</h4>
-            {post.comments && post.comments.length > 0 ? (
-                post.comments.map((comment, index) => (
-                    <div key={index} className="comment">
-                        <strong>
-                            
-                            <Link to={`/profile/${comment.userId}`} className="comment-link">
-                                {comment.nickname || 'User'}
-                            </Link>
-                        </strong>
-                        : {comment.text}
-                        <div className="comment-date">
-                            {formatDate(comment.createdAt)}
-                        </div>
-                    </div>
-                ))
+            {isVideo(post.imageUrl) ? (
+                <video controls className="post-media" key={post._id}>
+                    <source src={post.imageUrl} type="video/mp4" />
+                    Unfortunately, your browser does not support the video tag.
+                </video>
             ) : (
-                <p>No comments yet.</p>
+                <img src={post.imageUrl} alt="Post" className="post-image" />
             )}
-        </div>
-    </div>
+            <div className="post-content">
+                <p className="post-description">{post.description}</p>
+                
+                <p>Posted by:{' '}
+                    <Link to={`/profile/${post.user._id}`} className="post-link">
+                        {post.user.nickname}
+                    </Link>
+                </p>
+
+        
+                <div className="post-actions">
+                    <button onClick={() => onLike(post._id)}>
+                        <FontAwesomeIcon icon={faThumbsUp} /> Like
+                    </button>
+                    <button onClick={() => setShowCommentInput(!showCommentInput)}>Comment</button>
+                </div>
+                {showCommentInput && (
+                    <div>
+                        <textarea
+                            value={commentText}
+                            onChange={(e) => setCommentText(e.target.value)}
+                            placeholder="Write a comment..."
+                        ></textarea>
+                        <button onClick={submitComment}>Submit Comment</button>
+                    </div>
+                )}
+                <div className="post-likes">
+                    <FontAwesomeIcon icon={faThumbsUp} />
+                    {` ${post.likes.length} Likes`}
+                </div>
+                <div className="post-comments">
+                    <h4>Comments:</h4>
+                    {post.comments && post.comments.length > 0 ? (
+                        post.comments.map((comment, index) => (
+                            <div key={index} className="comment">
+                                <strong>
+                                    
+                                    <Link to={`/profile/${comment.userId}`} className="comment-link">
+                                        {comment.nickname || 'User'}
+                                    </Link>
+                                </strong>
+                                : {comment.text}
+                                <div className="comment-date">
+                                    {formatDate(comment.createdAt)}
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No comments yet.</p>
+                    )}
+                </div>
+            </div>
 </div>
 
     );

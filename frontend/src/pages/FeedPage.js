@@ -26,19 +26,18 @@ const FeedPage = () => {
             if (!isAuthenticated) return;
         
             try {
-                const token = await getAccessTokenSilently();
+                
                 //check to make sure currUser has completed their profile
                 const response = await fetch(`${REACT_APP_API_URL}/api/users/check`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
+                        
                     },
                     body: JSON.stringify({ userId: user.sub }),
                 });
                 const data = await response.json();
-                console.log("big data", data);
-        
+                
                 if (!data.isComplete) {
                     navigate('/register');
                 } else {
@@ -52,6 +51,7 @@ const FeedPage = () => {
                                 console.error('Firebase authentication failed:', firebaseError);
                             });
                     }
+                    localStorage.setItem('jwtToken', data.token); //store jwt to browser
                 }
             } catch (error) {
                 console.error('Error checking user profile completion:', error);
@@ -103,6 +103,19 @@ const FeedPage = () => {
         }
     };
 
+    const onDelete = async (postId) => {
+        const token = localStorage.getItem('jwtToken');
+        try {
+            await axios.delete(`${REACT_APP_API_URL}/api/posts/${postId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            fetchPosts(); 
+        } catch (error) {
+            console.error('Error deleting post:', error);
+        }
+    };
+    
+
     const handleOpenModal = () => setModalOpen(true);
     const handleCloseModal = () => setModalOpen(false);
 
@@ -114,12 +127,15 @@ const FeedPage = () => {
             </Modal>
             <div>
                 {posts.map(post => (
-                    <PostCard 
-                        key={post._id} 
-                        post={post} 
-                        onLike={() => handleLike(post._id)}
-                        onAddComment={handleAddComment}
-                    />
+                    <PostCard
+                    key={post._id}
+                    post={post}
+                    currentUserId={user.sub}
+                    onLike={() => handleLike(post._id)}
+                    onAddComment={handleAddComment}
+                    onDelete={() => onDelete(post._id)} 
+                />
+                
                 ))}
             </div>
         </div>
