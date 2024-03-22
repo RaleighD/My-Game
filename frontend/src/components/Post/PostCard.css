@@ -25,9 +25,21 @@
   color: var(--link-color);
   text-decoration: none;
   font-weight: bold;
+  font-size: 18px;
 }
 
 .post-link:hover {
+  color: var(--link-hover-color);
+}
+
+.comment-link {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.comment-link:hover {
   color: var(--link-hover-color);
 }
 
@@ -80,4 +92,27 @@
   .comment strong {
     margin-right: 5px;
   }
+  .post-card {
+    position: relative;
+    /* Other styles... */
+}
+
+.post-update-btn,
+.post-delete-btn {
+    /* Button styles */
+    cursor: pointer;
+}
+
+.post-actions-top-right {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  gap: 8px;
+}
+
+.post-card:hover .post-actions-top-right {
+  display: flex;
+}
+
   

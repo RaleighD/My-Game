@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User'); 
 const admin = require('firebase-admin');
-
+const jwt = require('jsonwebtoken'); 
 
 // See if the signed-in user is new, if not send them their firebase credential
 router.post('/check', async (req, res) => {
@@ -10,9 +10,13 @@ router.post('/check', async (req, res) => {
   try {
     const user = await User.findOne({ auth0Id: userId });
     if (user && user.isProfileComplete) {
-      // Generate Firebase custom token
       const firebaseToken = await admin.auth().createCustomToken(userId);
-      res.json({ exists: true, isComplete: true, firebaseToken });
+      const userPayload = { userId: user.auth0Id }; // i think i just need id...
+      const secretKey = process.env.REACT_APP_JWT_SECRET; 
+      console.log("secret key", secretKey);
+      const token = jwt.sign(userPayload, secretKey, { expiresIn: '1h' }); 
+
+      res.json({ exists: true, isComplete: true, firebaseToken, token });
     } else {
       res.json({ exists: user ? true : false, isComplete: false });
     }
