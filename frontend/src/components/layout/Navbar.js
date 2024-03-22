@@ -15,7 +15,7 @@ const Navbar = () => {
 
   // Safe check for user before trying to access its properties
   const userId = user?.sub; // Use optional chaining to avoid errors
-  console.log("User id: ", userId);
+
 
   return (
     <nav>

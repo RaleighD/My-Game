@@ -8,16 +8,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { getAuth, signInWithCustomToken } from 'firebase/auth';
 
 
-
-
-
 const FeedPage = () => {
     const navigate = useNavigate();
     const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [posts, setPosts] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
     const { REACT_APP_API_URL } = process.env;
-    console.log("Posts: ", posts);
+    
     
     const afterPostCreated = () => {
         handleCloseModal(); // Close the modal
@@ -40,6 +37,7 @@ const FeedPage = () => {
                     body: JSON.stringify({ userId: user.sub }),
                 });
                 const data = await response.json();
+                console.log("big data", data);
         
                 if (!data.isComplete) {
                     navigate('/register');
