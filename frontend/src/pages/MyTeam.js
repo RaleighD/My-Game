@@ -1,9 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; // Make sure to import Link
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios'; 
 import './MyTeam.css';
 
 const MyTeam = () => {
-  const teams = [];
+  const [teams, setTeams] = useState([]);
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const response = await axios.get('http://localhost:5001/api/teams/myteams');
+        setTeams(response.data.teams); 
+      } catch (error) {
+        console.error('Error fetching teams:', error);
+      
+      }
+    };
+
+    fetchTeams();
+  }, []);
 
   return (
     <div className="my-team-container">
@@ -13,10 +28,9 @@ const MyTeam = () => {
       <div className="teams-list">
         {teams.length > 0 ? (
           teams.map((team) => (
-            <div key={team.id} className="team">
+            <div key={team._id} className="team"> 
               <h2>{team.name}</h2>
-              {/* Assuming you have a method or logic to navigate to a specific team's page */}
-              <button onClick={() => {/* navigate to team page logic here */}}>View Team</button>
+              <Link to={`/teams/${team._id}`} className="view-team-link">View Team</Link>
             </div>
           ))
         ) : (
@@ -28,8 +42,7 @@ const MyTeam = () => {
 
       <div className="team-actions">
         <Link to="/create-team" className="my-team-link">Create Team</Link>
-        {/* Assuming you will replace the button with a Link or add navigation logic */}
-        <button onClick={() => {/* logic to navigate to join team page here */}}>Join Team</button>
+        <Link to="/join-team" className="my-team-link">Join Team</Link>
       </div>
     </div>
   );
