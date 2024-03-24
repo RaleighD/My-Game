@@ -16,7 +16,7 @@ const Navbar = () => {
   const toggleNotifications = () => setShowNotifications(!showNotifications); 
 
   const userId = user?.sub; 
-  console.log("User id: ", userId);
+
 
   return (
     <nav>

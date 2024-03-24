@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const golfYearlyStatSchema = new mongoose.Schema({
+    
+    userID: {
+        type: String,
+        required: true,
+    },
     year: {
         type: Number,
         required: true,
@@ -52,10 +57,6 @@ const golfYearlyStatSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-    }
 }, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
 
 const GolfYearlyStat = mongoose.model('GolfYearlyStat', golfYearlyStatSchema);

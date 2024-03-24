@@ -5,6 +5,7 @@ import '../App.css';
 import FriendRequests from '../components/friends/FriendRequests';
 import CurrentFriends from '../components/friends/CurrentFriends';
 import './ProfilePage.css';
+import GenericStatsSection from '../components/GenericStatSection';
 
 
 const ProfilePage = () => {
@@ -12,8 +13,12 @@ const ProfilePage = () => {
   const [profile, setProfile] = useState(null);
   const { userId } = useParams(); // Extract the user ID from the URL
   const [friendRequestStatus, setFriendRequestStatus] = useState('');
-
-
+  const [baseballStats, setBaseballStats] = useState([]);
+  const [basketballStats, setBasketballStats] = useState([]);
+  const [footballStats, setFootballStats] = useState([]);
+  const [golfStats, setGolfStats] = useState([]);
+  const [hockeyStats, setHockeyStats] = useState([]);
+  const [soccerStats, setSoccerStats] = useState([]);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -38,6 +43,132 @@ const ProfilePage = () => {
       }
     };
 
+    const fetchBaseballStats = async () => {
+      if (!isAuthenticated || !userId) return;
+      try {
+          const token = await getAccessTokenSilently();
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/baseball/stats/${userId}`, {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+          if (response.ok) {
+              const data = await response.json();
+              setBaseballStats(data); // Store the fetched data in state
+          } else {
+              console.error('Failed to fetch baseball stats:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error fetching baseball stats:', error);
+      }
+    };
+
+    const fetchBasketballStats = async () => {
+      if (!isAuthenticated || !userId) return;
+      try {
+          const token = await getAccessTokenSilently();
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/basketball/stats/${userId}`, {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+          if (response.ok) {
+              const data = await response.json();
+              setBasketballStats(data); // Store the fetched data in state
+          } else {
+              console.error('Failed to fetch basketball stats:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error fetching basketball stats:', error);
+      }
+    };
+
+    const fetchFootballStats = async () => {
+      if (!isAuthenticated || !userId) return;
+      try {
+          const token = await getAccessTokenSilently();
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/football/stats/${userId}`, {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+          if (response.ok) {
+              const data = await response.json();
+              setFootballStats(data); // Store the fetched data in state
+          } else {
+              console.error('Failed to fetch football stats:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error fetching football stats:', error);
+      }
+    };
+
+    const fetchGolfStats = async () => {
+      if (!isAuthenticated || !userId) return;
+      try {
+          const token = await getAccessTokenSilently();
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/golf/stats/${userId}`, {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+          if (response.ok) {
+              const data = await response.json();
+              setGolfStats(data); // Store the fetched data in state
+          } else {
+              console.error('Failed to fetch golf stats:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error fetching golf stats:', error);
+      }
+    };
+
+    const fetchHockeyStats = async () => {
+      if (!isAuthenticated || !userId) return;
+      try {
+          const token = await getAccessTokenSilently();
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/hockey/stats/${userId}`, {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+          if (response.ok) {
+              const data = await response.json();
+              setHockeyStats(data); // Store the fetched data in state
+          } else {
+              console.error('Failed to fetch hockey stats:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error fetching hockey stats:', error);
+      }
+    };
+
+    const fetchSoccerStats = async () => {
+      if (!isAuthenticated || !userId) return;
+      try {
+          const token = await getAccessTokenSilently();
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/soccer/stats/${userId}`, {
+              headers: {
+                  Authorization: `Bearer ${token}`,
+              },
+          });
+          if (response.ok) {
+              const data = await response.json();
+              setSoccerStats(data); // Store the fetched data in state
+          } else {
+              console.error('Failed to fetch soccer stats:', response.statusText);
+          }
+      } catch (error) {
+          console.error('Error fetching soccer stats:', error);
+      }
+    };
+    
+    fetchBaseballStats();
+    fetchBasketballStats();
+    fetchFootballStats();
+    fetchGolfStats();
+    fetchHockeyStats();
+    fetchSoccerStats();
     fetchUserProfile();
     fetchFriendRequestStatus();
     
@@ -150,10 +281,19 @@ const ProfilePage = () => {
         <h1>{isOwnProfile ? "Your Profile" : `${profile.nickname}'s Profile`}</h1>
       </div>
   
-      <div className="friends-section">
-        <FriendRequests user={user} getAccessTokenSilently={getAccessTokenSilently} />
-        <CurrentFriends user={user} getAccessTokenSilently={getAccessTokenSilently} />
-      </div>
+      {isOwnProfile && (
+        <div className="friends-section">
+          <FriendRequests user={user} getAccessTokenSilently={getAccessTokenSilently} />
+          <CurrentFriends userId={userId} getAccessTokenSilently={getAccessTokenSilently} />
+        </div>
+      )}
+  
+      {!isOwnProfile && (
+        <div className="friends-section">
+          {/* Maybe show something else here or just the CurrentFriends component */}
+          <CurrentFriends userId={userId} getAccessTokenSilently={getAccessTokenSilently} />
+        </div>
+      )}
   
       {isOwnProfile && (
         <div className="center-section">
@@ -164,6 +304,15 @@ const ProfilePage = () => {
           {/* Add other profile details here */}
         </div>
       )}
+  
+      <div>
+        <GenericStatsSection stats={baseballStats} title="Baseball" />
+        <GenericStatsSection stats={basketballStats} title="Basketball" />
+        <GenericStatsSection stats={footballStats} title="Football" />
+        <GenericStatsSection stats={golfStats} title="Golf" />
+        <GenericStatsSection stats={hockeyStats} title="Hockey" />
+        <GenericStatsSection stats={soccerStats} title="Soccer" />
+      </div>
   
       {!isOwnProfile && (
         <div className="center-section">
@@ -179,6 +328,7 @@ const ProfilePage = () => {
       )}
     </div>
   );
+  
     
 };
 
