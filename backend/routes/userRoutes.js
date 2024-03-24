@@ -13,8 +13,7 @@ router.post('/check', async (req, res) => {
       const firebaseToken = await admin.auth().createCustomToken(userId);
       const userPayload = { userId: user.auth0Id }; // i think i just need id...
       const secretKey = process.env.REACT_APP_JWT_SECRET; 
-      console.log("secret key", secretKey);
-      const token = jwt.sign(userPayload, secretKey, { expiresIn: '1h' }); 
+      const token = jwt.sign(userPayload, secretKey, { expiresIn: '24h' }); 
 
       res.json({ exists: true, isComplete: true, firebaseToken, token });
     } else {

@@ -115,4 +115,13 @@
   display: flex;
 }
 
+.edit-description-textarea {
+  width: 100%;
+  height: 100px; 
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+}
+
   
