@@ -114,7 +114,23 @@ const FeedPage = () => {
             console.error('Error deleting post:', error);
         }
     };
+
+    const onUpdate = async (postId, updatedDesc) => {
+        const token = localStorage.getItem('jwtToken');
+        try {
+            await axios.patch(`${REACT_APP_API_URL}/api/posts/${postId}`, {
+                description: updatedDesc, // Make sure this value is defined
+                requester: user.sub, // Assuming 'user.sub' is correctly defined and holds the user's ID
+            }, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            fetchPosts();
+        } catch (error) {
+            console.error('Error updating post:', error);
+        }
+    };
     
+
 
     const handleOpenModal = () => setModalOpen(true);
     const handleCloseModal = () => setModalOpen(false);
@@ -134,6 +150,7 @@ const FeedPage = () => {
                     onLike={() => handleLike(post._id)}
                     onAddComment={handleAddComment}
                     onDelete={() => onDelete(post._id)} 
+                    onUpdate={onUpdate}
                 />
                 
                 ))}
