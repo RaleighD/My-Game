@@ -24,10 +24,7 @@ app.use(express.json());
 
 
 // Database Connection
-mongoose.connect(process.env.MONGODB_URI, {
-  useUnifiedTopology: true,
-
-});
+mongoose.connect(process.env.MONGODB_URI);
 
 mongoose.connection.on('connected', () => {
   console.log('Connected to MongoDB Atlas');
