@@ -40,6 +40,8 @@ const Navbar = () => {
               <p>Hey, {user?.nickname}!</p> {/* Use optional chaining */}
               <Link to={`/profile/${userId}`} onClick={() => setShowDropdown(false)}>Go to Profile</Link>
               <br />
+              <Link to={"/messages" } onClick={() => setShowDropdown(false)}>Messages</Link>
+              <br />
               <Link to="/settings" onClick={() => setShowDropdown(false)}>Settings</Link>
               <br />
               <LogoutButton />

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import FeedPage from './pages/FeedPage';
 import ProfilePage from './pages/ProfilePage';
+import MessagesPage from './pages/MessagesPage';
 import SettingsPage from './pages/SettingsPage';
 import RegisterPage from './pages/RegisterPage';
 import HistoricalStatInputPage from './pages/HistoricalStatInputPage';
@@ -24,6 +25,7 @@ function App() {
             <Route path="/profile/:userId" element={<ProfilePage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/historical-stats" element={<HistoricalStatInputPage />} />
+            <Route path="/messages" element={<MessagesPage />} />
           </Routes>
         </Layout>
       </ThemeProvider>
