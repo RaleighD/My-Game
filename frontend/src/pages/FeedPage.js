@@ -72,24 +72,17 @@ const FeedPage = () => {
 
     const handleLike = async (postId) => {
         try {
-            await axios.put(`${REACT_APP_API_URL}/api/posts/${postId}/like`, {}, {
+            const response = await axios.put(`${REACT_APP_API_URL}/api/posts/${postId}/like`, {
+                userId: user.sub 
+            }, {
                 headers: { Authorization: `Bearer ${await getAccessTokenSilently()}` },
             });
-            setPosts(posts.map(post => {
-                if (post._id === postId) {
-                    const isLiked = post.likes.includes(user.sub);
-                    if (isLiked) {
-                        return { ...post, likes: post.likes.filter(id => id !== user.sub) };
-                    } else {
-                        return { ...post, likes: [...post.likes, user.sub] };
-                    }
-                }
-                return post;
-            }));
+            fetchPosts();
         } catch (error) {
             console.error('Error liking post:', error);
         }
     };
+    
 
     const handleAddComment = async (postId, commentText) => {
         try {
