@@ -69,3 +69,28 @@
     font-weight: bold;
   }
   
+  .message-input-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+.message-input-container input {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.message-input-container button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.message-input-container button:hover {
+    background-color: #0056b3;
+}

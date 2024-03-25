@@ -8,6 +8,9 @@ const MessagesPage = () => {
     const [selectedUserIds, setSelectedUserIds] = useState([]);
     const [currentConversationId, setCurrentConversationId] = useState(null);
     const { user, isLoading } = useAuth0();
+    const [messages, setMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState('');
+
 
     useEffect(() => {
         if(!isLoading){
@@ -48,10 +51,28 @@ const MessagesPage = () => {
     }, []);
     
 
-    const handleSelectConversation = (conversationId) => {
+    const handleSelectConversation = async (conversationId) => {
         setCurrentConversationId(conversationId);
-        // Fetch the conversation's messages or set up a real-time listener
+        
+        
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/messages/${conversationId}/messages`, {
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` },
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            const data = await response.json();
+            console.log("Message data:", data);
+            setMessages(data); 
+        } catch (error) {
+            console.error('Error fetching messages:', error);
+            setMessages([]); 
+        }
+        
+        
     };
+    
 
     const handleSelectUser = (userId) => {
         console.log(`User ${userId} was clicked.`);
@@ -66,8 +87,7 @@ const MessagesPage = () => {
             alert('Please select at least one user to start a conversation.');
             return;
         }
-        
-        // Assuming currentUserAuth0Id holds the current user's auth0Id
+    
         const participantIds = [...selectedUserIds, user.sub];
     
         try {
@@ -75,17 +95,52 @@ const MessagesPage = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` 
+                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
                 },
                 body: JSON.stringify({ participantIds })
             });
-            const newConversation = await response.json();
-            setConversations([...conversations, newConversation]);
-            setSelectedUserIds([]);
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+    
+            const responseText = await response.text();
+            try {
+                const newConversation = JSON.parse(responseText);
+                setConversations([...conversations, newConversation]);
+                setSelectedUserIds([]);
+            } catch (e) {
+                console.error("Error parsing JSON:", e);
+                console.log("Received response:", responseText);
+            }
         } catch (error) {
             console.error('Error starting a new conversation:', error);
         }
     };
+    
+    const sendMessage = async (conversationId, body) => {
+        if (!body.trim()) return; // Prevent sending empty messages
+    
+        try {
+            await fetch(`${process.env.REACT_APP_API_URL}/api/messages/${conversationId}/messages`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+                },
+                body: JSON.stringify({ body })
+            });
+    
+            // Clear the message input after sending
+            setNewMessage('');
+    
+            // Optionally, fetch the updated list of messages here
+            handleSelectConversation(conversationId);
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
+    };
+    
     
     return (
         <div className="messages-page">
@@ -109,7 +164,7 @@ const MessagesPage = () => {
                         onClick={() => handleSelectConversation(conversation._id)}
                         className="conversation-summary"
                     >
-                        <p>{conversation.participants.map(p => p.nickname).join(', ')}</p>
+                        <p>{conversation.participants.join(', ')}</p>
                         
                         <p>Last message: {conversation.lastMessage}</p> 
                     </div>
@@ -118,7 +173,25 @@ const MessagesPage = () => {
             </div>
             <div className="current-conversation">
                 {currentConversationId ? (
-                    <p>Messages for conversation {currentConversationId} will be displayed here.</p>
+                    <div>
+                        <h4>Messages</h4>
+                        <div className="messages-container">
+                            {messages.map((message, index) => (
+                                <div key={index} className="message">
+                                    <p><strong>{message.sender.nickname}</strong>: {message.body}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="message-input-container">
+                            <input
+                                type="text"
+                                placeholder="Type a message..."
+                                value={newMessage}
+                                onChange={(e) => setNewMessage(e.target.value)}
+                            />
+                            <button onClick={() => sendMessage(currentConversationId, newMessage)}>Send</button>
+                        </div>
+                    </div>
                 ) : (
                     <p>Select a conversation to view messages, or start a new one.</p>
                 )}
