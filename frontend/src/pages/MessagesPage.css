@@ -51,3 +51,21 @@
     color: #333;
   }
   
+  .user-summary {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .user-summary:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .user-summary.selected {
+    background-color: #e0e0e0;
+    font-weight: bold;
+  }
+  
