@@ -1,17 +1,12 @@
 const mongoose = require('mongoose');
 
-const inviteSchema = new mongoose.Schema({
+const teamJoinRequestSchema = new mongoose.Schema({
   team: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Team',
     required: true,
   },
-  sender: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  receiver: {
+  user: { 
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
@@ -21,8 +16,11 @@ const inviteSchema = new mongoose.Schema({
     enum: ['pending', 'accepted', 'rejected'],
     default: 'pending',
   },
+  requestDate: { type: Date, default: Date.now }, 
+  responseDate: Date, 
 }, { timestamps: true });
 
-const Invite = mongoose.model('Invite', inviteSchema);
+const TeamJoinRequest = mongoose.model('TeamJoinRequest', teamJoinRequestSchema);
 
-module.exports = Invite;
+module.exports = TeamJoinRequest;
+
