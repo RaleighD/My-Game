@@ -76,6 +76,7 @@ const MessagesPage = () => {
 
     const handleSelectUser = (userId) => {
         console.log(`User ${userId} was clicked.`);
+        console.log('Current conversations:', conversations);
         setSelectedUserIds(selectedUserIds.includes(userId) 
             ? selectedUserIds.filter(id => id !== userId) 
             : [...selectedUserIds, userId]);

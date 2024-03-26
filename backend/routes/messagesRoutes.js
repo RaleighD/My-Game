@@ -39,6 +39,47 @@ router.get('/conversations', verifyToken, async (req, res) => {
     }
 });
 
+// POST route to create a new conversation
+router.post('/conversations', verifyToken, async (req, res) => {
+    try {
+        const { participantIds } = req.body;
+        
+        const existingConversation = await Conversation.findOne({
+            participants: { $all: participantIds, $size: participantIds.length }
+        });
+
+        if (existingConversation) {
+            return res.status(400).json({ message: "A conversation with these participants already exists." });
+        }
+
+        const newConversation = new Conversation({
+            participants: participantIds,
+        });
+
+        await newConversation.save();
+
+        
+        const populatedConversation = await User.find({
+            auth0Id: { $in: participantIds }
+        }).then(users => {
+            return {
+                ...newConversation.toObject(),
+                participants: users.map(user => ({
+                    nickname: user.nickname,
+                    auth0Id: user.auth0Id,
+                    picture: user.picture,
+                })),
+            };
+        });
+
+        res.status(201).json(populatedConversation);
+    } catch (error) {
+        console.error('Error creating new conversation:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 router.get('/:conversationId/messages', verifyToken, async (req, res) => {
     try {
         const { conversationId } = req.params;
