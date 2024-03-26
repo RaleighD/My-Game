@@ -13,6 +13,7 @@
   - Add the following line and update `USERNAME` and `PASSWORD` with your Mongo Atlas project associated user/pass: 
     ```
     MONGODB_URI=mongodb+srv://USERNAME:PASSWORD@mygame.bscgfip.mongodb.net/?retryWrites=true&w=majority
+    REACT_APP_JWT_SECRET='askHarlanForTheSecret'
     ```
 -**Create a `firebaseKey.json` file within the backend directory.**
 -Ask Harlan for the file contents... 

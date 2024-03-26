@@ -7,12 +7,15 @@ const friendshipRoutes = require('./routes/friendshipRoutes');
 const admin = require('firebase-admin');
 const serviceAccount = require('./firebaseKey.json');
 const baseballStatRoutes = require('./routes/yearlyStatObjectRoutes/baseballStatRoutes');
+const teamRoutes = require('./routes/teamRoutes');
 const basketballStatRoutes = require('./routes/yearlyStatObjectRoutes/basketballStatRoutes');
 const footballStatRoutes = require('./routes/yearlyStatObjectRoutes/footballStatRoutes');
 const golfStatRoutes = require('./routes/yearlyStatObjectRoutes/golfStatRoutes');
 const soccerStatRoutes = require('./routes/yearlyStatObjectRoutes/soccerStatRoutes');
 const hockeyStatRoutes = require('./routes/yearlyStatObjectRoutes/hockeyStatRoutes');
-
+const teamJoinRequestRoutes = require('./routes/TeamJoinRequestRoutes');
+const leagueJoinRequestRoutes = require('./routes/LeagueJoinRequestRoutes');
+const leagueRoutes = require('./routes/leagueRoutes');
 
 
 // Load environment variables
@@ -51,6 +54,10 @@ app.use('/api/golf/stats', golfStatRoutes)
 app.use('/api/soccer/stats', soccerStatRoutes)
 app.use('/api/hockey/stats', hockeyStatRoutes);
 app.use('/api/friendships', friendshipRoutes);
-
+app.use('/api/baseball/stats', baseballStatRoutes);
+app.use('/api/teams', teamRoutes);
+app.use('/api/team-join-requests', teamJoinRequestRoutes);
+app.use('/api/league-join-requests', leagueJoinRequestRoutes);
+app.use('/api/leagues', leagueRoutes);
 
 module.exports = app; // Export the configured app

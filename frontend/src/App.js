@@ -11,6 +11,9 @@ import HistoricalStatInputPage from './pages/HistoricalStatInputPage';
 import Layout from './components/layout/Layout'; //layout has auth0 and navbar in it
 import { ThemeProvider } from './components/layout/ThemeContext'; //used for light/dark mode
 import { ProfileProvider } from './components/layout/ProfileContext' //used for authing after form submission
+import MyTeamPage from './pages/MyTeam';
+import CreateTeam from './pages/CreateTeam';
+import JoinTeam from './pages/JoinTeam';
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/baseball-scorekeeper" element={<BaseballScorekeeper />} />
             <Route path="/historical-stats" element={<HistoricalStatInputPage />} />
+            <Route path="/my-team" element={<MyTeamPage />} />
+            <Route path="/create-team" element={<CreateTeam />} />
+            <Route path="/join-team" element={<JoinTeam />} />
           </Routes>
         </Layout>
       </ThemeProvider>
