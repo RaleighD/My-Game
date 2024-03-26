@@ -94,3 +94,40 @@
 .message-input-container button:hover {
     background-color: #0056b3;
 }
+
+.message {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  margin-left: 30px;
+}
+
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.profile-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.profile-link:hover {
+  text-decoration: underline;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  margin: 5px;
+}
+
+.message-timestamp {
+  font-size: 0.8em;
+  color: #888;
+}

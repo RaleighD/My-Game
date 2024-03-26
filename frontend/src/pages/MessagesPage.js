@@ -54,7 +54,7 @@ const MessagesPage = () => {
     const handleSelectConversation = async (conversationId) => {
         setCurrentConversationId(conversationId);
         
-        
+        console.log("Curr messages:", messages);
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/messages/${conversationId}/messages`, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` },
@@ -178,7 +178,13 @@ const MessagesPage = () => {
                         <div className="messages-container">
                             {messages.map((message, index) => (
                                 <div key={index} className="message">
-                                    <p><strong>{message.sender.nickname}</strong>: {message.body}</p>
+                                    <div className="message-header">
+                                        <img src={message.sender.picture} className="profile-picture"/>
+                                        <a href={`/profile/${message.sender.auth0Id}`} className="profile-link">{message.sender.nickname}</a>
+                                        <p className="message-timestamp">{new Date(message.createdAt).toLocaleString()}</p>
+                                    </div>
+                                    <p>{message.body}</p>
+                                    
                                 </div>
                             ))}
                         </div>

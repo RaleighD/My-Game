@@ -6,12 +6,9 @@ const mongoose = require('mongoose');
 const User = require('../models/User');
 
 
-// In your backend conversation route
-// Assuming you've adjusted your Conversation schema to use String for participant IDs
-
 router.get('/conversations', verifyToken, async (req, res) => {
     try {
-        // Assuming req.user.id contains the Auth0 ID of the current user
+        console.log('req', req);
         const userAuth0Id = req.user.id;
 
         const conversations = await Conversation.find({
@@ -46,15 +43,28 @@ router.get('/:conversationId/messages', verifyToken, async (req, res) => {
     try {
         const { conversationId } = req.params;
         
-        // Verify if the requesting user is part of the conversation
         const conversation = await Conversation.findById(conversationId);
         if (!conversation.participants.includes(req.user.id)) {
             return res.status(403).json({ message: "User not authorized to view these messages." });
         }
 
-        const messages = await Message.find({ conversationId }).populate('sender', 'nickname');
+        const messages = await Message.find({ conversationId });
 
-        res.json(messages);
+        // Manually fetch and attach user details including auth0Id
+        const messagesWithUserDetails = await Promise.all(messages.map(async (message) => {
+            const user = await User.findOne({ auth0Id: message.sender });
+            return {
+                ...message.toObject(),
+                sender: user ? {
+                    nickname: user.nickname,
+                    picture: user.picture,
+                    auth0Id: user.auth0Id // Include Auth0 ID
+                } : null,
+                createdAt: message.createdAt // Include createdAt timestamp
+            };
+        }));
+
+        res.json(messagesWithUserDetails);
     } catch (error) {
         console.error('Error fetching messages:', error);
         res.status(500).json({ message: error.message });
