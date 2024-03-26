@@ -48,7 +48,7 @@ const MessagesPage = () => {
             }
         }
         
-    }, []);
+    }, [isLoading]);
     
 
     const handleSelectConversation = async (conversationId) => {
