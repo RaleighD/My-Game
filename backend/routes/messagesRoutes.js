@@ -139,6 +139,50 @@ router.post('/:conversationId/messages', verifyToken, async (req, res) => {
     }
 });
 
+router.post('/conversations/:conversationId/leave', verifyToken, async (req, res) => {
+    const { conversationId } = req.params;
+    const userAuth0Id = req.user.id;
+
+    try {
+        const conversation = await Conversation.findById(conversationId);
+        if (!conversation) {
+            return res.status(404).json({ message: "Conversation not found." });
+        }
+        
+        if (!conversation.participants.includes(userAuth0Id)) {
+            return res.status(403).json({ message: "User not authorized to leave this conversation." });
+        }
+
+        
+        conversation.participants = conversation.participants.filter(participantId => participantId !== userAuth0Id);
+
+        // If no participants are left delete the conversation and its messages
+        if (conversation.participants.length === 0) {
+            
+            await Message.deleteMany({ conversationId: conversation._id });
+            await Conversation.findByIdAndDelete(conversation._id); 
+            res.json({ message: "Conversation and messages have been deleted." });
+        } else {
+            
+            const userLeaving = await User.findOne({ auth0Id: userAuth0Id });
+            const leaveMessageBody = `${userLeaving.nickname} has left the conversation.`;
+
+            const leaveMessage = new Message({
+                conversationId: conversation._id,
+                body: leaveMessageBody,
+                sender: userAuth0Id, 
+            });
+
+            await leaveMessage.save();
+            await conversation.save();
+            res.json({ message: "User has left the conversation.", systemMessage: leaveMessageBody });
+        }
+    } catch (error) {
+        console.error('Error leaving conversation:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
   
   

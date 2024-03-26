@@ -20,8 +20,8 @@ const MessagesPage = () => {
                         headers: { 'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` },
                     });
                     if (!response.ok) throw new Error('Network response was not ok.');
-                    const { users } = await response.json(); // Destructure users from the response object
-                    setUsers(users); // Assuming the backend sends an array of users wrapped in an object
+                    const { users } = await response.json(); 
+                    setUsers(users); 
                 } catch (error) {
                     console.error('Error fetching users:', error);
                 }
@@ -34,7 +34,7 @@ const MessagesPage = () => {
                     });
                     const convData = await convResponse.json();
                     console.log("convDATA", convData);
-                    setConversations(convData); // Make sure the backend structure matches
+                    setConversations(convData);
                 } catch (error) {
                     console.error('Error fetching conversations:', error);
                 }
@@ -44,7 +44,7 @@ const MessagesPage = () => {
             fetchConversations(); 
             
             if (isLoading) {
-                return <div>Loading...</div>; // Or any other loading indicator
+                return <div>Loading...</div>; 
             }
         }
         
@@ -132,15 +132,43 @@ const MessagesPage = () => {
                 body: JSON.stringify({ body })
             });
     
-            // Clear the message input after sending
             setNewMessage('');
-    
-            // Optionally, fetch the updated list of messages here
             handleSelectConversation(conversationId);
         } catch (error) {
             console.error('Error sending message:', error);
         }
     };
+
+    const handleLeaveConversation = async () => {
+        const confirmLeave = window.confirm("Are you sure you want to leave this conversation?");
+        if (!confirmLeave) {
+            return; // User canceled the action
+        }
+    
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/messages/conversations/${currentConversationId}/leave`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
+                    'Content-Type': 'application/json'
+                },
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to leave conversation.');
+            }
+    
+            
+            setConversations(conversations.filter(convo => convo._id !== currentConversationId));
+            setCurrentConversationId(null); 
+    
+            alert('You have left the conversation.');
+        } catch (error) {
+            console.error('Error leaving the conversation:', error);
+            alert('Error leaving the conversation.');
+        }
+    };
+    
     
     
     return (
@@ -156,26 +184,33 @@ const MessagesPage = () => {
                         {filteredUser.nickname}
                     </div>
                 ))}
+                <button onClick={startNewConversation}>New Conversation</button>
             </div>
             <div className="conversations-list">
                 <h3>Conversations</h3>
                 {conversations.map(conversation => (
                     <div 
-                        key={conversation._id} // Assuming each conversation has a unique ID
+                        key={conversation._id} 
                         onClick={() => handleSelectConversation(conversation._id)}
                         className="conversation-summary"
                     >
                         <p>{conversation.participants.join(', ')}</p>
                         
-                        <p>Last message: {conversation.lastMessage}</p> 
                     </div>
                 ))}
-                <button onClick={startNewConversation}>New Conversation</button>
+                
             </div>
-            <div className="current-conversation">
+                <div className="current-conversation">
                 {currentConversationId ? (
                     <div>
-                        <h4>Messages</h4>
+                        <div className="conversation-header">
+                            <h4>Messages</h4>
+                            <button 
+                                onClick={handleLeaveConversation} 
+                                className="leave-conversation-button">
+                                Leave Conversation
+                            </button>
+                        </div>
                         <div className="messages-container">
                             {messages.map((message, index) => (
                                 <div key={index} className="message">
@@ -185,7 +220,6 @@ const MessagesPage = () => {
                                         <p className="message-timestamp">{new Date(message.createdAt).toLocaleString()}</p>
                                     </div>
                                     <p>{message.body}</p>
-                                    
                                 </div>
                             ))}
                         </div>
