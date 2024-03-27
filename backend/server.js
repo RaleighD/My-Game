@@ -12,7 +12,7 @@ const footballStatRoutes = require('./routes/yearlyStatObjectRoutes/footballStat
 const golfStatRoutes = require('./routes/yearlyStatObjectRoutes/golfStatRoutes');
 const soccerStatRoutes = require('./routes/yearlyStatObjectRoutes/soccerStatRoutes');
 const hockeyStatRoutes = require('./routes/yearlyStatObjectRoutes/hockeyStatRoutes');
-
+const messagesRoutes = require('./routes/messagesRoutes');
 
 
 // Load environment variables
@@ -24,10 +24,7 @@ app.use(express.json());
 
 
 // Database Connection
-mongoose.connect(process.env.MONGODB_URI, {
-  useUnifiedTopology: true,
-
-});
+mongoose.connect(process.env.MONGODB_URI);
 
 mongoose.connection.on('connected', () => {
   console.log('Connected to MongoDB Atlas');
@@ -51,6 +48,7 @@ app.use('/api/golf/stats', golfStatRoutes)
 app.use('/api/soccer/stats', soccerStatRoutes)
 app.use('/api/hockey/stats', hockeyStatRoutes);
 app.use('/api/friendships', friendshipRoutes);
+app.use('/api/messages', messagesRoutes);
 
 
 module.exports = app; // Export the configured app
