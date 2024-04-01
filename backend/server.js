@@ -13,9 +13,13 @@ const footballStatRoutes = require('./routes/yearlyStatObjectRoutes/footballStat
 const golfStatRoutes = require('./routes/yearlyStatObjectRoutes/golfStatRoutes');
 const soccerStatRoutes = require('./routes/yearlyStatObjectRoutes/soccerStatRoutes');
 const hockeyStatRoutes = require('./routes/yearlyStatObjectRoutes/hockeyStatRoutes');
+<<<<<<< HEAD
 const teamJoinRequestRoutes = require('./routes/TeamJoinRequestRoutes');
 const leagueJoinRequestRoutes = require('./routes/LeagueJoinRequestRoutes');
 const leagueRoutes = require('./routes/leagueRoutes');
+=======
+const messagesRoutes = require('./routes/messagesRoutes');
+>>>>>>> origin/main
 
 
 // Load environment variables
@@ -27,10 +31,7 @@ app.use(express.json());
 
 
 // Database Connection
-mongoose.connect(process.env.MONGODB_URI, {
-  useUnifiedTopology: true,
-
-});
+mongoose.connect(process.env.MONGODB_URI);
 
 mongoose.connection.on('connected', () => {
   console.log('Connected to MongoDB Atlas');
@@ -59,5 +60,7 @@ app.use('/api/teams', teamRoutes);
 app.use('/api/team-join-requests', teamJoinRequestRoutes);
 app.use('/api/league-join-requests', leagueJoinRequestRoutes);
 app.use('/api/leagues', leagueRoutes);
+app.use('/api/messages', messagesRoutes);
+
 
 module.exports = app; // Export the configured app
