@@ -6,19 +6,19 @@ import './MyTeam.css';
 const MyTeam = () => {
   const [teams, setTeams] = useState([]);
 
-  useEffect(() => {
-    const fetchTeams = async () => {
-      try {
-        const response = await axios.get('http://localhost:5001/api/teams/myteams');
-        setTeams(response.data.teams); 
-      } catch (error) {
-        console.error('Error fetching teams:', error);
+  // useEffect(() => {
+  //   const fetchTeams = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:5001/api/teams/myteams');
+  //       setTeams(response.data.teams); 
+  //     } catch (error) {
+  //       console.error('Error fetching teams:', error);
       
-      }
-    };
+  //     }
+  //   };
 
-    fetchTeams();
-  }, []);
+  //   fetchTeams();
+  // }, []);
 
   return (
     <div className="my-team-container">

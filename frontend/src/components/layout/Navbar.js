@@ -24,7 +24,8 @@ const Navbar = () => {
         <Link to="/">
           <img src={logo} alt="Logo" style={{ height: '50px' }} />
         </Link>
-        <Link to="/my-team" className="my-team-link">My-Team</Link>
+        <Link to="/my-team" className="my-team-link">My-Teams</Link>
+        <Link to="/my-league" className="my-league-link">My-Leagues</Link>
       </div>
       <input type="text" placeholder="Search..." className="search-bar"/>
       <div className="right-nav">

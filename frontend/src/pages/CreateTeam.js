@@ -8,6 +8,7 @@ const CreateTeam = () => {
   const [teamName, setTeamName] = useState('');
   const [location, setLocation] = useState('');
   const [sport, setSport] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleTeamNameChange = (event) => {
     setTeamName(event.target.value);
@@ -20,8 +21,6 @@ const CreateTeam = () => {
   const handleSportChange = (event) => {
     setSport(event.target.value);
   };
-
-  const [message, setMessage] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,9 +38,9 @@ const CreateTeam = () => {
     };
   
     try {
-      const response = await axios.post('http://localhost:5001/api/team/create', teamData, {
+      const response = await axios.post('http://localhost:5001/api/teams', teamData, {
         headers: { 'Content-Type': 'application/json' },
-      });
+        });
       setMessage('Team created successfully');
       console.log(response.data);
     } catch (error) {
@@ -49,9 +48,9 @@ const CreateTeam = () => {
       console.error(error);
     }
   };
-  
+
   return (
-    <div className={styles['create-team']}>
+    <div className={styles['create-team-container']}> 
       <h2>Create Team</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -68,10 +67,9 @@ const CreateTeam = () => {
         </div>
         <button type="submit">Create Team</button>
       </form>
+      {message && <p>{message}</p>} 
     </div>
   );
 };
 
 export default CreateTeam;
-
-
