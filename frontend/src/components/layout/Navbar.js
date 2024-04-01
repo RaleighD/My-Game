@@ -5,10 +5,23 @@ import LogoutButton from '../login_out/LogoutButton';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../../mygame.png';
+import axios from "axios";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useAuth0();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    history.push(`/search?query=${encodeURIComponent(searchQuery)}`);
+  };
+
+
 
   // Toggle dropdown menu
   const toggleDropdown = () => setShowDropdown(!showDropdown);
@@ -17,13 +30,19 @@ const Navbar = () => {
   const userId = user?.sub; // Use optional chaining to avoid errors
 
 
-  return (
+
+
+
+    return (
     <nav>
       <Link to="/"> 
         <img src={logo} alt="Logo" style={{ height: '50px' }} />
       </Link>
 
-      <input type="text" placeholder="Search..." />
+        <form onSubmit={handleSearchSubmit}>
+            <input type="text" placeholder="Search..." value={searchQuery} onChange={handleSearchChange} />
+            <button type="submit">Search</button>
+        </form>
 
       {!isAuthenticated ? (
         <LoginButton />
