@@ -5,7 +5,7 @@ import '../App.css';
 import FriendRequests from '../components/friends/FriendRequests';
 import CurrentFriends from '../components/friends/CurrentFriends';
 import './ProfilePage.css';
-import GenericStatsSection from '../components/GenericStatSection';
+import GenericStatsSection from '../components/stat_display/GenericStatSection';
 
 
 const ProfilePage = () => {
@@ -306,10 +306,11 @@ const ProfilePage = () => {
       )}
   
       <div>
+
         <GenericStatsSection stats={baseballStats} title="Baseball" />
         <GenericStatsSection stats={basketballStats} title="Basketball" />
-        <GenericStatsSection stats={footballStats} title="Football" />
         <GenericStatsSection stats={golfStats} title="Golf" />
+        <GenericStatsSection stats={footballStats} title="Football" />
         <GenericStatsSection stats={hockeyStats} title="Hockey" />
         <GenericStatsSection stats={soccerStats} title="Soccer" />
       </div>
