@@ -13,13 +13,10 @@ const footballStatRoutes = require('./routes/yearlyStatObjectRoutes/footballStat
 const golfStatRoutes = require('./routes/yearlyStatObjectRoutes/golfStatRoutes');
 const soccerStatRoutes = require('./routes/yearlyStatObjectRoutes/soccerStatRoutes');
 const hockeyStatRoutes = require('./routes/yearlyStatObjectRoutes/hockeyStatRoutes');
-<<<<<<< HEAD
 const teamJoinRequestRoutes = require('./routes/TeamJoinRequestRoutes');
 const leagueJoinRequestRoutes = require('./routes/LeagueJoinRequestRoutes');
 const leagueRoutes = require('./routes/leagueRoutes');
-=======
 const messagesRoutes = require('./routes/messagesRoutes');
->>>>>>> origin/main
 
 
 // Load environment variables
