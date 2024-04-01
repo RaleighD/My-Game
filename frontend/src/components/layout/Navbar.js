@@ -6,11 +6,13 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../../mygame.png';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const { isAuthenticated, user } = useAuth0();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -18,7 +20,7 @@ const Navbar = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    history.push(`/search?query=${encodeURIComponent(searchQuery)}`);
+    navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
   };
 
 

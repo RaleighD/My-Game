@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 // Import your models
-const User = require('./models/User'); // Adjust the path as necessary
-const Post = require('./models/Post');
-const Team = require('./models/Team');
-const League = require('./models/League');
+const User = require('../models/User'); // Adjust the path as necessary
+const Post = require('../models/Post');
+const Team = require('../models/Team');
+const League = require('../models/League');
 
-// Route for searching across models
-router.get('/', async (req, res) => {
+// Unified route for searching across models
+router.get('/api/search', async (req, res) => {
     const { query } = req.query;
 
     if (!query) {
@@ -16,28 +16,23 @@ router.get('/', async (req, res) => {
     }
 
     try {
-        // Perform text search on each model
-        const userSearch = User.find({ $text: { $search: query } });
-        const postSearch = Post.find({ $text: { $search: query } });
-        // const teamSearch = Team.find({ $text: { $search: query } });
-        // const leagueSearch = League.find({ $text: { $search: query } });
+        // Initialize search promises for each model
+        // Including text score for sorting by relevance
+        const userSearch = User.find({ $text: { $search: query } }, { score: { $meta: "textScore" } }).sort({ score: { $meta: "textScore" } });
+        // const postSearch = Post.find({ $text: { $search: query } }, { score: { $meta: "textScore" } }).sort({ score: { $meta: "textScore" } });
+        // const teamSearch = Team.find({ $text: { $search: query } }, { score: { $meta: "textScore" } }).sort({ score: { $meta: "textScore" } });
+        // const leagueSearch = League.find({ $text: { $search: query } }, { score: { $meta: "textScore" } }).sort({ score: { $meta: "textScore" } });
 
-        // Use Promise.all to run searches in parallel
+        // Execute all searches in parallel
         const [users, posts, teams, leagues] = await Promise.all([
             userSearch,
-            postSearch,
-            teamSearch,
-            leagueSearch
+            // postSearch,
+            // teamSearch,
+            // leagueSearch
         ]);
 
-        // Combine results into a single object
-        const results = {
-            users,
-            posts,
-            teams,
-            leagues
-        };
-
+        // Combine and send results
+        const results = { users, posts, teams, leagues };
         res.json(results);
     } catch (error) {
         console.error('Search error:', error);

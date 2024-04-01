@@ -6,7 +6,7 @@ const useQuery = () => {
     return new URLSearchParams(useLocation().search);
 };
 
-const SearchResults = () => {
+const SearchResultsPage = () => {
     const query = useQuery().get('query');
     const [results, setResults] = useState({ users: [], posts: [], teams: [], leagues: [] });
     const [loading, setLoading] = useState(false);
@@ -21,7 +21,6 @@ const SearchResults = () => {
                 setResults(response.data);
             } catch (error) {
                 console.error('Failed to fetch search results:', error);
-                // Handle error appropriately
             } finally {
                 setLoading(false);
             }
@@ -34,19 +33,25 @@ const SearchResults = () => {
     if (!query) return <div>Please enter a search query.</div>;
 
     return (
-        <div>
+        <div style={{ padding: '20px' }}>
             <h2>Search Results for "{query}"</h2>
-            {/* Render search results here */}
-            {/* Example: */}
             <div>
                 <h3>Users</h3>
-                {/* Map through results.users and display each user */}
-                <h3>Posts</h3>
-                {/* Map through results.posts and display each post */}
-                {/* Repeat for teams and leagues */}
+                {results.users.length > 0 ? (
+                    <ul>
+                        {results.users.map(user => (
+                            <li key={user.nickname}>
+                                <img src={user.picture} alt={user.nickname} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                                <div>{user.nickname}</div>
+                                <div>{user.email}</div>
+                            </li>
+                        ))}
+                    </ul>
+                ) : <p>No users found.</p>}
+                {/* The rest of your results display logic for posts, teams, leagues remains the same */}
             </div>
         </div>
     );
 };
 
-export default SearchResults;
+export default SearchResultsPage;
