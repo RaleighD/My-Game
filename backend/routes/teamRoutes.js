@@ -3,8 +3,9 @@ const Team = require('../models/Team');
 const User = require('../models/User'); 
 const router = express.Router();
 
-router.post('/teams', async (req, res) => {
+router.post('/', async (req, res) => {
   const { name, location, sport, coachAuth0Id } = req.body;
+  
   try {
     const user = await User.findOne({ auth0Id: coachAuth0Id });
     if (!user) {
@@ -15,6 +16,7 @@ router.post('/teams', async (req, res) => {
     if (existingTeam) {
       return res.status(400).json({ message: 'User already has a team.' });
     }
+    
     const team = new Team({
       name,
       coach: user._id, 
@@ -28,24 +30,6 @@ router.post('/teams', async (req, res) => {
 
   } catch (error) {
     console.error('Error creating team:', error);
-    res.status(500).json({ error: 'Internal server error.' });
-  }
-});
-
-router.get('/teams', async (req, res) => {
-  const { searchQuery, filter } = req.query;
-  let query = {};
-  if (filter && searchQuery) {
-    query[filter] = { $regex: searchQuery, $options: 'i' };
-  } else {
-    
-  }
-
-  try {
-    const teams = await Team.find(query).populate('coach', 'name').populate('members', 'name');
-    res.json(teams);
-  } catch (error) {
-    console.error('Error fetching teams:', error);
     res.status(500).json({ error: 'Internal server error.' });
   }
 });

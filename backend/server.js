@@ -53,11 +53,10 @@ app.use('/api/soccer/stats', soccerStatRoutes)
 app.use('/api/hockey/stats', hockeyStatRoutes);
 app.use('/api/friendships', friendshipRoutes);
 app.use('/api/baseball/stats', baseballStatRoutes);
+app.use('/api/messages', messagesRoutes);
 app.use('/api/teams', teamRoutes);
 app.use('/api/team-join-requests', teamJoinRequestRoutes);
 app.use('/api/league-join-requests', leagueJoinRequestRoutes);
 app.use('/api/leagues', leagueRoutes);
-app.use('/api/messages', messagesRoutes);
-
 
 module.exports = app; // Export the configured app
