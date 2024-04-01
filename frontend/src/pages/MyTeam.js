@@ -9,16 +9,20 @@ const MyTeam = () => {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/teams/myteams');
-        setTeams(response.data.teams); 
+        const response = await fetch('http://localhost:5001/api/teams/all');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setTeams(data.teams); // Now using the parsed JSON data
       } catch (error) {
         console.error('Error fetching teams:', error);
-      
       }
     };
-
+  
     fetchTeams();
   }, []);
+  
 
   return (
     <div className="my-team-container">

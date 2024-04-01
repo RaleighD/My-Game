@@ -39,7 +39,7 @@ const CreateTeam = () => {
     };
   
     try {
-      const response = await axios.post('http://localhost:5001/api/team/create', teamData, {
+      const response = await axios.post('http://localhost:5001/api/teams/create', teamData, {
         headers: { 'Content-Type': 'application/json' },
       });
       setMessage('Team created successfully');

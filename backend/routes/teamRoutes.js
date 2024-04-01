@@ -3,7 +3,7 @@ const Team = require('../models/Team');
 const User = require('../models/User'); 
 const router = express.Router();
 
-router.post('/teams', async (req, res) => {
+router.post('/create', async (req, res) => {
   const { name, location, sport, coachAuth0Id } = req.body;
   try {
     const user = await User.findOne({ auth0Id: coachAuth0Id });
@@ -11,14 +11,10 @@ router.post('/teams', async (req, res) => {
       return res.status(404).json({ message: 'Coach user not found.' });
     }
 
-    const existingTeam = await Team.findOne({ coach: user._id });
-    if (existingTeam) {
-      return res.status(400).json({ message: 'User already has a team.' });
-    }
     const team = new Team({
       name,
-      coach: user._id, 
-      members: [user._id], 
+      coach: user._id,
+      members: [user._id],
       location,
       sport,
     });
@@ -32,7 +28,7 @@ router.post('/teams', async (req, res) => {
   }
 });
 
-router.get('/teams', async (req, res) => {
+router.get('/all', async (req, res) => {
   const { searchQuery, filter } = req.query;
   let query = {};
   if (filter && searchQuery) {
@@ -43,7 +39,7 @@ router.get('/teams', async (req, res) => {
 
   try {
     const teams = await Team.find(query).populate('coach', 'name').populate('members', 'name');
-    res.json(teams);
+    res.json({ teams: teams }); // Wrap the teams array in an object with a 'teams' property
   } catch (error) {
     console.error('Error fetching teams:', error);
     res.status(500).json({ error: 'Internal server error.' });
