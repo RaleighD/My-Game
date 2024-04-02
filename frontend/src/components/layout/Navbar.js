@@ -54,7 +54,7 @@ const Navbar = () => {
                     type="text"
                     value={searchQuery}
                     onChange={handleChange}
-                    placeholder="Search users"
+                    placeholder="Search"
                     className="search-input"
                 />
                 {searchResults.length > 0 && (
