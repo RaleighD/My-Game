@@ -46,4 +46,27 @@ router.get('/all', async (req, res) => {
   }
 });
 
+router.post('/join', async (req, res) => {
+  const { userId, teamId } = req.body;
+
+  try {
+    // Directly use the userId from the request, assuming it's already the MongoDB Object ID
+    const updatedTeam = await Team.findByIdAndUpdate(
+      teamId,
+      { $addToSet: { members: userId } }, // Prevents adding duplicates
+      { new: true }
+    );
+
+    if (!updatedTeam) {
+      return res.status(404).json({ message: 'Team not found.' });
+    }
+
+    res.status(200).json({ message: 'User added to the team successfully', team: updatedTeam });
+  } catch (error) {
+    console.error('Error adding user to team:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 module.exports = router;
