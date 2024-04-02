@@ -28,30 +28,6 @@ router.post('/create', async (req, res) => {
   }
 });
 
-router.post('/join', async (req, res) => {
-  const { teamId, userId } = req.body;
-
-  try {
-    const team = await Team.findById(teamId);
-    if (!team) {
-      return res.status(404).json({ message: 'Team not found' });
-    }
-
-    // Check if the user is already a member
-    if (team.members.includes(userId)) {
-      return res.status(400).json({ message: 'User is already a member of the team' });
-    }
-
-    team.members.push(userId);
-    await team.save();
-    res.json({ message: 'User added to the team successfully', team });
-  } catch (error) {
-    console.error('Error adding user to team:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-
 router.get('/all', async (req, res) => {
   const { searchQuery, filter } = req.query;
   let query = {};
@@ -67,6 +43,28 @@ router.get('/all', async (req, res) => {
   } catch (error) {
     console.error('Error fetching teams:', error);
     res.status(500).json({ error: 'Internal server error.' });
+  }
+});
+
+router.post('/join', async (req, res) => {
+  const { userId, teamId } = req.body;
+
+  try {
+    // Directly use the userId from the request, assuming it's already the MongoDB Object ID
+    const updatedTeam = await Team.findByIdAndUpdate(
+      teamId,
+      { $addToSet: { members: userId } }, // Prevents adding duplicates
+      { new: true }
+    );
+
+    if (!updatedTeam) {
+      return res.status(404).json({ message: 'Team not found.' });
+    }
+
+    res.status(200).json({ message: 'User added to the team successfully', team: updatedTeam });
+  } catch (error) {
+    console.error('Error adding user to team:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
