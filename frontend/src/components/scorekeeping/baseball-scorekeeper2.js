@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Modal from '../Post/Modal'; // Make sure this path is correct
-import './baseball-scorekeeper.css';
+import './baseball-scorekeeper2.css';
 
 function Baseball() {
     const [users, setUsers] = useState([]);

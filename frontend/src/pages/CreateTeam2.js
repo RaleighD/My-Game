@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from './CreateTeam.css'; 
+import styles from './CreateTeam2.css'; 
 import { useAuth0 } from '@auth0/auth0-react';
 
 const CreateTeam = () => {
