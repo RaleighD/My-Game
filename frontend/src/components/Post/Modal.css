@@ -1,0 +1,40 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dimmed backdrop */
+    backdrop-filter: blur(5px); /* Blurring effect for the backdrop */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Make sure it's above other content */
+  }
+  
+  .modal-content {
+    background: var(--background-color);
+    color: var(--text-color);
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 1001; /* Above the backdrop */
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .modal-content img {
+    max-width: 100%; /* Ensure the image is not wider than the modal */
+    max-height: 500px; /* Adjust the height to your preference */
+    margin: 0 auto 20px; /* Center the image and add space below */
+  }
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    /* Style the close button as needed */
+  }
+  

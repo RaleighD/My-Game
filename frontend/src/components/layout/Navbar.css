@@ -9,11 +9,6 @@ nav {
   box-shadow: 0 2px 4px rgba(0,0,0,.1); 
 }
 
-.left-nav, .right-nav {
-  display: flex;
-  align-items: center;
-}
-
 nav a {
   color: var(--link-color);
   text-decoration: none;
@@ -44,12 +39,6 @@ nav input[type="text"] {
 nav input[type="text"]:focus {
   background-color: var(--link-hover-color);
   width: 200px; /* Expand on focus */
-}
-
-.center-nav {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
 }
 
 /* Auth buttons */
@@ -114,45 +103,4 @@ nav input[type="text"]:focus {
 
 .user-profile:hover {
   box-shadow: 0 0 8px rgba(255,255,255,0.8); /* Glow effect on hover */
-}
-
-.my-team-link {
-  background-color: #d10000; /* Red background for buttons */
-  color: white;
-  border: none;
-  margin: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  padding: 5px 8px;
-  min-width: 100px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  text-decoration: none;
-  display: inline-block;
-  text-align: center;
-  margin-left: 10px;
-}
-
-.my-team-link:hover {
-  background-color: #a80000; /* Darker red on hover */
-}
-
-.notification-button {
-  background-color: #d10000; /* Red background for buttons */
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  margin: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  min-width: 100px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.notification-button:hover {
-  background-color: #a80000; /* Darker red on hover */
 }
