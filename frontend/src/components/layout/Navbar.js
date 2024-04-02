@@ -48,9 +48,7 @@ const Navbar = () => {
         <img src={logo} alt="Logo" style={{ height: '50px' }} />
       </Link>
 
-      <button onClick={navigateToTeams}>
-        Teams
-      </button>
+      <Link to="/my-team" className="my-team-link">My-Teams</Link>
 
         <input type="text" value={searchQuery} onChange={handleChange} placeholder="Search users" />
         <ul>

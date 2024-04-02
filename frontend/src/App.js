@@ -14,7 +14,9 @@ import { ProfileProvider } from './components/layout/ProfileContext'
 import SearchResultsPage from "./pages/SearchResultsPage"; //used for authing after form submission
 import BaseballScorekeeper from './components/scorekeeping/baseball-scorekeeper';
 import ScorekeeperBuilder from './components/scorekeeping/scorekeeperBuilder';
-import MyTeam from './components/pages/MyTeam';
+import MyTeamPage from './pages/MyTeam';
+import CreateTeam from './pages/CreateTeam';
+import JoinTeam from './pages/JoinTeam';
 
 function App() {
   return (
@@ -29,10 +31,12 @@ function App() {
             <Route path="/profile/:userId" element={<ProfilePage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/historical-stats" element={<HistoricalStatInputPage />} />
+            <Route path="/my-team" element={<MyTeamPage />} />
+            <Route path="/create-team" element={<CreateTeam />} />
+            <Route path="/join-team" element={<JoinTeam />} />
             <Route path="/messages" element={<MessagesPage />} />
             <Route path="/search-results" element={<SearchResultsPage />} />
             <Route path="/scorekeeperBuilder" element={<ScorekeeperBuilder />} />
-            <Route path="/team" element={<MyTeam />} />
           </Routes>
         </Layout>
       </ThemeProvider>
