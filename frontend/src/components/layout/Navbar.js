@@ -85,6 +85,7 @@ const Navbar = () => {
                             <br />
                             <Link to="/settings" onClick={() => setShowDropdown(false)}>Settings</Link>
                             <br />
+                            <Link to="/my-team" className="my-team-link">My Teams</Link>
                             <LogoutButton />
                         </div>
                     )}
