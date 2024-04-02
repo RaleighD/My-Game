@@ -36,13 +36,6 @@ const Navbar = () => {
         setSearchResults([]);
     };
 
-  // Safe check for user before trying to access its properties
-  const userId = user?.sub; // Use optional chaining to avoid errors
-
-  const navigateToTeams = () => {
-    navigate('/teams');
-  }
-
     // Toggle dropdown menu
     const toggleDropdown = () => setShowDropdown(!showDropdown);
 
@@ -51,13 +44,11 @@ const Navbar = () => {
         setSearchResults([]); // Clear search results on navigation
     };
 
-
     return (
         <nav className="navbar">
             <Link to="/">
                 <img src={logo} alt="Logo" className="navbar-logo" />
             </Link>
-            <Link to="/my-team" className="my-team-link">My-Teams</Link>
             <form onSubmit={handleSearchSubmit} className="search-form">
                 <input
                     type="text"
