@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const TeamJoinRequest = require('../models/TeamJoinRequest');
+const TeamJoinRequest = require('../models/TeamJoinRequest2');
 const Team = require('../models/Team');
 const User = require('../models/User');
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const LeagueJoinRequest = require('../models/LeagueJoinRequest');
+const LeagueJoinRequest = require('../models/LeagueJoinRequest2');
 const League = require('../models/League');
 const Team = require('../models/Team');
 
