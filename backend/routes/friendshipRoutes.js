@@ -85,11 +85,11 @@ router.get('/friends/:userId', async (req, res) => {
 
     for (const friendship of friendships) {
       const friendId = userId === friendship.requester ? friendship.recipient : friendship.requester;
-      const friendProfile = await User.findOne({ auth0Id: friendId }); // Adjust 'auth0Id' based on your User schema
+      const friendProfile = await User.findOne({ auth0Id: friendId });
       if (friendProfile) {
         friendList.push({
           friendId: friendId,
-          nickname: friendProfile.nickname, // Adjust based on your User schema
+          nickname: friendProfile.nickname,
         });
       }
     }

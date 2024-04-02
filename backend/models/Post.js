@@ -14,7 +14,7 @@ const PostSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
     user: {
         _id: { type: String, required: true}, // Store Auth0 user ID as a simple string
-        nickname: { type: String, required: true }, // Store the user's nickname for display. also called username
+        nickname: { type: String, required: true }, // Store the user's nickname for display.
     },
     comments: [CommentSchema], // Embedding the CommentSchema as a subdocument
     likes: [String] // Array of user IDs who liked the post

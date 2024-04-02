@@ -101,7 +101,7 @@ router.get('/:conversationId/messages', verifyToken, async (req, res) => {
                     picture: user.picture,
                     auth0Id: user.auth0Id // Include Auth0 ID
                 } : null,
-                createdAt: message.createdAt // Include createdAt timestamp
+                createdAt: message.createdAt
             };
         }));
 

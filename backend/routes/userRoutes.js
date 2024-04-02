@@ -55,7 +55,7 @@ router.post('/update', async (req, res) => {
 
 // Route to get user details by Auth0 ID
 router.get('/profile', async (req, res) => {
-  const { userId } = req.query; // Assuming userId is passed as a query parameter
+  const { userId } = req.query;
   try {
     const user = await User.findOne({ auth0Id: userId });
     if (user) {
@@ -70,7 +70,7 @@ router.get('/profile', async (req, res) => {
 });
 
 router.delete('/delete', async (req, res) => {
-  const { userId } = req.query; // Assuming userId is passed as a query parameter
+  const { userId } = req.query;
 
   try {
     const result = await User.deleteOne({ auth0Id: userId });
@@ -87,7 +87,6 @@ router.delete('/delete', async (req, res) => {
 //using this for the messenger page
 router.get('/users', verifyToken, async (req, res) => {
   try {
-    // Select only the fields you want to expose for each user
     const users = await User.find({}, 'auth0Id nickname picture').exec(); 
     res.json({ success: true, users });
   } catch (error) {

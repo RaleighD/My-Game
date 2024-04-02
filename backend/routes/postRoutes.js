@@ -14,8 +14,6 @@ const deleteImageFromFirebase = async (filePath) => {
         await file.delete();
     } catch (error) {
         console.error(`Failed to delete ${filePath} from Firebase Storage:`, error);
-        // Depending on your error handling strategy, you might want to rethrow the error,
-        // or handle it in a way that doesn't interrupt the execution, depending on the context.
         throw new Error(`Failed to delete image from Firebase: ${error.message}`);
     }
 };
@@ -24,7 +22,7 @@ const deleteImageFromFirebase = async (filePath) => {
 
 // POST request to add a new post
 router.post('/', async (req, res) => {
-    const { description, imageUrl, user } = req.body; // Assuming these are passed in the request body
+    const { description, imageUrl, user } = req.body;
     
     try {
         const newPost = new Post({
@@ -142,11 +140,10 @@ router.delete('/:postId', verifyToken, async (req, res) => {
             return res.status(403).json({ message: 'User not authorized to delete this post' });
         }
 
-        // Assuming the Firebase deletion logic is reinstated
         const filePath = post.imageUrl.split('posts%2F')[1].split('?')[0];
         await deleteImageFromFirebase(filePath);
 
-        // Now delete the document from MongoDB
+        // Deleting the document from MongoDB
         await Post.deleteOne({ _id: req.params.postId });
         
         res.status(200).json({ message: 'Post deleted successfully' });

@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     try {
         const stats = new BaseballYearlyStat(req.body);
-        stats.userID = req.body.userID; // Set the user ID from the request body
+        stats.userID = req.body.userID;
         await stats.save();
         res.status(201).send('Stats saved successfully');
     } catch (error) {

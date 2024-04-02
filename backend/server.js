@@ -21,7 +21,7 @@ const teamRoutes = require('./routes/teamRoutes');
 require('dotenv').config();
 
 const app = express();
-app.use(cors({ origin: 'http://localhost:3000', credentials: true })); //change for production
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(express.json());
 
 
@@ -55,4 +55,4 @@ app.use('/api/search-results', searchRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/teams', teamRoutes)
 
-module.exports = app; // Export the configured app
+module.exports = app;

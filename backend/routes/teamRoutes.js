@@ -50,7 +50,6 @@ router.post('/join', async (req, res) => {
   const { userId, teamId } = req.body;
 
   try {
-    // Directly use the userId from the request, assuming it's already the MongoDB Object ID
     const updatedTeam = await Team.findByIdAndUpdate(
       teamId,
       { $addToSet: { members: userId } }, // Prevents adding duplicates
