@@ -28,8 +28,8 @@ const SettingsPage = () => {
   const navigateToHistoricalStats = () => {
     navigate('/historical-stats');
   };
-  const navigateToBaseballScorekeeper = () => {
-    navigate('/baseball-scorekeeper');
+  const navigateToScorekeeperBuilder = () => {
+    navigate('/scorekeeperBuilder');
   };
 
   const deleteAccount = async () => {
@@ -72,7 +72,7 @@ const SettingsPage = () => {
       <button onClick={navigateToHistoricalStats}>
         Input Historical Stats
       </button>
-      <button onClick={navigateToBaseballScorekeeper}>
+      <button onClick={navigateToScorekeeperBuilder}>
         Baseball Scorekeeper
       </button>
       <Modal isOpen={isDeleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
