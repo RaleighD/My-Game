@@ -50,12 +50,11 @@ const YearStatFormBaseball = () => {
 
         if (response.ok) {
             console.log('Stats submitted successfully');
-            setSubmissionMessage('Stats submitted successfully!'); // Set a success message to display to the user
-            // Optionally, clear the message after some time
+            setSubmissionMessage('Stats submitted successfully!');
+
         } else {
             console.error('Error submitting stats');
-            setSubmissionMessage('Failed to submit stats. Please try again.'); // Set an error message
-            // Optionally, clear the message after some time
+            setSubmissionMessage('Failed to submit stats. Please try again.');
             setTimeout(() => setSubmissionMessage(''), 5000);
         }
     };
@@ -83,7 +82,7 @@ const YearStatFormBaseball = () => {
             <input type="text" name="sacrificeFlies" value={formData.sacrificeFlies} onChange={handleChange} placeholder="Sacrifice Flies" />
             <input type="text" name="intentionalWalks" value={formData.intentionalWalks} onChange={handleChange} placeholder="Intentional Walks" />
             <button type="submit">Submit</button>
-            {submissionMessage && <p>{submissionMessage}</p>} {/* Display the submission message */}
+            {submissionMessage && <p>{submissionMessage}</p>}
         </form>
     );
 };

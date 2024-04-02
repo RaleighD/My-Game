@@ -1,4 +1,3 @@
-// Create a file called ProfileContext.js
 import React, { createContext, useContext, useState } from 'react';
 
 const ProfileContext = createContext();

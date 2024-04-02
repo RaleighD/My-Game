@@ -41,13 +41,11 @@ const YearStatFormGolf = () => {
 
         if (response.ok) {
             console.log('Stats submitted successfully');
-            setSubmissionMessage('Stats submitted successfully!'); // Set a success message to display to the user
-            // Optionally, clear the form
+            setSubmissionMessage('Stats submitted successfully!');
             setFormData(initialFormData);
         } else {
             console.error('Error submitting stats');
-            setSubmissionMessage('Failed to submit stats. Please try again.'); // Set an error message
-            // Optionally, clear the message after some time
+            setSubmissionMessage('Failed to submit stats. Please try again.');
             setTimeout(() => setSubmissionMessage(''), 5000);
         }
     };

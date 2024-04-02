@@ -247,8 +247,8 @@ const ProfilePage = () => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          requester: user.sub, // Corrected from userSub to requester
-          recipient: userId, // Corrected from friendId to recipient
+          requester: user.sub,
+          recipient: userId,
         }),
       });
   
@@ -290,7 +290,6 @@ const ProfilePage = () => {
   
       {!isOwnProfile && (
         <div className="friends-section">
-          {/* Maybe show something else here or just the CurrentFriends component */}
           <CurrentFriends userId={userId} getAccessTokenSilently={getAccessTokenSilently} />
         </div>
       )}
@@ -301,7 +300,6 @@ const ProfilePage = () => {
           <h2>Email: {profile.email}</h2>
           <h3>Timezone: {profile.timeZone}</h3>
           <h3>Phone number: {profile.phoneNumber}</h3>
-          {/* Add other profile details here */}
         </div>
       )}
   

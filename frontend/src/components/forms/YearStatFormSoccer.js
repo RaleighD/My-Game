@@ -14,7 +14,7 @@ const YearStatFormSoccer = () => {
         redCards: '',
         shotsOnTarget: '',
         minutesPlayed: '',
-        cleanSheets: '' // Primarily for goalkeepers and defenders
+        cleanSheets: ''
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -41,13 +41,11 @@ const YearStatFormSoccer = () => {
 
         if (response.ok) {
             console.log('Stats submitted successfully');
-            setSubmissionMessage('Stats submitted successfully!'); // Set a success message to display to the user
-            // Optionally, clear the form
+            setSubmissionMessage('Stats submitted successfully!');
             setFormData(initialFormData);
         } else {
             console.error('Error submitting stats');
-            setSubmissionMessage('Failed to submit stats. Please try again.'); // Set an error message
-            // Optionally, clear the message after some time
+            setSubmissionMessage('Failed to submit stats. Please try again.');
             setTimeout(() => setSubmissionMessage(''), 5000);
         }
     };
@@ -64,12 +62,10 @@ const YearStatFormSoccer = () => {
             <input type="text" name="redCards" value={formData.redCards} onChange={handleChange} placeholder="Red Cards" />
             <input type="text" name="shotsOnTarget" value={formData.shotsOnTarget} onChange={handleChange} placeholder="Shots on Target" />
             <input type="text" name="minutesPlayed" value={formData.minutesPlayed} onChange={handleChange} placeholder="Minutes Played" />
-            {/* Optional fields for detailed tracking */}
-            <input type="text" name="passAccuracy" value={formData.passAccuracy} onChange={handleChange} placeholder="Pass Accuracy (%)" />
             <input type="text" name="saves" value={formData.saves} onChange={handleChange} placeholder="Saves" />
             <input type="text" name="cleanSheets" value={formData.cleanSheets} onChange={handleChange} placeholder="Clean Sheets" />
             <button type="submit">Submit</button>
-            {submissionMessage && <p>{submissionMessage}</p>} {/* Display the submission message */}
+            {submissionMessage && <p>{submissionMessage}</p>}
         </form>
     );
 };

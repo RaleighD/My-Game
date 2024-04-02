@@ -48,12 +48,10 @@ const YearStatFormBasketball = () => {
         if (response.ok) {
             console.log('Stats submitted successfully');
             setSubmissionMessage('Stats submitted successfully!'); // Set a success message to display to the user
-            // Optionally, clear the form
             setFormData(initialFormData);
         } else {
             console.error('Error submitting stats');
             setSubmissionMessage('Failed to submit stats. Please try again.'); // Set an error message
-            // Optionally, clear the message after some time
             setTimeout(() => setSubmissionMessage(''), 5000);
 
         }
@@ -80,7 +78,7 @@ const YearStatFormBasketball = () => {
             <input type="text" name="freeThrowsMade" value={formData.freeThrowsMade} onChange={handleChange} placeholder="Free Throws Made" />
             <input type="text" name="freeThrowsAttempted" value={formData.freeThrowsAttempted} onChange={handleChange} placeholder="Free Throws Attempted" />
             <button type="submit">Submit</button>
-            {submissionMessage && <p>{submissionMessage}</p>} {/* Display the submission message */}
+            {submissionMessage && <p>{submissionMessage}</p>}
         </form>
     );
 };
