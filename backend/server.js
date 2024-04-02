@@ -50,7 +50,7 @@ app.use('/api/soccer/stats', soccerStatRoutes)
 app.use('/api/hockey/stats', hockeyStatRoutes);
 app.use('/api/friendships', friendshipRoutes);
 app.use('/api/messages', messagesRoutes);
-app.use('/api/search', searchRoutes);
+app.use('/api/search-results', searchRoutes);
 
 
 module.exports = app; // Export the configured app

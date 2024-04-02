@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+import './SearchResultsPage.css'; // Assuming you have a CSS file for styles
 
-// Helper function to parse the query string
-const useQuery = () => {
-    return new URLSearchParams(useLocation().search);
-};
+const useQuery = () => new URLSearchParams(useLocation().search);
 
 const SearchResultsPage = () => {
     const query = useQuery();
@@ -12,16 +10,14 @@ const SearchResultsPage = () => {
     const [results, setResults] = useState([]);
 
     useEffect(() => {
-        // Assuming you have a function to fetch data (e.g., from your backend API)
-        // Adjust the URL/path according to your actual API endpoint
         const fetchData = async () => {
             try {
-                const response = await fetch(`/api/search?query=${searchTerm}`);
+                const response = await fetch(`http://localhost:5001/api/search-results?query=${searchTerm}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                setResults(data); // Assuming the API returns an array of user objects
+                setResults(data);
             } catch (error) {
                 console.error('Error fetching search results:', error);
             }
@@ -31,12 +27,14 @@ const SearchResultsPage = () => {
     }, [searchTerm]);
 
     return (
-        <div>
+        <div className="results-container">
             {results.length > 0 ? (
                 results.map(user => (
-                    <div key={user._id} style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                        <img src={user.picture} alt={user.nickname} style={{ marginRight: '10px', borderRadius: '50%', width: '50px', height: '50px' }} />
-                        <div>{user.nickname}</div>
+                    <div key={user._id} className="result-item">
+                        <Link to={`/profile/${user.auth0Id}`} className="user-link">
+                            <img src={user.picture} alt={user.nickname} className="user-image" />
+                            <div>{user.nickname}</div>
+                        </Link>
                     </div>
                 ))
             ) : (
