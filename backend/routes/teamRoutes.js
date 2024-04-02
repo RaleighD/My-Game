@@ -33,13 +33,13 @@ router.get('/all', async (req, res) => {
   let query = {};
   if (filter && searchQuery) {
     query[filter] = { $regex: searchQuery, $options: 'i' };
-  } else {
-    
   }
 
   try {
-    const teams = await Team.find(query).populate('coach', 'name').populate('members', 'name');
-    res.json({ teams: teams }); // Wrap the teams array in an object with a 'teams' property
+    const teams = await Team.find(query)
+                            .populate('coach', 'name')
+                            .populate('members', 'name');
+    res.json({ teams }); // Sends the teams array with coach and members populated
   } catch (error) {
     console.error('Error fetching teams:', error);
     res.status(500).json({ error: 'Internal server error.' });

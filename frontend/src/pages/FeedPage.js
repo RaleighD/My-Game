@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CreatePost from '../components/Post/CreatePost';
-import Modal from '../components/modal/Modal';
+import Modal from '../components/Post/Modal';
 import PostCard from '../components/Post/PostCard';
 import { useAuth0 } from "@auth0/auth0-react";
 import { getAuth, signInWithCustomToken } from 'firebase/auth';
@@ -72,24 +72,17 @@ const FeedPage = () => {
 
     const handleLike = async (postId) => {
         try {
-            await axios.put(`${REACT_APP_API_URL}/api/posts/${postId}/like`, {}, {
+            const response = await axios.put(`${REACT_APP_API_URL}/api/posts/${postId}/like`, {
+                userId: user.sub 
+            }, {
                 headers: { Authorization: `Bearer ${await getAccessTokenSilently()}` },
             });
-            setPosts(posts.map(post => {
-                if (post._id === postId) {
-                    const isLiked = post.likes.includes(user.sub);
-                    if (isLiked) {
-                        return { ...post, likes: post.likes.filter(id => id !== user.sub) };
-                    } else {
-                        return { ...post, likes: [...post.likes, user.sub] };
-                    }
-                }
-                return post;
-            }));
+            fetchPosts();
         } catch (error) {
             console.error('Error liking post:', error);
         }
     };
+    
 
     const handleAddComment = async (postId, commentText) => {
         try {
@@ -114,7 +107,23 @@ const FeedPage = () => {
             console.error('Error deleting post:', error);
         }
     };
+
+    const onUpdate = async (postId, updatedDesc) => {
+        const token = localStorage.getItem('jwtToken');
+        try {
+            await axios.patch(`${REACT_APP_API_URL}/api/posts/${postId}`, {
+                description: updatedDesc, // Make sure this value is defined
+                requester: user.sub, // Assuming 'user.sub' is correctly defined and holds the user's ID
+            }, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            fetchPosts();
+        } catch (error) {
+            console.error('Error updating post:', error);
+        }
+    };
     
+
 
     const handleOpenModal = () => setModalOpen(true);
     const handleCloseModal = () => setModalOpen(false);
@@ -134,6 +143,7 @@ const FeedPage = () => {
                     onLike={() => handleLike(post._id)}
                     onAddComment={handleAddComment}
                     onDelete={() => onDelete(post._id)} 
+                    onUpdate={onUpdate}
                 />
                 
                 ))}
