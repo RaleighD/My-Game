@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { ThemeContext } from '../components/layout/ThemeContext';
-import Modal from '../components/modal/Modal';
+import Modal from '../components/Post/Modal';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -27,9 +27,6 @@ const SettingsPage = () => {
 
   const navigateToHistoricalStats = () => {
     navigate('/historical-stats');
-  };
-  const navigateToBaseballScorekeeper = () => {
-    navigate('/baseball-scorekeeper');
   };
 
   const deleteAccount = async () => {
@@ -71,9 +68,6 @@ const SettingsPage = () => {
       </button>
       <button onClick={navigateToHistoricalStats}>
         Input Historical Stats
-      </button>
-      <button onClick={navigateToBaseballScorekeeper}>
-        Baseball Scorekeeper
       </button>
       <Modal isOpen={isDeleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
         <img src="/images/rimtobinson.gif" alt="Funny meme" />
