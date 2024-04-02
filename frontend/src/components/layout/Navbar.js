@@ -5,7 +5,7 @@ import LogoutButton from '../login_out/LogoutButton';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../../mygame.png';
-import {useNavigate} from "react-router-dom";
+
 
 const Navbar = () => {
   const { isAuthenticated, user } = useAuth0();
@@ -41,6 +41,7 @@ const Navbar = () => {
     <nav>
       <Link to="/"> 
         <img src={logo} alt="Logo" style={{ height: '50px' }} />
+        <Link to="/my-league" className="my-league-link">My-Leagues</Link>
       </Link>
 
         <input type="text" value={searchQuery} onChange={handleChange} placeholder="Search users" />

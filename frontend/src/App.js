@@ -12,6 +12,8 @@ import Layout from './components/layout/Layout'; //layout has auth0 and navbar i
 import { ThemeProvider } from './components/layout/ThemeContext'; //used for light/dark mode
 import { ProfileProvider } from './components/layout/ProfileContext'
 import SearchResultsPage from "./pages/SearchResultsPage"; //used for authing after form submission
+import MyLeague from './pages/MyLeague';
+import CreateLeague from './pages/CreateLeague';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
             <Route path="/historical-stats" element={<HistoricalStatInputPage />} />
             <Route path="/messages" element={<MessagesPage />} />
             <Route path="/search-results" element={<SearchResultsPage />} />
+            <Route path="/my-league" element={<MyLeague />} />
+            <Route path="/create-league" element={<CreateLeague />} />
           </Routes>
         </Layout>
       </ThemeProvider>
