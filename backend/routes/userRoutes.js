@@ -84,6 +84,10 @@ router.delete('/delete', async (req, res) => {
   }
 });
 
+// Route to get all users
+router.get('/all', async (req, res) => {
+  try {
+    const users = await User.find({});
 //using this for the messenger page
 router.get('/users', verifyToken, async (req, res) => {
   try {
@@ -95,6 +99,5 @@ router.get('/users', verifyToken, async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 module.exports = router;

@@ -6,9 +6,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { storage, auth } from '../../Firebase'; 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-
-
-
 const CreatePost = ({ afterPostCreated }) => {
     const { user, isAuthenticated, loginWithRedirect } = useAuth0(); //only signed in users can make posts
     //could use user to get author of post, which we will prob need
