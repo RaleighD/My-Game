@@ -8,11 +8,13 @@ const SearchResultsPage = () => {
     const query = useQuery();
     const searchTerm = query.get("query");
     const [results, setResults] = useState({ users: [], posts: [] });
+    const { REACT_APP_API_URL } = process.env;
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:5001/api/search-results?query=${searchTerm}`);
+                const response = await fetch(`${ REACT_APP_API_URL }/api/search-results?query=${searchTerm}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -46,8 +48,11 @@ const SearchResultsPage = () => {
                 results.posts.map(post => (
                     <div key={post._id} className="result-item">
                         <Link to={`/post/${post._id}`} className="post-link">
-                            <div className="post-title">{post.title}</div> {/* Assuming posts have titles */}
+                            <div className="post-preview-image-container">
+                                <img src={post.imageUrl} alt="Post preview" className="post-preview-image" />
+                            </div>
                             <p className="post-description">{post.description}</p>
+                            <div className="post-user">by {post.user.nickname}</div>
                         </Link>
                     </div>
                 ))

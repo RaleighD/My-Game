@@ -18,3 +18,23 @@
     width: 50px; /* Adjust size as needed */
     height: 50px; /* Adjust size as needed */
 }
+
+.post-preview-image-container {
+    width: 100px; /* Adjust width as needed */
+    height: 100px; /* Adjust height as needed */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post-preview-image {
+    width: 100%; /* This will ensure the image covers the width of the container */
+    height: auto; /* This will keep the image aspect ratio intact */
+}
+
+.post-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
