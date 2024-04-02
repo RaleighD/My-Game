@@ -16,7 +16,7 @@ const Navbar = () => {
     const handleChange = async (e) => {
         const query = e.target.value;
         setSearchQuery(query);
-        if (query.length > 2) { // Only fetch suggestions if query length is more than 2 characters
+        if (query.length > 2) {
             try {
                 const response = await fetch(`/api/users?query=${encodeURIComponent(query)}`);
                 const data = await response.json();
@@ -30,10 +30,10 @@ const Navbar = () => {
     };
 
     const handleSearchSubmit = (e) => {
-        e.preventDefault(); // Prevent the form from causing a page reload
+        e.preventDefault();
         navigate(`/search-results?query=${encodeURIComponent(searchQuery)}`); // Navigate to search results
-        setSearchQuery(''); // Optionally clear the search query
-        setSearchResults([]); // Clear search suggestions
+        setSearchQuery('');
+        setSearchResults([]);
     };
 
     // Toggle dropdown menu
