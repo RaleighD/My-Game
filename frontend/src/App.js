@@ -12,8 +12,6 @@ import Layout from './components/layout/Layout'; //layout has auth0 and navbar i
 import { ThemeProvider } from './components/layout/ThemeContext'; //used for light/dark mode
 import { ProfileProvider } from './components/layout/ProfileContext'
 import SearchResultsPage from "./pages/SearchResultsPage"; //used for authing after form submission
-import BaseballScorekeeper from './components/scorekeeping/baseball-scorekeeper';
-import ScorekeeperBuilder from './components/scorekeeping/scorekeeperBuilder';
 
 function App() {
   return (
@@ -30,7 +28,6 @@ function App() {
             <Route path="/historical-stats" element={<HistoricalStatInputPage />} />
             <Route path="/messages" element={<MessagesPage />} />
             <Route path="/search-results" element={<SearchResultsPage />} />
-            <Route path="/scorekeeperBuilder" element={<ScorekeeperBuilder />} />
           </Routes>
         </Layout>
       </ThemeProvider>
