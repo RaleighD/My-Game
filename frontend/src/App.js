@@ -13,6 +13,11 @@ import { ThemeProvider } from './components/layout/ThemeContext'; //used for lig
 import { ProfileProvider } from './components/layout/ProfileContext'
 import SearchResultsPage from "./pages/SearchResultsPage"; //used for authing after form submission
 import DisplayPostPage from './pages/DisplayPostPage';
+import BaseballScorekeeper from './components/scorekeeping/baseball-scorekeeper2';
+import ScorekeeperBuilder from './components/scorekeeping/scorekeeperBuilder2';
+import MyTeamPage from './pages/MyTeam2';
+import CreateTeam from './pages/CreateTeam2';
+import JoinTeam from './pages/JoinTeam2';
 
 function App() {
   return (
@@ -27,10 +32,13 @@ function App() {
             <Route path="/profile/:userId" element={<ProfilePage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/historical-stats" element={<HistoricalStatInputPage />} />
+            <Route path="/my-team" element={<MyTeamPage />} />
+            <Route path="/create-team" element={<CreateTeam />} />
+            <Route path="/join-team" element={<JoinTeam />} />
             <Route path="/messages" element={<MessagesPage />} />
             <Route path="/search-results" element={<SearchResultsPage />} />
             <Route path="/post/:postId" element={<DisplayPostPage />} />
-
+            <Route path="/scorekeeperBuilder" element={<ScorekeeperBuilder />} />
           </Routes>
         </Layout>
       </ThemeProvider>

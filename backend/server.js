@@ -14,6 +14,7 @@ const soccerStatRoutes = require('./routes/yearlyStatObjectRoutes/soccerStatRout
 const hockeyStatRoutes = require('./routes/yearlyStatObjectRoutes/hockeyStatRoutes');
 const messagesRoutes = require('./routes/messagesRoutes');
 const searchRoutes = require('./routes/searchRoutes');
+const teamRoutes = require('./routes/teamRoutes');
 
 
 // Load environment variables
@@ -51,6 +52,7 @@ app.use('/api/hockey/stats', hockeyStatRoutes);
 app.use('/api/friendships', friendshipRoutes);
 app.use('/api/messages', messagesRoutes);
 app.use('/api/search-results', searchRoutes);
-
+app.use('/api/search', searchRoutes);
+app.use('/api/teams', teamRoutes)
 
 module.exports = app; // Export the configured app
