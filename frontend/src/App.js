@@ -12,6 +12,7 @@ import Layout from './components/layout/Layout'; //layout has auth0 and navbar i
 import { ThemeProvider } from './components/layout/ThemeContext'; //used for light/dark mode
 import { ProfileProvider } from './components/layout/ProfileContext'
 import SearchResultsPage from "./pages/SearchResultsPage"; //used for authing after form submission
+import DisplayPostPage from './pages/DisplayPostPage';
 import BaseballScorekeeper from './components/scorekeeping/baseball-scorekeeper2';
 import ScorekeeperBuilder from './components/scorekeeping/scorekeeperBuilder2';
 import MyTeamPage from './pages/MyTeam2';
@@ -36,6 +37,7 @@ function App() {
             <Route path="/join-team" element={<JoinTeam />} />
             <Route path="/messages" element={<MessagesPage />} />
             <Route path="/search-results" element={<SearchResultsPage />} />
+            <Route path="/post/:postId" element={<DisplayPostPage />} />
             <Route path="/scorekeeperBuilder" element={<ScorekeeperBuilder />} />
           </Routes>
         </Layout>

@@ -1,27 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+import './SearchResultsPage.css'; // Assuming you have a CSS file for styles
 
-// Helper function to parse the query string
-const useQuery = () => {
-    return new URLSearchParams(useLocation().search);
-};
+const useQuery = () => new URLSearchParams(useLocation().search);
 
 const SearchResultsPage = () => {
     const query = useQuery();
     const searchTerm = query.get("query");
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState({ users: [], posts: [] });
+    const { REACT_APP_API_URL } = process.env;
 
     useEffect(() => {
-        // Assuming you have a function to fetch data (e.g., from your backend API)
-        // Adjust the URL/path according to your actual API endpoint
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         const fetchData = async () => {
             try {
-                const response = await fetch(`/api/search?query=${searchTerm}`);
+                const response = await fetch(`${ REACT_APP_API_URL }/api/search-results?query=${searchTerm}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                setResults(data); // Assuming the API returns an array of user objects
+                setResults(data);
             } catch (error) {
                 console.error('Error fetching search results:', error);
             }
@@ -31,16 +29,35 @@ const SearchResultsPage = () => {
     }, [searchTerm]);
 
     return (
-        <div>
-            {results.length > 0 ? (
-                results.map(user => (
-                    <div key={user._id} style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                        <img src={user.picture} alt={user.nickname} style={{ marginRight: '10px', borderRadius: '50%', width: '50px', height: '50px' }} />
-                        <div>{user.nickname}</div>
+        <div className="results-container">
+            <h2>Users</h2>
+            {results.users && results.users.length > 0 ? (
+                results.users.map(user => (
+                    <div key={user._id} className="result-item">
+                        <Link to={`/profile/${user.auth0Id}`} className="user-link">
+                            <img src={user.picture} alt={user.nickname} className="user-image" />
+                            <div>{user.nickname}</div>
+                        </Link>
                     </div>
                 ))
             ) : (
                 <p>No users found.</p>
+            )}
+            <h2>Posts</h2>
+            {results.posts && results.posts.length > 0 ? (
+                results.posts.map(post => (
+                    <div key={post._id} className="result-item">
+                        <Link to={`/post/${post._id}`} className="post-link">
+                            <div className="post-preview-image-container">
+                                <img src={post.imageUrl} alt="Post preview" className="post-preview-image" />
+                            </div>
+                            <p className="post-description">{post.description}</p>
+                            <div className="post-user">by {post.user.nickname}</div>
+                        </Link>
+                    </div>
+                ))
+            ) : (
+                <p>No posts found.</p>
             )}
         </div>
     );
