@@ -5,13 +5,16 @@ import LogoutButton from '../login_out/LogoutButton';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../../mygame.png';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
   const { isAuthenticated, user } = useAuth0();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const navigate = useNavigate();
+
 
   const handleChange = async (e) => {
       const query = e.target.value;
@@ -35,13 +38,19 @@ const Navbar = () => {
   // Safe check for user before trying to access its properties
   const userId = user?.sub; // Use optional chaining to avoid errors
 
-
+  const navigateToTeams = () => {
+    navigate('/teams');
+  }
 
   return (
     <nav>
       <Link to="/"> 
         <img src={logo} alt="Logo" style={{ height: '50px' }} />
       </Link>
+
+      <button onClick={navigateToTeams}>
+        Teams
+      </button>
 
         <input type="text" value={searchQuery} onChange={handleChange} placeholder="Search users" />
         <ul>

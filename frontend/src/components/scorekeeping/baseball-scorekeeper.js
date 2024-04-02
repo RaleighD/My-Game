@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Modal from '../modal/Modal'; // Make sure this path is correct
+import Modal from '../Post/Modal'; // Make sure this path is correct
 import './baseball-scorekeeper.css';
 
 function Baseball() {
