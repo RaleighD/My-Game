@@ -30,8 +30,6 @@ nav input[type="text"] {
   padding: 8px 16px;
   border-radius: 20px;
   border: 1px solid #555;
-  background-color: var(--background-color); 
-  color: var(--text-color);
   outline: none;
   transition: all 0.3s ease;
 }

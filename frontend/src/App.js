@@ -10,7 +10,8 @@ import RegisterPage from './pages/RegisterPage';
 import HistoricalStatInputPage from './pages/HistoricalStatInputPage';
 import Layout from './components/layout/Layout'; //layout has auth0 and navbar in it
 import { ThemeProvider } from './components/layout/ThemeContext'; //used for light/dark mode
-import { ProfileProvider } from './components/layout/ProfileContext' //used for authing after form submission
+import { ProfileProvider } from './components/layout/ProfileContext'
+import SearchResultsPage from "./pages/SearchResultsPage"; //used for authing after form submission
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/historical-stats" element={<HistoricalStatInputPage />} />
             <Route path="/messages" element={<MessagesPage />} />
+            <Route path="/search-results" element={<SearchResultsPage />} />
           </Routes>
         </Layout>
       </ThemeProvider>

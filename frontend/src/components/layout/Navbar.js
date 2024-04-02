@@ -5,16 +5,36 @@ import LogoutButton from '../login_out/LogoutButton';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../../mygame.png';
+import {useNavigate} from "react-router-dom";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useAuth0();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleChange = async (e) => {
+      const query = e.target.value;
+      setSearchQuery(query);
+      try {
+          const response = await fetch(`/api/users?query=${query}`);
+          const data = await response.json();
+          setSearchResults(data);
+        } catch (err) {
+            console.error('Error fetching search results:', err);
+        }
+  };
 
   // Toggle dropdown menu
   const toggleDropdown = () => setShowDropdown(!showDropdown);
 
+  const handleUserClick = (userId) => {
+        // Implement navigation to user profile page
+    };
+
   // Safe check for user before trying to access its properties
   const userId = user?.sub; // Use optional chaining to avoid errors
+
 
 
   return (
@@ -23,7 +43,12 @@ const Navbar = () => {
         <img src={logo} alt="Logo" style={{ height: '50px' }} />
       </Link>
 
-      <input type="text" placeholder="Search..." />
+        <input type="text" value={searchQuery} onChange={handleChange} placeholder="Search users" />
+        <ul>
+            {searchResults.map(user => (
+                <li key={user._id} onClick={() => handleUserClick(user._id)}>{user.name}</li>
+            ))}
+        </ul>
 
       {!isAuthenticated ? (
         <LoginButton />
