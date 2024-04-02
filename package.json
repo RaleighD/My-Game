@@ -2,7 +2,6 @@
   "dependencies": {
     "axios": "^1.6.7",
     "form-data": "^4.0.0",
-    "react-router-dom": "^6.21.3",
-    "socket.io": "^4.7.5"
+    "react-router-dom": "^6.21.3"
   }
 }
