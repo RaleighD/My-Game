@@ -28,9 +28,6 @@ const SettingsPage = () => {
   const navigateToHistoricalStats = () => {
     navigate('/historical-stats');
   };
-  const navigateToScorekeeperBuilder = () => {
-    navigate('/scorekeeperBuilder');
-  };
 
   const deleteAccount = async () => {
     try {
@@ -71,9 +68,6 @@ const SettingsPage = () => {
       </button>
       <button onClick={navigateToHistoricalStats}>
         Input Historical Stats
-      </button>
-      <button onClick={navigateToScorekeeperBuilder}>
-        Baseball Scorekeeper
       </button>
       <Modal isOpen={isDeleteModalOpen} onClose={() => setDeleteModalOpen(false)}>
         <img src="/images/rimtobinson.gif" alt="Funny meme" />
