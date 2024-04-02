@@ -27,7 +27,7 @@ const MyTeam = () => {
   return (
     <div className="my-team-container">
       <h1>Welcome to My-Team</h1>
-      <p>Your teams will display below. You can also create one team and join a maximum of 15 teams.</p>
+      <p>All teams will display below. You can also create a team and join a maximum of 15 teams.</p>
       
       <div className="teams-list">
         {teams.length > 0 ? (
