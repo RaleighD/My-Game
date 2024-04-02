@@ -55,6 +55,37 @@ const Navbar = () => {
           </div>
         )}
       </div>
+
+      <Link to="/"> 
+        <img src={logo} alt="Logo" style={{ height: '50px' }} />
+      </Link>
+
+      <input type="text" placeholder="Search..." />
+
+      {!isAuthenticated ? (
+        <LoginButton />
+      ) : (
+        <div style={{ position: 'relative' }}>
+          <img 
+            src={user?.picture} // Use optional chaining
+            alt="Profile" 
+            style={{ height: '50px', borderRadius: '50%', cursor: 'pointer' }} 
+            onClick={toggleDropdown}
+          />
+          {showDropdown && (
+            <div className="dropdown-menu">
+              <p>Hey, {user?.nickname}!</p> {/* Use optional chaining */}
+              <Link to={`/profile/${userId}`} onClick={() => setShowDropdown(false)}>Go to Profile</Link>
+              <br />
+              <Link to={"/messages" } onClick={() => setShowDropdown(false)}>Messages</Link>
+              <br />
+              <Link to="/settings" onClick={() => setShowDropdown(false)}>Settings</Link>
+              <br />
+              <LogoutButton />
+            </div>
+          )}
+        </div>
+      )}
     </nav>
   );
 };

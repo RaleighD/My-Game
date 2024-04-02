@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import FeedPage from './pages/FeedPage';
 import ProfilePage from './pages/ProfilePage';
+import MessagesPage from './pages/MessagesPage';
 import SettingsPage from './pages/SettingsPage';
 import RegisterPage from './pages/RegisterPage';
 import BaseballScorekeeper from './components/scorekeeping/baseball-scorekeeper';
@@ -32,6 +33,7 @@ function App() {
             <Route path="/my-team" element={<MyTeamPage />} />
             <Route path="/create-team" element={<CreateTeam />} />
             <Route path="/join-team" element={<JoinTeam />} />
+            <Route path="/messages" element={<MessagesPage />} />
           </Routes>
         </Layout>
       </ThemeProvider>
