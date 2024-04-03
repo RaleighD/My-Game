@@ -48,7 +48,7 @@ const MyTeam = () => {
           teams.map((team) => (
             <div key={team._id} className="team"> 
               <h2>{team.name}</h2>
-              <Link to={`/teams/${team._id}`} className="view-team-link">View Team</Link>
+              <Link to={`/teams/${team.name}`} className="view-team-link">View Team</Link>
             </div>
           ))
         ) : (

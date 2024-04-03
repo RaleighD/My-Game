@@ -18,6 +18,7 @@ import ScorekeeperBuilder from './components/scorekeeping/scorekeeperBuilder2';
 import MyTeamPage from './pages/MyTeam2';
 import CreateTeam from './pages/CreateTeam2';
 import JoinTeam from './pages/JoinTeam2';
+import TeamLandingPage from "./pages/TeamLandingPage";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/search-results" element={<SearchResultsPage />} />
             <Route path="/post/:postId" element={<DisplayPostPage />} />
             <Route path="/scorekeeperBuilder" element={<ScorekeeperBuilder />} />
+            <Route path="/teams/:name" element={<TeamLandingPage />} />
           </Routes>
         </Layout>
       </ThemeProvider>
