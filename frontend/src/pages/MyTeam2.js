@@ -48,7 +48,15 @@ const MyTeam = () => {
           teams.map((team) => (
             <div key={team._id} className="team"> 
               <h2>{team.name}</h2>
-              <Link to={`/teams/${team._id}`} className="view-team-link">View Team</Link>
+              <Link
+                to={{
+                  pathname: `/teams/${team._id}`,
+                  state: { members: team.members }, // Assuming `team.members` contains the info you want to pass
+                }}
+                className="view-team-link"
+              >
+                View Team
+              </Link>
             </div>
           ))
         ) : (
