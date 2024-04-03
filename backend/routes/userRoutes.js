@@ -95,5 +95,24 @@ router.get('/users', verifyToken, async (req, res) => {
   }
 });
 
+// Route to get user details by MongoDB User ID
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findById(id); // Find the user by MongoDB ID
+    if (user) {
+      res.json({ success: true, user });
+    } else {
+      res.status(404).json({ success: false, message: 'User not found' });
+    }
+  } catch (error) {
+    if (error.kind === 'ObjectId') {
+      return res.status(400).json({ success: false, message: 'Invalid user ID format' });
+    }
+    console.error('Error fetching user details:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 module.exports = router;

@@ -1,25 +1,53 @@
-.team {
-  margin-bottom: 20px;
+/* MyTeam2.css */
+
+/* General styles */
+.my-team-container {
+  max-width: 600px; /* Sets a max-width for the container */
+  margin: 0 auto; /* Centers the container */
+  padding: 20px; /* Adds some padding around the content */
 }
 
-button, .my-team-link {
-  background-color: #d10000; /* Red background */
+.team {
+  background-color: #222; /* Dark background for the team block */
+  color: #fff; /* White text color for dark mode */
+  margin-bottom: 30px; /* Adds space between team blocks */
+  padding: 20px; /* Adds space inside each team block */
+  border-radius: 10px; /* Rounded corners for the team blocks */
+}
+
+.team h2 {
+  margin-bottom: 15px; /* Space below the team name */
+  color: #fff; /* Ensures the team name is white */
+}
+
+.view-team-link, .my-team-link {
+  background-color: #d10000; /* Red background for the buttons */
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 10px 15px;
   margin: 10px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  min-width: 100px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  text-decoration: none; /* Remove underline from link */
-  display: inline-block; /* Needed for links to behave like buttons */
-  text-align: center; /* Center text in links */
+  text-decoration: none; /* Remove underline from links */
+  display: inline-block; /* Center the button as an inline element */
 }
 
-button:hover, .my-team-link:hover {
+.view-team-link:hover, .my-team-link:hover {
   background-color: #a80000; /* Darker red on hover */
 }
 
-/* If you have additional styles for the page, they can go here */
+/* Dark mode styles */
+[data-theme="dark"] .team {
+  background-color: #333; /* Darker background for each team block */
+  color: #fff; /* White text color */
+  border: 1px solid #444; /* Slightly visible border for depth perception */
+}
+
+[data-theme="dark"] .team h2 {
+  color: #fff; /* White color for team names in dark mode */
+}
+
+[data-theme="dark"] .view-team-link, [data-theme="dark"] .my-team-link {
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); /* Subtle white shadow for depth */
+}

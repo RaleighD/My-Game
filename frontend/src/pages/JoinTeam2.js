@@ -64,7 +64,7 @@ const JoinTeam = () => {
         {teams.length > 0 ? (
           teams.map((team) => (
             <div key={team._id} className="team">
-              <h3>{team.name}</h3>
+              <h2>{team.name}</h2>
               {/* Replace Link with button and add onClick handler */}
               <button onClick={() => joinTeam(team._id)} className="join-team-button">Join Team</button>
             </div>

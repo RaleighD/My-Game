@@ -89,5 +89,22 @@ router.post('/join', async (req, res) => {
   }
 });
 
+router.get('/:teamId', async (req, res) => {
+  try {
+    const team = await Team.findById(req.params.teamId)
+      .populate('members') // This populates the member details instead of just the IDs
+      .exec();
+
+    if (!team) {
+      return res.status(404).json({ message: 'Team not found' });
+    }
+
+    res.json(team);
+  } catch (error) {
+    console.error('Error fetching team:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 module.exports = router;

@@ -1,0 +1,62 @@
+/* JoinTeam.css */
+
+h3 {
+    text-align: center;
+    color: #fff; /* White color for dark mode */
+}
+
+.join-team-container {
+    max-width: 600px; /* Sets a max-width for the container */
+    margin: 20px auto; /* Centers the container */
+    padding: 20px; /* Adds some padding around the content */
+    text-align: left;
+}
+
+.join-team-section {
+    background-color: #222; /* Dark background for the section */
+    margin-bottom: 30px; /* Adds space between sections */
+    padding: 20px; /* Adds space inside each section */
+    border-radius: 10px; /* Rounded corners for the sections */
+    text-align: left; /* Centers the content inside the section */
+}
+
+.join-team-link {
+    background-color: #d10000; /* Red background for the buttons */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none; /* Remove underline from links */
+    display: inline-block; /* Center the button as an inline element */
+    align-items: center;
+}
+
+.join-team-link:hover {
+    background-color: #a80000; /* Darker red on hover */
+}
+
+/* Dark mode styles */
+[data-theme="dark"] {
+    .join-team-container,
+    [data-theme="dark"] h3,
+    [data-theme="dark"] .join-team-section h2,
+    [data-theme="dark"] .join-team-link,
+    [data-theme="dark"] h2 {
+        color: #fff; /* White text color for better readability in dark mode */
+    }
+  
+    .join-team-section {
+        background-color: #333; /* Darker background for each section */
+        border: 1px solid #444; /* Slightly visible border for depth perception */
+    }
+  
+    .join-team-link {
+        box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); /* Subtle white shadow for depth */
+    }
+    h2{
+        color: #fff;
+    }
+}
