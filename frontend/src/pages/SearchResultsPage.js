@@ -7,14 +7,13 @@ const useQuery = () => new URLSearchParams(useLocation().search);
 const SearchResultsPage = () => {
     const query = useQuery();
     const searchTerm = query.get("query");
-    const [results, setResults] = useState({ users: [], posts: [] });
+    const [results, setResults] = useState({ users: [], posts: [], teams: [] });
     const { REACT_APP_API_URL } = process.env;
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         const fetchData = async () => {
             try {
-                const response = await fetch(`${ REACT_APP_API_URL }/api/search-results?query=${searchTerm}`);
+                const response = await fetch(`${REACT_APP_API_URL}/api/search-results?query=${searchTerm}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -58,6 +57,16 @@ const SearchResultsPage = () => {
                 ))
             ) : (
                 <p>No posts found.</p>
+            )}
+            <h2>Teams</h2>
+            {results.teams && results.teams.length > 0 ? (
+                results.teams.map(team => (
+                    <div key={team._id} className="result-item">
+                        <Link to={`/team/${team._id}`} className="team-link">{team.name}</Link>
+                    </div>
+                ))
+            ) : (
+                <p>No teams found.</p>
             )}
         </div>
     );
