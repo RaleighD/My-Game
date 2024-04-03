@@ -62,7 +62,7 @@ const SearchResultsPage = () => {
             {results.teams && results.teams.length > 0 ? (
                 results.teams.map(team => (
                     <div key={team._id} className="result-item">
-                        <Link to={`/team/${team._id}`} className="team-link">{team.name}</Link>
+                        <Link to={`/teams/${team._id}`} className="team-link">{team.name}</Link>
                     </div>
                 ))
             ) : (
