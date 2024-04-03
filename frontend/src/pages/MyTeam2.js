@@ -2,32 +2,46 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'; 
 import './MyTeam2.css';
+import { useAuth0 } from '@auth0/auth0-react'; // Import useAuth0 hook
 
 const MyTeam = () => {
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0(); // Use the useAuth0 hook to get user details and auth status
   const [teams, setTeams] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchTeams = async () => {
+      if (!isAuthenticated) {
+        console.error('User must be logged in to fetch teams');
+        return;
+      }
+  
       try {
-        const response = await fetch('http://localhost:5001/api/teams/all');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setTeams(data.teams); // Now using the parsed JSON data
-      } catch (error) {
-        console.error('Error fetching teams:', error);
+        const token = await getAccessTokenSilently();
+        // Adjust the URL to use the new /allMyTeams endpoint
+        const response = await axios.get('http://localhost:5001/api/teams/allMyTeams', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            userId: user.sub, // Send the Auth0 user ID as a parameter
+          },
+        });
+        setTeams(response.data.teams);
+      } catch (err) {
+        console.error('Error fetching teams:', err);
+        setError('Failed to fetch teams. Please try again later.');
       }
     };
   
     fetchTeams();
-  }, []);
-  
+  }, [isAuthenticated, getAccessTokenSilently, user?.sub]);
 
   return (
     <div className="my-team-container">
       <h1>Welcome to My-Team</h1>
       <p>Your teams will display below. You can also create one team and join a maximum of 15 teams.</p>
+      {error && <p className="error">{error}</p>}
       
       <div className="teams-list">
         {teams.length > 0 ? (
@@ -53,4 +67,3 @@ const MyTeam = () => {
 }
 
 export default MyTeam;
-
