@@ -9,13 +9,13 @@
 - **Navigate to 'backend' in your terminal.**
   - Run `npm install` to install node modules required for the project.
 
-- **Create a `.env` file within the backend directory.**
+- **Create a `.env` file within the parent backend directory.**
   - Add the following line and update `USERNAME` and `PASSWORD` with your Mongo Atlas project associated user/pass: 
     ```
     MONGODB_URI=mongodb+srv://USERNAME:PASSWORD@mygame.bscgfip.mongodb.net/?retryWrites=true&w=majority
     REACT_APP_JWT_SECRET='askHarlanForTheSecret'
     ```
--**Create a `firebaseKey.json` file within the backend directory.**
+-**Create a `firebaseKey.json` file within the parent backend directory.**
 -Ask Harlan for the file contents... 
 
 
@@ -26,7 +26,7 @@
 - **Navigate to 'frontend' in your terminal.**
   - Run `npm install` to install node modules required for the project.
 
-- **Create a `.env.local` file within the frontend directory.**
+- **Create a `.env.local` file within the parent frontend directory.**
   - Add the following lines: 
     ```
     REACT_APP_AUTH0_DOMAIN=your-auth0-domain
