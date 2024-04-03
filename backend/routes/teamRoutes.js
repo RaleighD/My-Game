@@ -46,6 +46,28 @@ router.get('/all', async (req, res) => {
   }
 });
 
+router.get('/allMyTeams', async (req, res) => {
+  const { userId } = req.query; // Assuming you pass the Auth0 user ID as a query parameter
+
+  try {
+    // First, find the MongoDB user ID that corresponds to the provided Auth0 ID
+    const user = await User.findOne({ auth0Id: userId });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Now, find all teams where this user is a member
+    const teams = await Team.find({ members: user._id })
+                            .populate('coach', 'name') // Optional: Adjust based on your needs
+                            .populate('members', 'name'); // Optional: Adjust based on your needs
+    res.json({ teams });
+  } catch (error) {
+    console.error('Error fetching user\'s teams:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 router.post('/join', async (req, res) => {
   const { userId, teamId } = req.body;
 
