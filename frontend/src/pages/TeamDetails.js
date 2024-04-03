@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
 const TeamDetails = () => {
@@ -43,8 +43,12 @@ const TeamDetails = () => {
       {team.members && team.members.length > 0 ? (
         <ul>
           {team.members.map((member) => (
-            <li key={member._id}>{member.nickname} ({member.email})</li>
-            // You can add more details from the member object if needed
+            <li key={member._id}>
+              <Link to={`/profile/${member.auth0Id}`}>
+              {member.nickname}</Link>
+              ({member.email})
+
+            </li>
           ))}
         </ul>
       ) : (
